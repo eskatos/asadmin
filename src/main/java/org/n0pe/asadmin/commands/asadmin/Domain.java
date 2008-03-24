@@ -31,6 +31,12 @@ public class Domain
         implements IAsCommand {
 
 
+    public static final String START = "start-domain";
+
+
+    public static final String STOP = "stop-domain";
+
+
     private Boolean start = null;
 
 
@@ -67,7 +73,7 @@ public class Domain
         if (start == null) {
             throw new IllegalStateException();
         }
-        return start.booleanValue() ? "start-domain" : "stop-domain";
+        return start.booleanValue() ? START : STOP;
     }
 
 

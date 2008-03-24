@@ -19,6 +19,8 @@
 package org.n0pe.asadmin.commands.asadmin;
 
 
+import org.apache.commons.lang.StringUtils;
+
 import org.n0pe.asadmin.commands.IAsCommand;
 
 
@@ -31,10 +33,19 @@ public class Deployment
         implements IAsCommand {
 
 
-    private static final int DEPLOY = 1;
+    public static final String DEPLOY = "deploy";
 
 
-    private static final int UNDEPLOY = 2;
+    public static final String UNDEPLOY = "undeploy";
+
+
+    public static final String FORCE_OPT = "--force";
+
+
+    private static final int DEPLOY_MODE = 1;
+
+
+    private static final int UNDEPLOY_MODE = 2;
 
 
     private int ACTION = -1;
@@ -62,13 +73,13 @@ public class Deployment
 
 
     public Deployment deploy() {
-        ACTION = DEPLOY;
+        ACTION = DEPLOY_MODE;
         return this;
     }
 
 
     public Deployment undeploy() {
-        ACTION = UNDEPLOY;
+        ACTION = UNDEPLOY_MODE;
         return this;
     }
 
@@ -85,10 +96,10 @@ public class Deployment
 
 
     public String getActionCommand() {
-        if (ACTION == DEPLOY) {
-            return "deploy";
-        } else if (ACTION == UNDEPLOY) {
-            return "undeploy";
+        if (ACTION == DEPLOY_MODE) {
+            return DEPLOY;
+        } else if (ACTION == UNDEPLOY_MODE) {
+            return UNDEPLOY;
         } else {
             throw new IllegalStateException();
         }
@@ -96,12 +107,12 @@ public class Deployment
 
 
     public String getParameters() {
-        if (ACTION == DEPLOY) {
+        if (ACTION == DEPLOY_MODE) {
             if (archive == null) {
                 throw new IllegalStateException();
             }
-            return (force ? "--force " : "") + archive;
-        } else if (ACTION == UNDEPLOY) {
+            return (force ? FORCE_OPT + " " : StringUtils.EMPTY) + archive;
+        } else if (ACTION == UNDEPLOY_MODE) {
             if (component == null) {
                 throw new IllegalStateException();
             }

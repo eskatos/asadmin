@@ -41,13 +41,13 @@ public class AsAdminException
     }
 
 
-    public AsAdminException(String line) {
-        super(line);
+    public AsAdminException(final String message) {
+        super(message);
     }
 
 
-    public AsAdminException(String string, Throwable e) {
-        super(string, e);
+    public AsAdminException(final String message, Throwable cause) {
+        super(message, cause);
     }
 
 

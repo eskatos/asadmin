@@ -28,6 +28,8 @@ import org.n0pe.asadmin.commands.asadmin.Deployment;
 
 
 /**
+ * TODO : add web application context override with a Set command
+ * 
  * @goal deploy
  * @description Maven 2 Glassfish plugin
  * @author Paul Merlin <eskatos@n0pe.org>

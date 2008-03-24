@@ -20,6 +20,8 @@ package org.n0pe.asadmin.commands;
 
 
 /**
+ * TODO : change this into IAsAdminConfigurationProvider and add String getGlassfishHome();
+ * 
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public interface IAsAdminCredentials {

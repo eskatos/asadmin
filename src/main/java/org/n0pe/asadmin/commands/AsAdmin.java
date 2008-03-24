@@ -27,18 +27,38 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.SystemUtils;
 
 
 /**
+ * TODO : handle asadmin invocation return codes with exceptions
+ * TODO : store instance per configuration that contains glassfishHome _and_ credentials
+ * TODO : investigate multimode asadmin command invocation
+ * 
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class AsAdmin {
 
 
+    private static final String ASADMIN_NAME = "asadmin";
+
+
+    private static final String ASADMIN_FAILED = "failed";
+
+
+    private static final String USER_OPT = "--user";
+
+
+    private static final String PASSWORDFILE_OPT = "--passwordfile";
+
+
+    private static final String SPACE = " ";
+
+
     private static Map instances;
 
 
-    public static AsAdmin getInstance(String glassfishHome, IAsAdminCredentials credentials) {
+    public static AsAdmin getInstance(final String glassfishHome, final IAsAdminCredentials credentials) {
         if (instances == null) {
             instances = new HashMap(1);
         }
@@ -57,65 +77,69 @@ public class AsAdmin {
     private IAsAdminCredentials credentials;
 
 
-    private AsAdmin(String asHome, IAsAdminCredentials credentials) {
+    private AsAdmin(final String asHome, final IAsAdminCredentials credentials) {
         this.asHome = asHome;
         this.credentials = credentials;
     }
 
 
-    public void run(IAsCommand cmd)
+    public void run(final IAsCommand cmd)
             throws AsAdminException {
         final StringWriter sw = new StringWriter();
         sw.append(cmd.getActionCommand());
         if (cmd.needCredentials()) {
-            sw.append(" --user ").append(credentials.getUser()).
-                    append(" --passwordfile ").append(credentials.getPasswordFile());
+            sw.append(USER_OPT).append(SPACE).append(credentials.getUser()).append(SPACE).
+                    append(PASSWORDFILE_OPT).append(SPACE).append(credentials.getPasswordFile());
         }
         if (!StringUtils.isEmpty(cmd.getParameters())) {
             sw.append(" ").append(cmd.getParameters());
         }
-        runNative(asHome, "asadmin", sw.toString());
+        runNative(asHome, ASADMIN_NAME, sw.toString());
     }
 
 
-    private static void runNative(String programDirectory, String programName, String params)
+    private static void runNative(final String executableDirectory,
+                                    final String executableName,
+                                    final String params)
             throws AsAdminException {
         try {
-            final File programDirFile = new File(programDirectory);
+            final File executableDirFile = new File(executableDirectory);
             final Runtime runtime = Runtime.getRuntime();
             String[] command;
-            if (System.getProperty("os.name").startsWith("Windows")) {
+            if (SystemUtils.IS_OS_WINDOWS) {
                 command = new String[]{
                     "cmd.exe",
                     "/C",
-                    "cd " + programDirFile.getAbsolutePath() + "\\bin & " +
-                    programName + ".bat " + " " + params
+                    "cd " + executableDirFile.getAbsolutePath() + "\\bin & " +
+                    executableName + ".bat " + SPACE + params
                 };
             } else {
                 command = new String[]{
                     "sh",
                     "-c",
-                    "cd " + programDirFile.getAbsolutePath() + "/bin; ./" +
-                    programName + " " + params
+                    "cd " + executableDirFile.getAbsolutePath() + "/bin; ./" +
+                    executableName + SPACE + params
                 };
             }
             // DEBUG START
-            final StringWriter sw = new StringWriter();
+            final StringWriter debugSw = new StringWriter();
             for (int i = 0; i < command.length; i++) {
-                sw.append(command[i]).append(" ");
+                debugSw.append(command[i]).append(SPACE);
             }
-            System.out.println(sw.toString());
+            System.out.println(debugSw.toString());
             // DEBUG END
             final Process p = runtime.exec(command);
             final BufferedReader br = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-            String line = "";
+            final StringWriter sw = new StringWriter();
             String ln;
             while ((ln = br.readLine()) != null) {
-                line += ln;
+                sw.append(ln);
                 System.err.println(ln);
             }
-            if (line.contains("failed")) {
-                throw new AsAdminException(line);
+            final int exitCode = p.exitValue();
+            final String executableOutput = sw.toString();
+            if (executableOutput.contains(ASADMIN_FAILED)) {
+                throw new AsAdminException(executableOutput);
             }
         } catch (final Exception e) {
             throw new AsAdminException("AsAdmin error occurred: " + e.getMessage(), e);

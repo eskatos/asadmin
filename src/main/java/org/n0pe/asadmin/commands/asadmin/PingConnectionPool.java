@@ -31,6 +31,9 @@ public class PingConnectionPool
         implements IAsCommand {
 
 
+    public static final String PING = "ping-connection-pool";
+
+
     private String poolName;
 
 
@@ -52,7 +55,7 @@ public class PingConnectionPool
         if (poolName == null) {
             throw new IllegalStateException();
         }
-        return "ping-connection-pool";
+        return PING;
     }
 
 

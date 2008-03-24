@@ -31,6 +31,12 @@ public class Database
         implements IAsCommand {
 
 
+    private static final String START = "start-database";
+
+
+    private static final String STOP = "stop-database;";
+
+
     private Boolean start = null;
 
 
@@ -68,7 +74,7 @@ public class Database
         if (start == null) {
             throw new IllegalStateException();
         }
-        return start.booleanValue() ? "start-database" : "stop-database";
+        return start.booleanValue() ? START : STOP;
     }
 
 
