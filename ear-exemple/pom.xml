@@ -30,6 +30,10 @@
     <name>ear-exemple using asadmin-maven-plugin</name>
     <url>http://maven.apache.org</url>
     
+    <scm>
+        <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/ear-exemple/</url>
+    </scm>
+    
     <build>
         <plugins>
             <plugin>
