@@ -19,7 +19,7 @@
 -->
 <project>
     <modelVersion>4.0.0</modelVersion>
-
+    
     <parent>
         <artifactId>mojo</artifactId>
         <groupId>org.codehaus.mojo</groupId>
@@ -34,13 +34,17 @@
     <name>asadmin-maven-plugin</name>
     <url>http://eskatos.wordpress.com</url>
     <description>asadmin based maven plugin for projects using Sun Application Server aka Glassfish</description>
-
+    
     <licenses>
         <license>
-          <name>GPLv3</name>
-          <url>http://www.gnu.org/copyleft/gpl.html</url>
+            <name>GPLv3</name>
+            <url>http://www.gnu.org/copyleft/gpl.html</url>
         </license>
     </licenses>
+    
+    <scm>
+        <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin/</url>
+    </scm>
     
     <build>
         <plugins>
@@ -55,7 +59,7 @@
             </plugin>
         </plugins>
     </build>
-
+    
     <distributionManagement>
         <repository>
             <id>asadmin-maven-plugin-releases-repository</id>
@@ -68,7 +72,7 @@
             <url>file://${basedir}/../repository/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
-
+    
     <dependencies>
         <dependency>
             <artifactId>maven-plugin-testing-harness</artifactId>
@@ -103,7 +107,7 @@
             <version>2.1</version>
         </dependency>
     </dependencies>
-
+    
     <reporting>
         <plugins>
             <plugin>
@@ -111,5 +115,5 @@
             </plugin>
         </plugins>
     </reporting>
-
+    
 </project>
