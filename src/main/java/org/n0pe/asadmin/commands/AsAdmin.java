@@ -88,11 +88,11 @@ public class AsAdmin {
         final StringWriter sw = new StringWriter();
         sw.append(cmd.getActionCommand());
         if (cmd.needCredentials()) {
-            sw.append(USER_OPT).append(SPACE).append(credentials.getUser()).append(SPACE).
+            sw.append(SPACE).append(USER_OPT).append(SPACE).append(credentials.getUser()).append(SPACE).
                     append(PASSWORDFILE_OPT).append(SPACE).append(credentials.getPasswordFile());
         }
         if (!StringUtils.isEmpty(cmd.getParameters())) {
-            sw.append(" ").append(cmd.getParameters());
+            sw.append(SPACE).append(cmd.getParameters());
         }
         runNative(asHome, ASADMIN_NAME, sw.toString());
     }
@@ -136,7 +136,7 @@ public class AsAdmin {
                 sw.append(ln);
                 System.err.println(ln);
             }
-            final int exitCode = p.exitValue();
+            // final int exitCode = p.exitValue();
             final String executableOutput = sw.toString();
             if (executableOutput.contains(ASADMIN_FAILED)) {
                 throw new AsAdminException(executableOutput);

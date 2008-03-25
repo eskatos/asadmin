@@ -1,27 +1,74 @@
 <?xml version="1.0"?>
+<!--
+   asadmin-glassfish-plugin : a maven plugin for glassfish administratives tasks
+   
+   Copyright (C) 2008  Paul Merlin
+   
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+   
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
 <project>
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>mojo</artifactId>
         <groupId>org.codehaus.mojo</groupId>
         <version>11</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
     
     <groupId>org.n0pe.mojo</groupId>
     <artifactId>asadmin-maven-plugin</artifactId>
     <version>0.1-SNAPSHOT</version>
+    <packaging>maven-plugin</packaging>
     
     <name>asadmin-maven-plugin</name>
-    <url>http://n0pe.org</url>
+    <url>http://eskatos.wordpress.com</url>
     <description>asadmin based maven plugin for projects using Sun Application Server aka Glassfish</description>
+
     <licenses>
         <license>
           <name>GPLv3</name>
           <url>http://www.gnu.org/copyleft/gpl.html</url>
         </license>
     </licenses>
-    <packaging>maven-plugin</packaging>
     
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals><goal>jar</goal></goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>asadmin-maven-plugin-releases-repository</id>
+            <name>asadmin-maven-plugin maven releases repository</name>
+            <url>file://${basedir}/../repository/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>asadmin-maven-plugin-shapshots-repository</id>
+            <name>asadmin-maven-plugin maven snapshots repository</name>
+            <url>file://${basedir}/../repository/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <dependencies>
         <dependency>
             <artifactId>maven-plugin-testing-harness</artifactId>
@@ -56,6 +103,7 @@
             <version>2.1</version>
         </dependency>
     </dependencies>
+
     <reporting>
         <plugins>
             <plugin>
@@ -63,4 +111,5 @@
             </plugin>
         </plugins>
     </reporting>
+
 </project>
