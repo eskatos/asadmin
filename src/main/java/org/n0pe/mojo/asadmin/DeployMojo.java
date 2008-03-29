@@ -44,7 +44,11 @@ public class DeployMojo
         getLog().info("Deploying application archive: " + appArchive);
         final AsAdmin asadmin = AsAdmin.getInstance(glassfishHome, this);
         try {
-            asadmin.run(new Deployment().archive(appArchive).deploy());
+            final Deployment d = new Deployment().archive(appArchive);
+            if ("war".equalsIgnoreCase(mavenProject.getPackaging())) {
+                d.withContextRoot(contextRoot);
+            }
+            asadmin.run(d.deploy());
         } catch (AsAdminException ex) {
             throw new MojoExecutionException(ex.getMessage(), ex);
         }

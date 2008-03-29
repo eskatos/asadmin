@@ -42,6 +42,9 @@ public class Deployment
     public static final String FORCE_OPT = "--force";
 
 
+    public static final String CONTEXTROOT_OPT = "--contextroot";
+
+
     private static final int DEPLOY_MODE = 1;
 
 
@@ -57,19 +60,10 @@ public class Deployment
     private String component;
 
 
+    private String contextRoot;
+
+
     private boolean force;
-
-
-    public Deployment archive(String archive) {
-        this.archive = archive;
-        return this;
-    }
-
-
-    public Deployment force(boolean force) {
-        this.force = force;
-        return this;
-    }
 
 
     public Deployment deploy() {
@@ -84,8 +78,26 @@ public class Deployment
     }
 
 
+    public Deployment archive(String archive) {
+        this.archive = archive;
+        return this;
+    }
+
+
     public Deployment component(String component) {
         this.component = component;
+        return this;
+    }
+
+
+    public Deployment withContextRoot(String contextRoot) {
+        this.contextRoot = contextRoot;
+        return this;
+    }
+
+
+    public Deployment force(boolean force) {
+        this.force = force;
         return this;
     }
 
@@ -111,7 +123,8 @@ public class Deployment
             if (archive == null) {
                 throw new IllegalStateException();
             }
-            return (force ? FORCE_OPT + " " : StringUtils.EMPTY) + archive;
+            return (force ? FORCE_OPT + " " : StringUtils.EMPTY) + (StringUtils.isEmpty(contextRoot) ? StringUtils.EMPTY
+                    : CONTEXTROOT_OPT + " \"" + contextRoot + "\" ") + archive;
         } else if (ACTION == UNDEPLOY_MODE) {
             if (component == null) {
                 throw new IllegalStateException();

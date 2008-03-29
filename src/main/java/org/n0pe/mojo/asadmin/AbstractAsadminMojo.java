@@ -45,6 +45,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
+import org.apache.maven.project.MavenProject;
 import org.n0pe.asadmin.commands.IAsAdminCredentials;
 
 
@@ -135,6 +136,22 @@ public abstract class AbstractAsadminMojo
      * @required
      */
     protected String buildDir;
+
+
+    /**
+     * Overrided context root for WAR archives, default to project.build.finalName.
+     * 
+     * @parameter expression="${project.build.finalName}"
+     */
+    protected String contextRoot;
+
+
+    /**
+     * @parameter expression="${project}"
+     * @required
+     * @readonly
+     */
+    protected MavenProject mavenProject;
 
 
     protected File glassfishHomeDir;
