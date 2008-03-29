@@ -40,6 +40,9 @@
                 <groupId>org.n0pe.mojo</groupId>
                 <artifactId>asadmin-maven-plugin</artifactId>
                 <version>0.1-SNAPSHOT</version>
+                <configuration>
+                    <contextRoot>war-exemple</contextRoot>
+                </configuration>
             </plugin>
         </plugins>
     </build>

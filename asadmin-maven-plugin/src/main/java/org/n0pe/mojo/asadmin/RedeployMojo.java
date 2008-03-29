@@ -42,7 +42,11 @@ public class RedeployMojo
         getLog().info("Redeploying application archive: " + appArchive);
         final AsAdmin asadmin = AsAdmin.getInstance(glassfishHome, this);
         try {
-            asadmin.run(new Deployment().archive(appArchive).force(true).deploy());
+            final Deployment d = new Deployment().archive(appArchive);
+            if ("war".equalsIgnoreCase(mavenProject.getPackaging())) {
+                d.withContextRoot(contextRoot);
+            }
+            asadmin.run(d.force(true).deploy());
         } catch (AsAdminException ex) {
             throw new MojoExecutionException(ex.getMessage(), ex);
         }
