@@ -40,7 +40,7 @@ public class StartDatabaseMojo
             throws MojoExecutionException, MojoFailureException {
         super.execute();
         getLog().info("Starting database");
-        final AsAdmin asadmin = AsAdmin.getInstance(glassfishHome, this);
+        final AsAdmin asadmin = AsAdmin.getInstance(this);
         try {
             asadmin.run(new Database().start());
         } catch (AsAdminException ex) {

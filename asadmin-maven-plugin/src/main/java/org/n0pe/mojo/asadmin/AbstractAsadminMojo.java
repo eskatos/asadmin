@@ -46,7 +46,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
 import org.apache.maven.project.MavenProject;
-import org.n0pe.asadmin.commands.IAsAdminCredentials;
+import org.n0pe.asadmin.commands.IAsAdminConfigurationProvider;
 
 
 /**
@@ -54,7 +54,7 @@ import org.n0pe.asadmin.commands.IAsAdminCredentials;
  */
 public abstract class AbstractAsadminMojo
         extends AbstractMojo
-        implements IAsAdminCredentials {
+        implements IAsAdminConfigurationProvider {
 
 
     protected static final String ASADMIN = "asadmin";
@@ -161,6 +161,11 @@ public abstract class AbstractAsadminMojo
             throws MojoExecutionException, MojoFailureException {
         displayCopyrightNotice();
         checkConfig();
+    }
+
+
+    public String getGlassfishHome() {
+        return glassfishHome;
     }
 
 

@@ -40,7 +40,7 @@ public class StopDomainMojo
             throws MojoExecutionException, MojoFailureException {
         super.execute();
         getLog().info("Stopping Glassfish domain: " + domain);
-        final AsAdmin asadmin = AsAdmin.getInstance(glassfishHome, this);
+        final AsAdmin asadmin = AsAdmin.getInstance(this);
         try {
             asadmin.run(new Domain(domain).stop());
         } catch (AsAdminException ex) {

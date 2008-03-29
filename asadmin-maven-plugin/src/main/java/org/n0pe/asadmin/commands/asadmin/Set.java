@@ -55,11 +55,11 @@ public class Set
     }
 
 
-    public String getParameters() {
+    public String[] getParameters() {
         if (StringUtils.isEmpty(property) || StringUtils.isEmpty(value)) {
             throw new IllegalStateException();
         }
-        return property + "=" + value;
+        return new String[]{property + "=" + value};
     }
 
 

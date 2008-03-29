@@ -33,7 +33,7 @@ public interface IAsCommand {
     String getActionCommand();
 
 
-    String getParameters();
+    String[] getParameters();
 
 
 }

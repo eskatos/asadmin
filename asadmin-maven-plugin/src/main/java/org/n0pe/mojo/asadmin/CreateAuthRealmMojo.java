@@ -73,7 +73,7 @@ public class CreateAuthRealmMojo
             throws MojoExecutionException, MojoFailureException {
         super.execute();
         getLog().info("Creating auth realm: " + realmName);
-        final AsAdmin asadmin = AsAdmin.getInstance(glassfishHome, this);
+        final AsAdmin asadmin = AsAdmin.getInstance(this);
         try {
             final CreateAuthRealm cmd = new CreateAuthRealm(realmName).withClassName(realmClassName);
             if (realmProperties != null && !realmProperties.isEmpty()) {

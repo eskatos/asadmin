@@ -40,7 +40,7 @@ public class RedeployMojo
             throws MojoExecutionException, MojoFailureException {
         super.execute();
         getLog().info("Redeploying application archive: " + appArchive);
-        final AsAdmin asadmin = AsAdmin.getInstance(glassfishHome, this);
+        final AsAdmin asadmin = AsAdmin.getInstance(this);
         try {
             final Deployment d = new Deployment().archive(appArchive);
             if ("war".equalsIgnoreCase(mavenProject.getPackaging())) {

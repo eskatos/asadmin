@@ -46,7 +46,7 @@ public class PingConnectionPoolMojo
             throws MojoExecutionException, MojoFailureException {
         super.execute();
         getLog().info("Pinging connection pool: " + connectionPoolName);
-        final AsAdmin asadmin = AsAdmin.getInstance(glassfishHome, this);
+        final AsAdmin asadmin = AsAdmin.getInstance(this);
         try {
             asadmin.run(new PingConnectionPool(connectionPoolName));
         } catch (AsAdminException ex) {

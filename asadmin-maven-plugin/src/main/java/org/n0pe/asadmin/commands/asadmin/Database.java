@@ -44,7 +44,6 @@ public class Database
      * Database CTOR.
      */
     public Database() {
-
     }
 
 
@@ -60,11 +59,6 @@ public class Database
     }
 
 
-    public String getParameters() {
-        return "";
-    }
-
-
     public boolean needCredentials() {
         return false;
     }
@@ -74,7 +68,14 @@ public class Database
         if (start == null) {
             throw new IllegalStateException();
         }
-        return start.booleanValue() ? START : STOP;
+        return start.booleanValue()
+                ? START
+                : STOP;
+    }
+
+
+    public String[] getParameters() {
+        return new String[]{};
     }
 
 

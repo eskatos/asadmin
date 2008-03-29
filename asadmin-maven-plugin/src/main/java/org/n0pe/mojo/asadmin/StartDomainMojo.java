@@ -40,7 +40,7 @@ public class StartDomainMojo
             throws MojoExecutionException, MojoFailureException {
         super.execute();
         getLog().info("Starting AS domain: " + domain);
-        final AsAdmin asadmin = AsAdmin.getInstance(glassfishHome, this);
+        final AsAdmin asadmin = AsAdmin.getInstance(this);
         try {
             asadmin.run(new Domain(domain).start());
         } catch (AsAdminException ex) {

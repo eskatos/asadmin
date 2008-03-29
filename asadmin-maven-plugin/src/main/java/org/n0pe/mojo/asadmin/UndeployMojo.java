@@ -42,7 +42,7 @@ public class UndeployMojo
             throws MojoExecutionException, MojoFailureException {
         super.execute();
         getLog().info("Undeploying application: " + appName);
-        final AsAdmin asadmin = AsAdmin.getInstance(glassfishHome, this);
+        final AsAdmin asadmin = AsAdmin.getInstance(this);
         try {
             asadmin.run(new Deployment().undeploy().component(appName));
         } catch (AsAdminException ex) {

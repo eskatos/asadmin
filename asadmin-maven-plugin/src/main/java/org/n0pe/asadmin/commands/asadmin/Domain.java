@@ -73,15 +73,17 @@ public class Domain
         if (start == null) {
             throw new IllegalStateException();
         }
-        return start.booleanValue() ? START : STOP;
+        return start.booleanValue()
+                ? START
+                : STOP;
     }
 
 
-    public String getParameters() {
+    public String[] getParameters() {
         if (start == null) {
             throw new IllegalStateException();
         }
-        return domain;
+        return new String[]{domain};
     }
 
 
