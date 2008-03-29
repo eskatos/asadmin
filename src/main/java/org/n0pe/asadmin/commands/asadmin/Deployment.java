@@ -118,18 +118,28 @@ public class Deployment
     }
 
 
-    public String getParameters() {
+    public String[] getParameters() {
         if (ACTION == DEPLOY_MODE) {
             if (archive == null) {
-                throw new IllegalStateException();
+                throw new IllegalStateException("Cannot deploy without an archive");
             }
-            return (force ? FORCE_OPT + " " : StringUtils.EMPTY) + (StringUtils.isEmpty(contextRoot) ? StringUtils.EMPTY
-                    : CONTEXTROOT_OPT + " \"" + contextRoot + "\" ") + archive;
+            final boolean doCtxRoot = !StringUtils.isEmpty(contextRoot);
+            if (force) {
+                if (doCtxRoot) {
+                    return new String[]{FORCE_OPT, CONTEXTROOT_OPT, contextRoot, archive};
+                }
+                return new String[]{FORCE_OPT, archive};
+            } else {
+                if (doCtxRoot) {
+                    return new String[]{CONTEXTROOT_OPT, contextRoot, archive};
+                }
+                return new String[]{archive};
+            }
         } else if (ACTION == UNDEPLOY_MODE) {
             if (component == null) {
-                throw new IllegalStateException();
+                throw new IllegalStateException("Cannot undeploy without a component");
             }
-            return component;
+            return new String[]{component};
         }
         throw new IllegalStateException();
     }

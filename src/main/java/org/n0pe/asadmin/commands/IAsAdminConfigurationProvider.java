@@ -20,17 +20,27 @@ package org.n0pe.asadmin.commands;
 
 
 /**
- * TODO : change this into IAsAdminConfigurationProvider and add String getGlassfishHome();
- * 
  * @author Paul Merlin <eskatos@n0pe.org>
  */
-public interface IAsAdminCredentials {
+public interface IAsAdminConfigurationProvider {
 
 
+    /**
+     * @return The username to use with asadmin.
+     */
     String getUser();
 
 
+    /**
+     * @return The file where credentials are stored.
+     */
     String getPasswordFile();
+
+
+    /**
+     * @return The glassfish home path.
+     */
+    String getGlassfishHome();
 
 
 }

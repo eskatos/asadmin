@@ -40,7 +40,7 @@ public class StopDatabaseMojo
             throws MojoExecutionException, MojoFailureException {
         super.execute();
         getLog().info("Stopping database");
-        final AsAdmin asadmin = AsAdmin.getInstance(glassfishHome, this);
+        final AsAdmin asadmin = AsAdmin.getInstance(this);
         try {
             asadmin.run(new Database().stop());
         } catch (AsAdminException ex) {

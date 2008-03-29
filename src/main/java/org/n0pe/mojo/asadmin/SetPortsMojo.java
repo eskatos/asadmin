@@ -59,7 +59,7 @@ public class SetPortsMojo
         super.execute();
         getLog().info("Setting listeners ports : HTTP(" + httpListenerPort +
                       ") HTTPS(" + httpsListenerPort + ")");
-        final AsAdmin asadmin = AsAdmin.getInstance(glassfishHome, this);
+        final AsAdmin asadmin = AsAdmin.getInstance(this);
         try {
             asadmin.run(new Set(HTTP_LISTENER, httpListenerPort));
             asadmin.run(new Set(HTTPS_LISTENER, httpsListenerPort));

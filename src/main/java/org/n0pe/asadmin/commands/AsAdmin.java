@@ -21,26 +21,22 @@ package org.n0pe.asadmin.commands;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
 
 
 /**
  * TODO : handle asadmin invocation return codes with exceptions
- * TODO : store instance per configuration that contains glassfishHome _and_ credentials
  * TODO : investigate multimode asadmin command invocation
  * 
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class AsAdmin {
-
-
-    private static final String ASADMIN_NAME = "asadmin";
 
 
     private static final String ASADMIN_FAILED = "failed";
@@ -52,97 +48,80 @@ public class AsAdmin {
     private static final String PASSWORDFILE_OPT = "--passwordfile";
 
 
-    private static final String SPACE = " ";
-
-
     private static Map instances;
 
 
-    public static AsAdmin getInstance(final String glassfishHome, final IAsAdminCredentials credentials) {
+    public static AsAdmin getInstance(final IAsAdminConfigurationProvider config) {
         if (instances == null) {
             instances = new HashMap(1);
         }
-        AsAdmin instance = (AsAdmin) instances.get(glassfishHome);
+        AsAdmin instance = (AsAdmin) instances.get(config);
         if (instance == null) {
-            instance = new AsAdmin(glassfishHome, credentials);
-            instances.put(glassfishHome, instance);
+            instance = new AsAdmin(config);
+            instances.put(config, instance);
         }
         return instance;
     }
 
 
-    private String asHome;
+    private IAsAdminConfigurationProvider config;
 
 
-    private IAsAdminCredentials credentials;
+    private String asadminCommandOsName = (SystemUtils.IS_OS_WINDOWS
+            ? "asadmin.bat"
+            : "./asadmin");
 
 
-    private AsAdmin(final String asHome, final IAsAdminCredentials credentials) {
-        this.asHome = asHome;
-        this.credentials = credentials;
+    private AsAdmin(final IAsAdminConfigurationProvider config) {
+        this.config = config;
     }
 
 
     public void run(final IAsCommand cmd)
             throws AsAdminException {
-        final StringWriter sw = new StringWriter();
-        sw.append(cmd.getActionCommand());
-        if (cmd.needCredentials()) {
-            sw.append(SPACE).append(USER_OPT).append(SPACE).append(credentials.getUser()).append(SPACE).
-                    append(PASSWORDFILE_OPT).append(SPACE).append(credentials.getPasswordFile());
-        }
-        if (!StringUtils.isEmpty(cmd.getParameters())) {
-            sw.append(SPACE).append(cmd.getParameters());
-        }
-        runNative(asHome, ASADMIN_NAME, sw.toString());
-    }
-
-
-    private static void runNative(final String executableDirectory,
-                                    final String executableName,
-                                    final String params)
-            throws AsAdminException {
         try {
-            final File executableDirFile = new File(executableDirectory);
-            final Runtime runtime = Runtime.getRuntime();
-            String[] command;
-            if (SystemUtils.IS_OS_WINDOWS) {
-                command = new String[]{
-                    "cmd.exe",
-                    "/C",
-                    "cd " + executableDirFile.getAbsolutePath() + "\\bin & " +
-                    executableName + ".bat " + SPACE + params
-                };
+            final String[] cmdParams = cmd.getParameters();
+            final String[] fullParams;
+            if (cmd.needCredentials()) {
+                fullParams = new String[cmdParams.length + 6];
+                fullParams[0] = asadminCommandOsName;
+                fullParams[1] = cmd.getActionCommand();
+                fullParams[2] = USER_OPT;
+                fullParams[3] = config.getUser();
+                fullParams[4] = PASSWORDFILE_OPT;
+                fullParams[5] = config.getPasswordFile();
+                for (int i = 0; i < cmdParams.length; i++) {
+                    fullParams[i + 6] = cmdParams[i];
+                }
             } else {
-                command = new String[]{
-                    "sh",
-                    "-c",
-                    "cd " + executableDirFile.getAbsolutePath() + "/bin; ./" +
-                    executableName + SPACE + params
-                };
+                fullParams = new String[cmdParams.length + 2];
+                fullParams[0] = asadminCommandOsName;
+                fullParams[1] = cmd.getActionCommand();
+                for (int i = 0; i < cmdParams.length; i++) {
+                    fullParams[i + 2] = cmdParams[i];
+                }
             }
-            // DEBUG START
-            final StringWriter debugSw = new StringWriter();
-            for (int i = 0; i < command.length; i++) {
-                debugSw.append(command[i]).append(SPACE);
-            }
-            System.out.println(debugSw.toString());
-            // DEBUG END
-            final Process p = runtime.exec(command);
+            final ProcessBuilder pb = new ProcessBuilder(fullParams);
+            pb.directory(new File(config.getGlassfishHome() + File.separator + "bin"));
+            System.out.println(pb.command());
+            final Process p = pb.start();
             final BufferedReader br = new BufferedReader(new InputStreamReader(p.getErrorStream()));
             final StringWriter sw = new StringWriter();
             String ln;
             while ((ln = br.readLine()) != null) {
                 sw.append(ln);
-                System.err.println(ln);
             }
-            // final int exitCode = p.exitValue();
-            final String executableOutput = sw.toString();
-            if (executableOutput.contains(ASADMIN_FAILED)) {
-                throw new AsAdminException(executableOutput);
+            p.waitFor();
+            final int exitCode = p.exitValue();
+            final String errorOutput = sw.toString();
+            if (errorOutput.contains(ASADMIN_FAILED)) {
+                throw new AsAdminException("asadmin returned : " + String.valueOf(exitCode) +
+                                           " error output is : \n" + errorOutput);
             }
-        } catch (final Exception e) {
-            throw new AsAdminException("AsAdmin error occurred: " + e.getMessage(), e);
+        } catch (InterruptedException ex) {
+            throw new AsAdminException("AsAdmin error occurred: " + ex.getMessage(), ex);
+        } catch (IOException ex) {
+            throw new AsAdminException("AsAdmin error occurred: " + ex.getMessage(), ex);
         }
     }
 

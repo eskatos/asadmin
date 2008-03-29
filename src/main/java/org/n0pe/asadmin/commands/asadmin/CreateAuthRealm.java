@@ -38,6 +38,12 @@ public class CreateAuthRealm
         implements IAsCommand {
 
 
+    private static final String CLASSNAME_OPT = "--classname";
+
+
+    private static final String PROPERTY_OPT = "--property";
+
+
     private String realmName;
 
 
@@ -81,15 +87,14 @@ public class CreateAuthRealm
     }
 
 
-    public String getParameters() {
+    public String[] getParameters() {
         if (StringUtils.isEmpty(className)) {
             throw new IllegalStateException();
         }
-        final StringWriter sw = new StringWriter();
-        sw.append("--classname ").append(className).append(" ");
+        final String[] params;
         if (properties != null && !properties.isEmpty()) {
+            final StringWriter sw = new StringWriter();
             String key;
-            sw.append("--property ");
             for (final Iterator it = properties.keySet().iterator(); it.hasNext();) {
                 key = (String) it.next();
                 sw.append(key).append("=").append((String) properties.get(key));
@@ -97,10 +102,12 @@ public class CreateAuthRealm
                     sw.append(":");
                 }
             }
-            sw.append(" ");
+            params = new String[]{CLASSNAME_OPT, className, PROPERTY_OPT, sw.toString(), realmName};
+
+        } else {
+            params = new String[]{CLASSNAME_OPT, className, realmName};
         }
-        sw.append(realmName);
-        return sw.toString();
+        return params;
     }
 
 

@@ -59,11 +59,11 @@ public class PingConnectionPool
     }
 
 
-    public String getParameters() {
+    public String[] getParameters() {
         if (poolName == null) {
             throw new IllegalStateException();
         }
-        return poolName;
+        return new String[]{poolName};
     }
 
 
