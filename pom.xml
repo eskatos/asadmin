@@ -43,7 +43,9 @@
     </licenses>
     
     <scm>
-        <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin/</url>
+        <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin</url>
+        <connection>scm:svn:http://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin</connection>
+        <developerConnection>scm:svn:http://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin</developerConnection>
     </scm>
     
     <build>
@@ -56,6 +58,13 @@
                         <goals><goal>jar</goal></goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.0-beta-6</version>
+                <configuration>
+                    <tagBase>scm:svn:http://asadmin-maven-plugin.googlecode.com/svn/tags</tagBase>
+                </configuration>
             </plugin>
         </plugins>
     </build>
