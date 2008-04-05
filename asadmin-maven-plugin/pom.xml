@@ -28,7 +28,7 @@
     
     <groupId>org.n0pe.mojo</groupId>
     <artifactId>asadmin-maven-plugin</artifactId>
-    <version>0.1</version>
+    <version>0.1-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     
     <name>asadmin-maven-plugin</name>
@@ -43,9 +43,9 @@
     </licenses>
     
     <scm>
-        <url>scm:svn:http://asadmin-maven-plugin.googlecode.com/svn/tags/asadmin-maven-plugin-0.1</url>
-        <connection>scm:svn:http://asadmin-maven-plugin.googlecode.com/svn/tags/asadmin-maven-plugin-0.1</connection>
-        <developerConnection>scm:svn:http://asadmin-maven-plugin.googlecode.com/svn/tags/asadmin-maven-plugin-0.1</developerConnection>
+        <url>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin</url>
+        <connection>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin</connection>
+        <developerConnection>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin</developerConnection>
     </scm>
     
     <build>
@@ -63,7 +63,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.0-beta-6</version>
                 <configuration>
-                    <tagBase>http://asadmin-maven-plugin.googlecode.com/svn/tags</tagBase>
+                    <tagBase>https://asadmin-maven-plugin.googlecode.com/svn/tags</tagBase>
                 </configuration>
             </plugin>
         </plugins>
