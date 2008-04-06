@@ -25,8 +25,7 @@ import java.util.Map;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
-import org.n0pe.asadmin.commands.AsAdmin;
-import org.n0pe.asadmin.commands.AsAdminException;
+import org.n0pe.asadmin.commands.AsCommandList;
 import org.n0pe.asadmin.commands.asadmin.CreateAuthRealm;
 
 
@@ -59,34 +58,30 @@ public class CreateAuthRealmMojo
 
 
     /**
-     * 
      * Usage : create-auth-realm --classname realm_class [--terse=false] [--echo=false] 
      * [--interactive=true] [--host localhost] [--port 4848|4849] [--secure | -s] 
      * [--user admin_user] [--passwordfile file_name] 
      * [--property (name=value)[:name=value]*] 
      * [--target target(Default server)] auth_realm_name
      * 
-     * @throws org.apache.maven.plugin.MojoExecutionException
-     * @throws org.apache.maven.plugin.MojoFailureException 
+     * @return asadmin commands
+     * @throws org.apache.maven.plugin.MojoExecutionException MojoExecutionException
+     * @throws org.apache.maven.plugin.MojoFailureException MojoFailureException 
      */
-    public void execute()
+    protected AsCommandList getAsCommandList()
             throws MojoExecutionException, MojoFailureException {
-        super.execute();
         getLog().info("Creating auth realm: " + realmName);
-        final AsAdmin asadmin = AsAdmin.getInstance(this);
-        try {
-            final CreateAuthRealm cmd = new CreateAuthRealm(realmName).withClassName(realmClassName);
-            if (realmProperties != null && !realmProperties.isEmpty()) {
-                final Iterator it = realmProperties.keySet().iterator();
-                while (it.hasNext()) {
-                    final String key = (String) it.next();
-                    cmd.addProperty(key, (String) realmProperties.get(key));
-                }
+        final AsCommandList list = new AsCommandList();
+        final CreateAuthRealm cmd = new CreateAuthRealm(realmName).withClassName(realmClassName);
+        if (realmProperties != null && !realmProperties.isEmpty()) {
+            final Iterator it = realmProperties.keySet().iterator();
+            while (it.hasNext()) {
+                final String key = (String) it.next();
+                cmd.addProperty(key, (String) realmProperties.get(key));
             }
-            asadmin.run(cmd);
-        } catch (AsAdminException ex) {
-            throw new MojoExecutionException(ex.getMessage(), ex);
         }
+        list.add(cmd);
+        return list;
     }
 
 

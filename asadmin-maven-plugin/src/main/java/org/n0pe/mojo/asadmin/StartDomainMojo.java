@@ -22,8 +22,7 @@ package org.n0pe.mojo.asadmin;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
-import org.n0pe.asadmin.commands.AsAdmin;
-import org.n0pe.asadmin.commands.AsAdminException;
+import org.n0pe.asadmin.commands.AsCommandList;
 import org.n0pe.asadmin.commands.asadmin.Domain;
 
 
@@ -36,16 +35,12 @@ public class StartDomainMojo
         extends AbstractAsadminMojo {
 
 
-    public void execute()
+    protected AsCommandList getAsCommandList()
             throws MojoExecutionException, MojoFailureException {
-        super.execute();
         getLog().info("Starting AS domain: " + domain);
-        final AsAdmin asadmin = AsAdmin.getInstance(this);
-        try {
-            asadmin.run(new Domain(domain).start());
-        } catch (AsAdminException ex) {
-            throw new MojoExecutionException(ex.getMessage(), ex);
-        }
+        final AsCommandList list = new AsCommandList();
+        list.add(new Domain(domain).start());
+        return list;
     }
 
 

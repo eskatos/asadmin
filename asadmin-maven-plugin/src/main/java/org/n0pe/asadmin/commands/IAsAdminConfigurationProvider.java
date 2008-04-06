@@ -20,6 +20,8 @@ package org.n0pe.asadmin.commands;
 
 
 /**
+ * Configuration provider for AsAdmin.
+ * 
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public interface IAsAdminConfigurationProvider {

@@ -19,10 +19,7 @@
 package org.n0pe.mojo.asadmin;
 
 
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-import org.n0pe.asadmin.commands.AsAdmin;
-import org.n0pe.asadmin.commands.AsAdminException;
+import org.n0pe.asadmin.commands.AsCommandList;
 import org.n0pe.asadmin.commands.asadmin.Set;
 
 
@@ -54,18 +51,14 @@ public class SetPortsMojo
     private String httpsListenerPort;
 
 
-    public void execute()
-            throws MojoExecutionException, MojoFailureException {
-        super.execute();
+    protected AsCommandList getAsCommandList() {
         getLog().info("Setting listeners ports : HTTP(" + httpListenerPort +
                       ") HTTPS(" + httpsListenerPort + ")");
-        final AsAdmin asadmin = AsAdmin.getInstance(this);
-        try {
-            asadmin.run(new Set(HTTP_LISTENER, httpListenerPort));
-            asadmin.run(new Set(HTTPS_LISTENER, httpsListenerPort));
-        } catch (AsAdminException ex) {
-            throw new MojoExecutionException(ex.getMessage(), ex);
-        }
+        getLog().info("Deploying application archive: " + appArchive);
+        final AsCommandList list = new AsCommandList();
+        list.add(new Set(HTTP_LISTENER, httpListenerPort));
+        list.add(new Set(HTTPS_LISTENER, httpsListenerPort));
+        return list;
     }
 
 

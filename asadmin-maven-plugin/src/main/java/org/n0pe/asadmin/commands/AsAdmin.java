@@ -31,6 +31,8 @@ import org.apache.commons.lang.SystemUtils;
 
 
 /**
+ * asadmin command execution facility built as a multipleton which discriminator is a configuration provider.
+ * 
  * TODO : handle asadmin invocation return codes with exceptions
  * TODO : investigate multimode asadmin command invocation
  * 
@@ -51,6 +53,25 @@ public class AsAdmin {
     private static Map instances;
 
 
+    private static String ASADMIN_COMMAND_NAME;
+
+
+    static {
+        ASADMIN_COMMAND_NAME = SystemUtils.IS_OS_WINDOWS
+                ? "asadmin.bat"
+                : "./asadmin";
+    }
+
+
+    private IAsAdminConfigurationProvider config;
+
+
+    /**
+     * Get a asadmin instance configured with the given configuration provider.
+     * 
+     * @param config
+     * @return
+     */
     public static AsAdmin getInstance(final IAsAdminConfigurationProvider config) {
         if (instances == null) {
             instances = new HashMap(1);
@@ -64,19 +85,17 @@ public class AsAdmin {
     }
 
 
-    private IAsAdminConfigurationProvider config;
-
-
-    private String asadminCommandOsName = (SystemUtils.IS_OS_WINDOWS
-            ? "asadmin.bat"
-            : "./asadmin");
-
-
     private AsAdmin(final IAsAdminConfigurationProvider config) {
         this.config = config;
     }
 
 
+    /**
+     * Run the given AsAdmin command.
+     * 
+     * @param cmd AsAdmin command to be run
+     * @throws org.n0pe.asadmin.commands.AsAdminException AsAdminException
+     */
     public void run(final IAsCommand cmd)
             throws AsAdminException {
         try {
@@ -84,7 +103,7 @@ public class AsAdmin {
             final String[] fullParams;
             if (cmd.needCredentials()) {
                 fullParams = new String[cmdParams.length + 6];
-                fullParams[0] = asadminCommandOsName;
+                fullParams[0] = ASADMIN_COMMAND_NAME;
                 fullParams[1] = cmd.getActionCommand();
                 fullParams[2] = USER_OPT;
                 fullParams[3] = config.getUser();
@@ -95,7 +114,7 @@ public class AsAdmin {
                 }
             } else {
                 fullParams = new String[cmdParams.length + 2];
-                fullParams[0] = asadminCommandOsName;
+                fullParams[0] = ASADMIN_COMMAND_NAME;
                 fullParams[1] = cmd.getActionCommand();
                 for (int i = 0; i < cmdParams.length; i++) {
                     fullParams[i + 2] = cmdParams[i];
@@ -118,9 +137,9 @@ public class AsAdmin {
                 throw new AsAdminException("asadmin returned : " + String.valueOf(exitCode) +
                                            " error output is : \n" + errorOutput);
             }
-        } catch (InterruptedException ex) {
+        } catch (final InterruptedException ex) {
             throw new AsAdminException("AsAdmin error occurred: " + ex.getMessage(), ex);
-        } catch (IOException ex) {
+        } catch (final IOException ex) {
             throw new AsAdminException("AsAdmin error occurred: " + ex.getMessage(), ex);
         }
     }
