@@ -20,7 +20,6 @@ package org.n0pe.mojo.asadmin;
 
 
 import java.io.File;
-import java.util.Iterator;
 
 import org.apache.commons.lang.SystemUtils;
 
@@ -33,7 +32,6 @@ import org.n0pe.asadmin.commands.AsAdmin;
 import org.n0pe.asadmin.commands.AsAdminException;
 import org.n0pe.asadmin.commands.AsCommandList;
 import org.n0pe.asadmin.commands.IAsAdminConfigurationProvider;
-import org.n0pe.asadmin.commands.IAsCommand;
 
 
 /**
@@ -124,20 +122,15 @@ public abstract class AbstractAsadminMojo
 
     public final void execute()
             throws MojoExecutionException, MojoFailureException {
-        displayCopyrightNotice();
-        checkConfig();
-        final AsAdmin asadmin = AsAdmin.getInstance(this);
         try {
-            final Iterator it = getAsCommandList().iterator();
-            IAsCommand cmd;
-            while (it.hasNext()) {
-                cmd = (IAsCommand) it.next();
-                asadmin.run(cmd);
-            }
+
+            checkConfig();
+
+            AsAdmin.getInstance(this).run(getAsCommandList());
+
         } catch (AsAdminException ex) {
             throw new MojoExecutionException(ex.getMessage(), ex);
         }
-
     }
 
 
@@ -186,14 +179,6 @@ public abstract class AbstractAsadminMojo
             passwordfile = System.getenv("HOME") + File.separator +
                     ".asadminpass";
         }
-    }
-
-
-    private void displayCopyrightNotice() {
-        getLog().info("asadmin-glassfish-plugin  Copyright (C) 2008 Paul Merlin");
-        getLog().info("This program comes with ABSOLUTELY NO WARRANTY; for details type `mvn asadmin:help'.");
-        getLog().info("This is free software, and you are welcome to redistribute it");
-        getLog().info("under certain conditions; type `mvn asadmin:help' for details.");
     }
 
 

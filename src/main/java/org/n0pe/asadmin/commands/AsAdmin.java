@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.lang.SystemUtils;
@@ -87,6 +88,23 @@ public class AsAdmin {
 
     private AsAdmin(final IAsAdminConfigurationProvider config) {
         this.config = config;
+    }
+
+
+    /**
+     * Run the given list of AsAdmin command.
+     * 
+     * @param cmdList AsAdmin commands to be run
+     * @throws org.n0pe.asadmin.commands.AsAdminException AsAdminException
+     */
+    public void run(final AsCommandList cmdList)
+            throws AsAdminException {
+        final Iterator it = cmdList.iterator();
+        IAsCommand cmd;
+        while (it.hasNext()) {
+            cmd = (IAsCommand) it.next();
+            run(cmd);
+        }
     }
 
 
