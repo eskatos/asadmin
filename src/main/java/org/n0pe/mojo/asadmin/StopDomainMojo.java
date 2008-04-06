@@ -28,7 +28,7 @@ import org.n0pe.asadmin.commands.asadmin.Domain;
 
 /**
  * @goal stop-domain
- * @description
+ * @description AsAdmin stop-domain mojo
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class StopDomainMojo

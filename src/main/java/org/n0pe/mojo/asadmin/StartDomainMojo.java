@@ -28,7 +28,7 @@ import org.n0pe.asadmin.commands.asadmin.Domain;
 
 /**
  * @goal start-domain
- * @description 
+ * @description AsAdmin start-domain mojo
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class StartDomainMojo

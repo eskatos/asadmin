@@ -28,7 +28,7 @@ import org.n0pe.asadmin.commands.asadmin.Database;
 
 /**
  * @goal stop-database
- * @description Maven 2 Glassfish plugin
+ * @description AsAdmin stop-database mojo
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class StopDatabaseMojo

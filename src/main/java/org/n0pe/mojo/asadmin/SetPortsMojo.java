@@ -25,6 +25,7 @@ import org.n0pe.asadmin.commands.asadmin.Set;
 
 /**
  * @goal set-ports
+ * @description AsAdmin set-ports mojo
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class SetPortsMojo
