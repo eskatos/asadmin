@@ -22,8 +22,7 @@ package org.n0pe.mojo.asadmin;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
-import org.n0pe.asadmin.commands.AsAdmin;
-import org.n0pe.asadmin.commands.AsAdminException;
+import org.n0pe.asadmin.commands.AsCommandList;
 import org.n0pe.asadmin.commands.asadmin.Domain;
 
 
@@ -36,16 +35,12 @@ public class StopDomainMojo
         extends AbstractAsadminMojo {
 
 
-    public void execute()
+    protected AsCommandList getAsCommandList()
             throws MojoExecutionException, MojoFailureException {
-        super.execute();
         getLog().info("Stopping Glassfish domain: " + domain);
-        final AsAdmin asadmin = AsAdmin.getInstance(this);
-        try {
-            asadmin.run(new Domain(domain).stop());
-        } catch (AsAdminException ex) {
-            throw new MojoExecutionException(ex.getMessage(), ex);
-        }
+        final AsCommandList list = new AsCommandList();
+        list.add(new Domain(domain).stop());
+        return list;
     }
 
 

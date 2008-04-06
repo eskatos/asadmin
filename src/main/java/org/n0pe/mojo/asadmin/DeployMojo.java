@@ -19,11 +19,7 @@
 package org.n0pe.mojo.asadmin;
 
 
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-
-import org.n0pe.asadmin.commands.AsAdmin;
-import org.n0pe.asadmin.commands.AsAdminException;
+import org.n0pe.asadmin.commands.AsCommandList;
 import org.n0pe.asadmin.commands.asadmin.Deployment;
 
 
@@ -38,20 +34,15 @@ public class DeployMojo
         extends AbstractAsadminMojo {
 
 
-    public void execute()
-            throws MojoExecutionException, MojoFailureException {
-        super.execute();
+    protected AsCommandList getAsCommandList() {
         getLog().info("Deploying application archive: " + appArchive);
-        final AsAdmin asadmin = AsAdmin.getInstance(this);
-        try {
-            final Deployment d = new Deployment().archive(appArchive);
-            if ("war".equalsIgnoreCase(mavenProject.getPackaging())) {
-                d.withContextRoot(contextRoot);
-            }
-            asadmin.run(d.deploy());
-        } catch (AsAdminException ex) {
-            throw new MojoExecutionException(ex.getMessage(), ex);
+        final AsCommandList list = new AsCommandList();
+        final Deployment d = new Deployment().archive(appArchive);
+        if ("war".equalsIgnoreCase(mavenProject.getPackaging())) {
+            d.withContextRoot(contextRoot);
         }
+        list.add(d.deploy());
+        return list;
     }
 
 

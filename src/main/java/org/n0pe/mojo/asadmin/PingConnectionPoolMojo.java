@@ -22,8 +22,7 @@ package org.n0pe.mojo.asadmin;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
-import org.n0pe.asadmin.commands.AsAdmin;
-import org.n0pe.asadmin.commands.AsAdminException;
+import org.n0pe.asadmin.commands.AsCommandList;
 import org.n0pe.asadmin.commands.asadmin.PingConnectionPool;
 
 
@@ -42,16 +41,12 @@ public class PingConnectionPoolMojo
     private String connectionPoolName;
 
 
-    public void execute()
+    protected AsCommandList getAsCommandList()
             throws MojoExecutionException, MojoFailureException {
-        super.execute();
         getLog().info("Pinging connection pool: " + connectionPoolName);
-        final AsAdmin asadmin = AsAdmin.getInstance(this);
-        try {
-            asadmin.run(new PingConnectionPool(connectionPoolName));
-        } catch (AsAdminException ex) {
-            throw new MojoExecutionException(ex.getMessage(), ex);
-        }
+        final AsCommandList list = new AsCommandList();
+        list.add(new PingConnectionPool(connectionPoolName));
+        return list;
     }
 
 

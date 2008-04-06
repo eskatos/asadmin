@@ -22,8 +22,7 @@ package org.n0pe.mojo.asadmin;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
-import org.n0pe.asadmin.commands.AsAdmin;
-import org.n0pe.asadmin.commands.AsAdminException;
+import org.n0pe.asadmin.commands.AsCommandList;
 import org.n0pe.asadmin.commands.asadmin.Deployment;
 
 
@@ -38,16 +37,12 @@ public class UndeployMojo
         extends AbstractAsadminMojo {
 
 
-    public void execute()
+    protected AsCommandList getAsCommandList()
             throws MojoExecutionException, MojoFailureException {
-        super.execute();
         getLog().info("Undeploying application: " + appName);
-        final AsAdmin asadmin = AsAdmin.getInstance(this);
-        try {
-            asadmin.run(new Deployment().undeploy().component(appName));
-        } catch (AsAdminException ex) {
-            throw new MojoExecutionException(ex.getMessage(), ex);
-        }
+        final AsCommandList list = new AsCommandList();
+        list.add(new Deployment().undeploy().component(appName));
+        return list;
     }
 
 
