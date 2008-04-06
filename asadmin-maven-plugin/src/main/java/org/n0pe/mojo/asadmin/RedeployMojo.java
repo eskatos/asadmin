@@ -28,7 +28,7 @@ import org.n0pe.asadmin.commands.asadmin.Deployment;
 
 /**
  * @goal redeploy
- * @description Maven 2 Glassfish plugin
+ * @description AsAdmin redeploy mojo
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class RedeployMojo

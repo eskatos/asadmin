@@ -28,6 +28,7 @@ import org.apache.maven.plugin.MojoFailureException;
  * HelpMojo.
  *
  * @goal help
+ * @description AsAdmin help mojo
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class HelpMojo

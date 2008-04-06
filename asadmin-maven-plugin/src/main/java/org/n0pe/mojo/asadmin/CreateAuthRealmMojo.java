@@ -31,6 +31,7 @@ import org.n0pe.asadmin.commands.asadmin.CreateAuthRealm;
 
 /**
  * @goal create-auth-realm
+ * @description AsAdmin create-auth-realm mojo
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class CreateAuthRealmMojo

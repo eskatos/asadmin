@@ -28,9 +28,7 @@ import org.n0pe.asadmin.commands.asadmin.Deployment;
 
 /**
  * @goal undeploy
- * @description Deploys an enterprise application, web application, EJB module, connector module, or application client
- * module. If the component is already deployed or already exists, it is forcefully redeployed if the --force option is 
- * set to true.
+ * @description AsAdmin undeploy mojo
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class UndeployMojo

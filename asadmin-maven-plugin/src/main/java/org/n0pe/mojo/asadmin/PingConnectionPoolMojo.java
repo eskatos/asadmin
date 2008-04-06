@@ -28,6 +28,7 @@ import org.n0pe.asadmin.commands.asadmin.PingConnectionPool;
 
 /**
  * @goal ping-connection-pool
+ * @description AsAdmin ping connection pool mojo
  * @author Paul Merlin <p.merlin@netheos.net>
  */
 public class PingConnectionPoolMojo

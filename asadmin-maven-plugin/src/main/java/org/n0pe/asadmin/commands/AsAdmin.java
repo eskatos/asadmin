@@ -140,7 +140,7 @@ public class AsAdmin {
             }
             final ProcessBuilder pb = new ProcessBuilder(fullParams);
             pb.directory(new File(config.getGlassfishHome() + File.separator + "bin"));
-            System.out.println(pb.command());
+            System.out.println("AsAdmin will run the following command : " + pb.command());
             final Process p = pb.start();
             final BufferedReader br = new BufferedReader(new InputStreamReader(p.getErrorStream()));
             final StringWriter sw = new StringWriter();
