@@ -27,22 +27,25 @@ import org.apache.maven.plugin.MojoFailureException;
 /**
  * HelpMojo.
  *
+ * @goal help
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class HelpMojo
         extends AbstractMojo {
 
 
-    /**
-     * HelpMojo CTOR.
-     */
-    public HelpMojo() {
-    }
-
-
     public void execute()
             throws MojoExecutionException, MojoFailureException {
         getLog().info("asadmin-glassfish-plugin help");
+        displayCopyrightNotice();
+    }
+
+
+    protected final void displayCopyrightNotice() {
+        getLog().info("asadmin-glassfish-plugin  Copyright (C) 2008 Paul Merlin");
+        getLog().info("This program comes with ABSOLUTELY NO WARRANTY; for details type `mvn asadmin:help'.");
+        getLog().info("This is free software, and you are welcome to redistribute it");
+        getLog().info("under certain conditions; type `mvn asadmin:help' for details.");
     }
 
 
