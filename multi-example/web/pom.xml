@@ -18,24 +18,38 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
-    <name>ejb-example</name>
-    <description>TODO : écrire une description</description>
-    <packaging>ejb</packaging>
+    <parent>
+        <groupId>org.n0pe.mojo.examples</groupId>
+        <artifactId>multi-example</artifactId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
     
     <groupId>org.n0pe.mojo.examples</groupId>
-    <artifactId>ejb-example</artifactId>
+    <artifactId>multi-example-web</artifactId>
     <version>0.1-SNAPSHOT</version>
+    
+    <packaging>war</packaging>
+    
+    <name>multi-example-web</name>
+    <url>http://maven.apache.org</url>
+    
+    <scm>
+        <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/multi-example/web/</url>
+    </scm>
     
     <build>
         <plugins>
+            <!-- configure asadmin-maven-plugin -->
             <plugin>
                 <groupId>org.n0pe.mojo</groupId>
                 <artifactId>asadmin-maven-plugin</artifactId>
-                <version>0.2-SNAPSHOT</version>
+                <configuration>
+                    <contextRoot>multi-example</contextRoot>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -44,39 +58,13 @@
                     <target>1.5</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <artifactId>maven-ejb-plugin</artifactId>
-                <configuration>
-                    <ejbVersion>3.0</ejbVersion>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
     
     <dependencies>
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.3</version>
-        </dependency>
-        <!-- Provided -->
-        <dependency>
-            <groupId>javax.ejb</groupId>
-            <artifactId>ejb-api</artifactId>
-            <version>3.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- Unit tests dependencies -->
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <!--
-   asadmin-glassfish-plugin ear-exemple : an ear exemple using asadmin-maven-plugin
+   asadmin-glassfish-plugin war-exemple : a war exemple using asadmin-maven-plugin
    
    Copyright (C) 2008  Paul Merlin
    
-   This program is free softeare: you can redistribute it and/or modify
+   This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Softeare Foundation, either version 3 of the License, or
+   the Free Software Foundation, either version 3 of the License, or
    (at your option) any later version.
    
    This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied earranty of
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
    
@@ -23,35 +23,24 @@
     <modelVersion>4.0.0</modelVersion>
     
     <groupId>org.n0pe.mojo.examples</groupId>
-    <artifactId>ear-example</artifactId>
-    <packaging>ear</packaging>
+    <artifactId>multi-example</artifactId>
     <version>0.1-SNAPSHOT</version>
     
-    <name>ear-example</name>
+    <packaging>pom</packaging>
+    
+    <name>multi-example</name>
     <url>http://maven.apache.org</url>
     
     <scm>
-        <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/ear-example/</url>
+        <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/multi-example/</url>
     </scm>
+    
+    <modules>
+        <module>web</module>
+    </modules>
     
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.n0pe.mojo</groupId>
-                <artifactId>asadmin-maven-plugin</artifactId>
-                <version>0.2-SNAPSHOT</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-ear-plugin</artifactId>
-                <configuration>
-                    <modules>
-                        <webModule>
-                            <groupId>org.n0pe.mojo.examples</groupId>
-                            <artifactId>war-example</artifactId>
-                        </webModule>
-                    </modules>
-                </configuration>
-            </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
@@ -60,6 +49,16 @@
                 </configuration>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <!-- declare the asadmin-maven-plugin version used in all subprojects -->
+                <plugin>
+                    <groupId>org.n0pe.mojo</groupId>
+                    <artifactId>asadmin-maven-plugin</artifactId>
+                    <version>0.2-SNAPSHOT</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
     
     <pluginRepositories>
@@ -79,19 +78,15 @@
         </pluginRepository>
     </pluginRepositories>
     
-    <dependencies>
-        <dependency>
-            <groupId>org.n0pe.mojo.examples</groupId>
-            <artifactId>war-example</artifactId>
-            <version>0.1-SNAPSHOT</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>3.8.1</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     
 </project>

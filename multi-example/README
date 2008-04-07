@@ -1,0 +1,4 @@
+To build and then deploy the war submodule type :
+
+$ mvn clean install && mvn -f web/pom.xml asadmin:deploy
+
