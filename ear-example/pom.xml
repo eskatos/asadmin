@@ -22,35 +22,42 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
-    <groupId>org.n0pe.mojo.exemples</groupId>
-    <artifactId>ear-exemple</artifactId>
+    <groupId>org.n0pe.mojo.examples</groupId>
+    <artifactId>ear-example</artifactId>
     <packaging>ear</packaging>
     <version>0.1-SNAPSHOT</version>
     
-    <name>ear-exemple using asadmin-maven-plugin</name>
+    <name>ear-example</name>
     <url>http://maven.apache.org</url>
     
     <scm>
-        <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/ear-exemple/</url>
+        <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/ear-example/</url>
     </scm>
     
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.n0pe.mojo</groupId>
+                <artifactId>asadmin-maven-plugin</artifactId>
+                <version>0.2-SNAPSHOT</version>
+            </plugin>
             <plugin>
                 <artifactId>maven-ear-plugin</artifactId>
                 <configuration>
                     <modules>
                         <webModule>
                             <groupId>org.n0pe.mojo.exemples</groupId>
-                            <artifactId>war-exemple</artifactId>
+                            <artifactId>war-example</artifactId>
                         </webModule>
                     </modules>
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.n0pe.mojo</groupId>
-                <artifactId>asadmin-maven-plugin</artifactId>
-                <version>0.1-SNAPSHOT</version>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -74,8 +81,8 @@
     
     <dependencies>
         <dependency>
-            <groupId>org.n0pe.mojo.exemples</groupId>
-            <artifactId>war-exemple</artifactId>
+            <groupId>org.n0pe.mojo.examples</groupId>
+            <artifactId>war-example</artifactId>
             <version>0.1-SNAPSHOT</version>
             <type>war</type>
         </dependency>

@@ -22,16 +22,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
-    <groupId>org.n0pe.mojo.exemples</groupId>
-    <artifactId>war-exemple</artifactId>
-    <packaging>war</packaging>
+    <groupId>org.n0pe.mojo.examples</groupId>
+    <artifactId>war-example</artifactId>
     <version>0.1-SNAPSHOT</version>
     
-    <name>war-exemple using asadmin-maven-plugin</name>
+    <packaging>war</packaging>
+    
+    <name>war-example</name>
     <url>http://maven.apache.org</url>
     
     <scm>
-        <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/war-exemple/</url>
+        <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/war-example/</url>
     </scm>
     
     <build>
@@ -42,6 +43,13 @@
                 <version>0.2-SNAPSHOT</version>
                 <configuration>
                     <contextRoot>war-exemple</contextRoot>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
                 </configuration>
             </plugin>
         </plugins>
