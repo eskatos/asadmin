@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.n0pe.asadmin.commands;
+package org.n0pe.asadmin;
 
 
 import java.io.BufferedReader;
@@ -45,16 +45,16 @@ public class AsAdmin {
     private static final String ASADMIN_FAILED = "failed";
 
 
-    private static final String USER_OPT = "--user";
-
-
-    private static final String PASSWORDFILE_OPT = "--passwordfile";
-
-
     private static Map instances;
 
 
-    private static String ASADMIN_COMMAND_NAME;
+    public static final String USER_OPT = "--user";
+
+
+    public static final String PASSWORDFILE_OPT = "--passwordfile";
+
+
+    public static String ASADMIN_COMMAND_NAME;
 
 
     static {
@@ -117,28 +117,7 @@ public class AsAdmin {
     public void run(final IAsCommand cmd)
             throws AsAdminException {
         try {
-            final String[] cmdParams = cmd.getParameters();
-            final String[] fullParams;
-            if (cmd.needCredentials()) {
-                fullParams = new String[cmdParams.length + 6];
-                fullParams[0] = ASADMIN_COMMAND_NAME;
-                fullParams[1] = cmd.getActionCommand();
-                fullParams[2] = USER_OPT;
-                fullParams[3] = config.getUser();
-                fullParams[4] = PASSWORDFILE_OPT;
-                fullParams[5] = config.getPasswordFile();
-                for (int i = 0; i < cmdParams.length; i++) {
-                    fullParams[i + 6] = cmdParams[i];
-                }
-            } else {
-                fullParams = new String[cmdParams.length + 2];
-                fullParams[0] = ASADMIN_COMMAND_NAME;
-                fullParams[1] = cmd.getActionCommand();
-                for (int i = 0; i < cmdParams.length; i++) {
-                    fullParams[i + 2] = cmdParams[i];
-                }
-            }
-            final ProcessBuilder pb = new ProcessBuilder(fullParams);
+            final ProcessBuilder pb = new ProcessBuilder(buildProcessParams(cmd, config));
             pb.directory(new File(config.getGlassfishHome() + File.separator + "bin"));
             System.out.println("AsAdmin will run the following command : " + pb.command());
             final Process p = pb.start();
@@ -160,6 +139,31 @@ public class AsAdmin {
         } catch (final IOException ex) {
             throw new AsAdminException("AsAdmin error occurred: " + ex.getMessage(), ex);
         }
+    }
+
+
+    public static String[] buildProcessParams(final IAsCommand cmd, final IAsAdminConfigurationProvider config) {
+        final String[] pbParams;
+        if (cmd.needCredentials()) {
+            pbParams = new String[cmd.getParameters().length + 6];
+            pbParams[0] = ASADMIN_COMMAND_NAME;
+            pbParams[1] = cmd.getActionCommand();
+            pbParams[2] = USER_OPT;
+            pbParams[3] = config.getUser();
+            pbParams[4] = PASSWORDFILE_OPT;
+            pbParams[5] = config.getPasswordFile();
+            for (int i = 0; i < cmd.getParameters().length; i++) {
+                pbParams[i + 6] = cmd.getParameters()[i];
+            }
+        } else {
+            pbParams = new String[cmd.getParameters().length + 2];
+            pbParams[0] = ASADMIN_COMMAND_NAME;
+            pbParams[1] = cmd.getActionCommand();
+            for (int i = 0; i < cmd.getParameters().length; i++) {
+                pbParams[i + 2] = cmd.getParameters()[i];
+            }
+        }
+        return pbParams;
     }
 
 

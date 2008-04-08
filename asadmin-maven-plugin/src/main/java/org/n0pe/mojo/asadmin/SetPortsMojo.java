@@ -19,8 +19,8 @@
 package org.n0pe.mojo.asadmin;
 
 
-import org.n0pe.asadmin.commands.AsCommandList;
-import org.n0pe.asadmin.commands.asadmin.Set;
+import org.n0pe.asadmin.AsCommandList;
+import org.n0pe.asadmin.commands.Set;
 
 
 /**

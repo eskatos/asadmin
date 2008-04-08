@@ -19,35 +19,54 @@
 package org.n0pe.asadmin.commands;
 
 
-import org.apache.commons.lang.exception.NestableException;
+import org.n0pe.asadmin.IAsAdminConfigurationProvider;
 
 
 /**
- * AsAdminException.
+ * TestAsConfigProvider.
  *
  * @author Paul Merlin <eskatos@n0pe.org>
  */
-public class AsAdminException
-        extends NestableException {
+public class TestAsConfigProvider
+        implements IAsAdminConfigurationProvider {
 
 
-    private static final long serialVersionUID = 1L;
+    public static final String USER_NAME = "user.name";
 
 
-    /**
-     * AsAdminException CTOR.
-     */
-    public AsAdminException() {
+    public static final String PASSWORD_FILE = "path.to.password.file";
+
+
+    public static final String GLASSFISH_HOME = "path.to.gf.home";
+
+
+    private static TestAsConfigProvider instance;
+
+
+    public static TestAsConfigProvider getInstance() {
+        if (instance == null) {
+            instance = new TestAsConfigProvider();
+        }
+        return instance;
     }
 
 
-    public AsAdminException(final String message) {
-        super(message);
+    private TestAsConfigProvider() {
     }
 
 
-    public AsAdminException(final String message, Throwable cause) {
-        super(message, cause);
+    public String getUser() {
+        return USER_NAME;
+    }
+
+
+    public String getPasswordFile() {
+        return PASSWORD_FILE;
+    }
+
+
+    public String getGlassfishHome() {
+        return GLASSFISH_HOME;
     }
 
 

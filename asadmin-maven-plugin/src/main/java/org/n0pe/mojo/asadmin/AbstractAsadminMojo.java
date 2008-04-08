@@ -29,10 +29,10 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 
-import org.n0pe.asadmin.commands.AsAdmin;
-import org.n0pe.asadmin.commands.AsAdminException;
-import org.n0pe.asadmin.commands.AsCommandList;
-import org.n0pe.asadmin.commands.IAsAdminConfigurationProvider;
+import org.n0pe.asadmin.AsAdmin;
+import org.n0pe.asadmin.AsAdminException;
+import org.n0pe.asadmin.AsCommandList;
+import org.n0pe.asadmin.IAsAdminConfigurationProvider;
 
 
 /**
