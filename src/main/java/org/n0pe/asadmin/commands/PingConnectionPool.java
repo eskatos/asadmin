@@ -16,35 +16,54 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.n0pe.mojo.asadmin;
+package org.n0pe.asadmin.commands;
 
 
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-
-import org.n0pe.asadmin.AsCommandList;
-import org.n0pe.asadmin.commands.Deployment;
+import org.n0pe.asadmin.IAsCommand;
 
 
 /**
- * @goal redeploy
- * @description AsAdmin redeploy mojo
+ * PingConnectionPool.
+ *
  * @author Paul Merlin <eskatos@n0pe.org>
  */
-public class RedeployMojo
-        extends AbstractAsadminMojo {
+public class PingConnectionPool
+        implements IAsCommand {
 
 
-    protected AsCommandList getAsCommandList()
-            throws MojoExecutionException, MojoFailureException {
-        getLog().info("Redeploying application archive: " + appArchive);
-        final AsCommandList list = new AsCommandList();
-        final Deployment d = new Deployment().archive(appArchive);
-        if ("war".equalsIgnoreCase(mavenProject.getPackaging())) {
-            d.withContextRoot(contextRoot);
+    public static final String PING = "ping-connection-pool";
+
+
+    private String poolName;
+
+
+    private PingConnectionPool() {
+    }
+
+
+    public PingConnectionPool(String poolName) {
+        this.poolName = poolName;
+    }
+
+
+    public boolean needCredentials() {
+        return false;
+    }
+
+
+    public String getActionCommand() {
+        if (poolName == null) {
+            throw new IllegalStateException();
         }
-        list.add(d.force(true).deploy());
-        return list;
+        return PING;
+    }
+
+
+    public String[] getParameters() {
+        if (poolName == null) {
+            throw new IllegalStateException();
+        }
+        return new String[]{poolName};
     }
 
 

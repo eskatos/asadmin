@@ -25,8 +25,8 @@ import java.util.Map;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
-import org.n0pe.asadmin.commands.AsCommandList;
-import org.n0pe.asadmin.commands.asadmin.CreateAuthRealm;
+import org.n0pe.asadmin.AsCommandList;
+import org.n0pe.asadmin.commands.CreateAuthRealm;
 
 
 /**

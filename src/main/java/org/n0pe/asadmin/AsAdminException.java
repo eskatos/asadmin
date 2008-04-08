@@ -16,35 +16,38 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.n0pe.mojo.asadmin;
+package org.n0pe.asadmin;
 
 
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-
-import org.n0pe.asadmin.AsCommandList;
-import org.n0pe.asadmin.commands.Deployment;
+import org.apache.commons.lang.exception.NestableException;
 
 
 /**
- * @goal redeploy
- * @description AsAdmin redeploy mojo
+ * AsAdminException.
+ *
  * @author Paul Merlin <eskatos@n0pe.org>
  */
-public class RedeployMojo
-        extends AbstractAsadminMojo {
+public class AsAdminException
+        extends NestableException {
 
 
-    protected AsCommandList getAsCommandList()
-            throws MojoExecutionException, MojoFailureException {
-        getLog().info("Redeploying application archive: " + appArchive);
-        final AsCommandList list = new AsCommandList();
-        final Deployment d = new Deployment().archive(appArchive);
-        if ("war".equalsIgnoreCase(mavenProject.getPackaging())) {
-            d.withContextRoot(contextRoot);
-        }
-        list.add(d.force(true).deploy());
-        return list;
+    private static final long serialVersionUID = 1L;
+
+
+    /**
+     * AsAdminException CTOR.
+     */
+    public AsAdminException() {
+    }
+
+
+    public AsAdminException(final String message) {
+        super(message);
+    }
+
+
+    public AsAdminException(final String message, Throwable cause) {
+        super(message, cause);
     }
 
 

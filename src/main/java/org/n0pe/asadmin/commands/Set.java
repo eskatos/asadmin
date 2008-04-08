@@ -19,21 +19,48 @@
 package org.n0pe.asadmin.commands;
 
 
+import org.apache.commons.lang.StringUtils;
+
+import org.n0pe.asadmin.IAsCommand;
+
+
 /**
- * IAsCommand.
+ * Set.
  *
  * @author Paul Merlin <eskatos@n0pe.org>
  */
-public interface IAsCommand {
+public class Set
+        implements IAsCommand {
 
 
-    boolean needCredentials();
+    private String property;
 
 
-    String getActionCommand();
+    private String value;
 
 
-    String[] getParameters();
+    public Set(String propertyName, String propertyValue) {
+        property = propertyName;
+        value = propertyValue;
+    }
+
+
+    public boolean needCredentials() {
+        return false;
+    }
+
+
+    public String getActionCommand() {
+        return "set";
+    }
+
+
+    public String[] getParameters() {
+        if (StringUtils.isEmpty(property) || StringUtils.isEmpty(value)) {
+            throw new IllegalStateException();
+        }
+        return new String[]{property + "=" + value};
+    }
 
 
 }
