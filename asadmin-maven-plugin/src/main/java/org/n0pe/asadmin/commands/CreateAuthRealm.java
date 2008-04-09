@@ -26,7 +26,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import org.n0pe.asadmin.IAsCommand;
+import org.n0pe.asadmin.IAsAdminCmd;
 
 
 /**
@@ -35,7 +35,7 @@ import org.n0pe.asadmin.IAsCommand;
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class CreateAuthRealm
-        implements IAsCommand {
+        implements IAsAdminCmd {
 
 
     private static final String CLASSNAME_OPT = "--classname";

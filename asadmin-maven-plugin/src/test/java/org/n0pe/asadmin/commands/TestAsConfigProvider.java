@@ -19,7 +19,7 @@
 package org.n0pe.asadmin.commands;
 
 
-import org.n0pe.asadmin.IAsAdminConfigurationProvider;
+import org.n0pe.asadmin.IAsAdminConfig;
 
 
 /**
@@ -28,7 +28,7 @@ import org.n0pe.asadmin.IAsAdminConfigurationProvider;
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class TestAsConfigProvider
-        implements IAsAdminConfigurationProvider {
+        implements IAsAdminConfig {
 
 
     public static final String USER_NAME = "user.name";

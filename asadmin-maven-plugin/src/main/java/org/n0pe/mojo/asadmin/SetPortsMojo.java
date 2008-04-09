@@ -19,7 +19,7 @@
 package org.n0pe.mojo.asadmin;
 
 
-import org.n0pe.asadmin.AsCommandList;
+import org.n0pe.asadmin.AsAdminCmdList;
 import org.n0pe.asadmin.commands.Set;
 
 
@@ -52,11 +52,11 @@ public class SetPortsMojo
     private String httpsListenerPort;
 
 
-    protected AsCommandList getAsCommandList() {
+    protected AsAdminCmdList getAsCommandList() {
         getLog().info("Setting listeners ports : HTTP(" + httpListenerPort +
                       ") HTTPS(" + httpsListenerPort + ")");
         getLog().info("Deploying application archive: " + appArchive);
-        final AsCommandList list = new AsCommandList();
+        final AsAdminCmdList list = new AsAdminCmdList();
         list.add(new Set(HTTP_LISTENER, httpListenerPort));
         list.add(new Set(HTTPS_LISTENER, httpsListenerPort));
         return list;

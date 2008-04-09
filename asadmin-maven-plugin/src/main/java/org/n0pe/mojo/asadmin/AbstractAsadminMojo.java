@@ -31,8 +31,8 @@ import org.apache.maven.project.MavenProject;
 
 import org.n0pe.asadmin.AsAdmin;
 import org.n0pe.asadmin.AsAdminException;
-import org.n0pe.asadmin.AsCommandList;
-import org.n0pe.asadmin.IAsAdminConfigurationProvider;
+import org.n0pe.asadmin.AsAdminCmdList;
+import org.n0pe.asadmin.IAsAdminConfig;
 
 
 /**
@@ -43,7 +43,7 @@ import org.n0pe.asadmin.IAsAdminConfigurationProvider;
  */
 public abstract class AbstractAsadminMojo
         extends AbstractMojo
-        implements IAsAdminConfigurationProvider {
+        implements IAsAdminConfig {
 
 
     /**
@@ -160,7 +160,7 @@ public abstract class AbstractAsadminMojo
      * @throws org.apache.maven.plugin.MojoExecutionException MojoExecutionException
      * @throws org.apache.maven.plugin.MojoFailureException MojoFailureException
      */
-    protected abstract AsCommandList getAsCommandList()
+    protected abstract AsAdminCmdList getAsCommandList()
             throws MojoExecutionException, MojoFailureException;
 
 

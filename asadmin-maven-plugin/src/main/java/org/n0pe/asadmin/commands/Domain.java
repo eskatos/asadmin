@@ -19,7 +19,7 @@
 package org.n0pe.asadmin.commands;
 
 
-import org.n0pe.asadmin.IAsCommand;
+import org.n0pe.asadmin.IAsAdminCmd;
 
 
 /**
@@ -28,7 +28,7 @@ import org.n0pe.asadmin.IAsCommand;
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class Domain
-        implements IAsCommand {
+        implements IAsAdminCmd {
 
 
     public static final String START = "start-domain";

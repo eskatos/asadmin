@@ -20,20 +20,29 @@ package org.n0pe.asadmin;
 
 
 /**
- * IAsCommand.
- *
+ * Configuration provider for AsAdmin.
+ * 
  * @author Paul Merlin <eskatos@n0pe.org>
  */
-public interface IAsCommand {
+public interface IAsAdminConfig {
 
 
-    boolean needCredentials();
+    /**
+     * @return The username to use with asadmin.
+     */
+    String getUser();
 
 
-    String getActionCommand();
+    /**
+     * @return The file where credentials are stored.
+     */
+    String getPasswordFile();
 
 
-    String[] getParameters();
+    /**
+     * @return The glassfish home path.
+     */
+    String getGlassfishHome();
 
 
 }
