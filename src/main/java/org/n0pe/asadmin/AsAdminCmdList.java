@@ -28,7 +28,7 @@ import java.util.ArrayList;
  *
  * @author Paul Merlin <eskatos@n0pe.org>
  */
-public class AsCommandList
+public class AsAdminCmdList
         extends ArrayList {
 
 
@@ -36,50 +36,50 @@ public class AsCommandList
 
 
     /**
-     * AsCommandList CTOR.
+     * AsAdminCmdList CTOR.
      */
-    public AsCommandList() {
+    public AsAdminCmdList() {
         super();
     }
 
 
-    public boolean add(IAsCommand e) {
+    public boolean add(IAsAdminCmd e) {
         return super.add(e);
     }
 
 
-    public void add(int index, IAsCommand element) {
+    public void add(int index, IAsAdminCmd element) {
         super.add(index, element);
     }
 
 
-    public boolean contains(IAsCommand o) {
+    public boolean contains(IAsAdminCmd o) {
         return super.contains(o);
     }
 
 
-    public int indexOf(IAsCommand o) {
+    public int indexOf(IAsAdminCmd o) {
         return super.indexOf(o);
     }
 
 
-    public int lastIndexOf(IAsCommand o) {
+    public int lastIndexOf(IAsAdminCmd o) {
         return super.lastIndexOf(o);
     }
 
 
-    public boolean remove(IAsCommand o) {
+    public boolean remove(IAsAdminCmd o) {
         return super.remove(o);
     }
 
 
-    public IAsCommand set(int index, IAsCommand element) {
-        return (IAsCommand) super.set(index, element);
+    public IAsAdminCmd set(int index, IAsAdminCmd element) {
+        return (IAsAdminCmd) super.set(index, element);
     }
 
 
-    public IAsCommand[] toArray(IAsCommand[] a) {
-        return (IAsCommand[]) super.toArray(a);
+    public IAsAdminCmd[] toArray(IAsAdminCmd[] a) {
+        return (IAsAdminCmd[]) super.toArray(a);
     }
 
 

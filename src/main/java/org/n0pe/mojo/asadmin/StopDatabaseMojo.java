@@ -22,7 +22,7 @@ package org.n0pe.mojo.asadmin;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
-import org.n0pe.asadmin.AsCommandList;
+import org.n0pe.asadmin.AsAdminCmdList;
 import org.n0pe.asadmin.commands.Database;
 
 
@@ -35,10 +35,10 @@ public class StopDatabaseMojo
         extends AbstractAsadminMojo {
 
 
-    protected AsCommandList getAsCommandList()
+    protected AsAdminCmdList getAsCommandList()
             throws MojoExecutionException, MojoFailureException {
         getLog().info("Stopping database");
-        final AsCommandList list = new AsCommandList();
+        final AsAdminCmdList list = new AsAdminCmdList();
         list.add(new Database().stop());
         return list;
     }

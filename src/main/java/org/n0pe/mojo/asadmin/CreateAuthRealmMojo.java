@@ -25,7 +25,7 @@ import java.util.Map;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
-import org.n0pe.asadmin.AsCommandList;
+import org.n0pe.asadmin.AsAdminCmdList;
 import org.n0pe.asadmin.commands.CreateAuthRealm;
 
 
@@ -69,10 +69,10 @@ public class CreateAuthRealmMojo
      * @throws org.apache.maven.plugin.MojoExecutionException MojoExecutionException
      * @throws org.apache.maven.plugin.MojoFailureException MojoFailureException 
      */
-    protected AsCommandList getAsCommandList()
+    protected AsAdminCmdList getAsCommandList()
             throws MojoExecutionException, MojoFailureException {
         getLog().info("Creating auth realm: " + realmName);
-        final AsCommandList list = new AsCommandList();
+        final AsAdminCmdList list = new AsAdminCmdList();
         final CreateAuthRealm cmd = new CreateAuthRealm(realmName).withClassName(realmClassName);
         if (realmProperties != null && !realmProperties.isEmpty()) {
             final Iterator it = realmProperties.keySet().iterator();

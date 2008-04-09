@@ -64,7 +64,7 @@ public class AsAdmin {
     }
 
 
-    private IAsAdminConfigurationProvider config;
+    private IAsAdminConfig config;
 
 
     /**
@@ -73,7 +73,7 @@ public class AsAdmin {
      * @param config
      * @return
      */
-    public static AsAdmin getInstance(final IAsAdminConfigurationProvider config) {
+    public static AsAdmin getInstance(final IAsAdminConfig config) {
         if (instances == null) {
             instances = new HashMap(1);
         }
@@ -86,7 +86,7 @@ public class AsAdmin {
     }
 
 
-    private AsAdmin(final IAsAdminConfigurationProvider config) {
+    private AsAdmin(final IAsAdminConfig config) {
         this.config = config;
     }
 
@@ -95,14 +95,14 @@ public class AsAdmin {
      * Run the given list of AsAdmin command.
      * 
      * @param cmdList AsAdmin commands to be run
-     * @throws org.n0pe.asadmin.commands.AsAdminException AsAdminException
+     * @throws org.n0pe.asadmin.AsAdminException AsAdminException
      */
-    public void run(final AsCommandList cmdList)
+    public void run(final AsAdminCmdList cmdList)
             throws AsAdminException {
         final Iterator it = cmdList.iterator();
-        IAsCommand cmd;
+        IAsAdminCmd cmd;
         while (it.hasNext()) {
-            cmd = (IAsCommand) it.next();
+            cmd = (IAsAdminCmd) it.next();
             run(cmd);
         }
     }
@@ -112,9 +112,9 @@ public class AsAdmin {
      * Run the given AsAdmin command.
      * 
      * @param cmd AsAdmin command to be run
-     * @throws org.n0pe.asadmin.commands.AsAdminException AsAdminException
+     * @throws org.n0pe.asadmin.AsAdminException AsAdminException
      */
-    public void run(final IAsCommand cmd)
+    public void run(final IAsAdminCmd cmd)
             throws AsAdminException {
         try {
             final ProcessBuilder pb = new ProcessBuilder(buildProcessParams(cmd, config));
@@ -142,7 +142,7 @@ public class AsAdmin {
     }
 
 
-    public static String[] buildProcessParams(final IAsCommand cmd, final IAsAdminConfigurationProvider config) {
+    public static String[] buildProcessParams(final IAsAdminCmd cmd, final IAsAdminConfig config) {
         final String[] pbParams;
         if (cmd.needCredentials()) {
             pbParams = new String[cmd.getParameters().length + 6];
