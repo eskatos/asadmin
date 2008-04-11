@@ -47,7 +47,12 @@ public abstract class AbstractAsadminMojo
 
 
     /**
-     * 
+     * @parameter default-value="false"
+     */
+    private boolean skip;
+
+
+    /**
      * @parameter default-value="ENV"
      * @required
      */
@@ -124,6 +129,10 @@ public abstract class AbstractAsadminMojo
 
     public final void execute()
             throws MojoExecutionException, MojoFailureException {
+        if (skip) {
+            getLog().info("asadmin-maven-plugin execution is skipped");
+            return;
+        }
         try {
 
             checkConfig();
