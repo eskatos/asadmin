@@ -91,6 +91,13 @@ public abstract class AbstractAsadminMojo
 
 
     /**
+     * @parameter default-value="false"
+     * @required
+     */
+    private boolean secure;
+
+
+    /**
      * @parameter default-value="domain1"
      * @required
      */
@@ -160,6 +167,21 @@ public abstract class AbstractAsadminMojo
     }
 
 
+    public String getHost() {
+        return host;
+    }
+
+
+    public String getPort() {
+        return port;
+    }
+
+
+    public boolean isSecure() {
+        return secure;
+    }
+
+
     /**
      * Build and return a list of IAsCommand to be executed.
      * 
@@ -177,7 +199,8 @@ public abstract class AbstractAsadminMojo
             throws MojoExecutionException, MojoFailureException {
         if (StringUtils.isEmpty(glassfishHome) || "ENV".equals(glassfishHome)) {
             if (SystemUtils.JAVA_VERSION_FLOAT < 1.5) {
-                throw new MojoExecutionException("Neither GLASSFISH_HOME, AS_HOME nor the glassfishHome configuration parameter is set! Also, to save you the trouble, environment cannot be read running maven with a VM < 1.5, so set the glassFishHome configuration parameter or use -D.");
+                throw new MojoExecutionException(
+                        "Neither GLASSFISH_HOME, AS_HOME nor the glassfishHome configuration parameter is set! Also, to save you the trouble, environment cannot be read running maven with a VM < 1.5, so set the glassFishHome configuration parameter or use -D.");
             }
             glassfishHome = System.getenv("GLASSFISH_HOME");
             if (StringUtils.isEmpty(glassfishHome)) {
@@ -185,7 +208,8 @@ public abstract class AbstractAsadminMojo
             }
         }
         if (StringUtils.isEmpty(glassfishHome)) {
-            throw new MojoExecutionException("Neither GLASSFISH_HOME, AS_HOME nor the glassfishHome configuration parameter is set!");
+            throw new MojoExecutionException(
+                    "Neither GLASSFISH_HOME, AS_HOME nor the glassfishHome configuration parameter is set!");
         }
         glassfishHomeDir = new File(glassfishHome);
         if (!glassfishHomeDir.exists()) {
@@ -202,7 +226,8 @@ public abstract class AbstractAsadminMojo
             passwordfile = null;
         }
         if (StringUtils.isEmpty(passwordfile)) {
-            throw new MojoFailureException("Given password file does not exists or cannot find an existing asadmin password file");
+            throw new MojoFailureException(
+                    "Given password file does not exists or cannot find an existing asadmin password file");
         }
     }
 

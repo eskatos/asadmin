@@ -19,6 +19,8 @@
 package org.n0pe.asadmin.commands;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import org.n0pe.asadmin.IAsAdminCmd;
@@ -45,6 +47,9 @@ public class Deployment
     public static final String CONTEXTROOT_OPT = "--contextroot";
 
 
+    public static final String NAME_OPT = "--name";
+
+
     private static final int DEPLOY_MODE = 1;
 
 
@@ -61,6 +66,9 @@ public class Deployment
 
 
     private String contextRoot;
+
+
+    private String appName;
 
 
     private boolean force;
@@ -102,6 +110,12 @@ public class Deployment
     }
 
 
+    public Deployment appName(String appName) {
+        this.appName = appName;
+        return this;
+    }
+
+
     public boolean needCredentials() {
         return true;
     }
@@ -123,18 +137,20 @@ public class Deployment
             if (archive == null) {
                 throw new IllegalStateException("Cannot deploy without an archive");
             }
-            final boolean doCtxRoot = !StringUtils.isEmpty(contextRoot);
+            final List parameters = new ArrayList();
             if (force) {
-                if (doCtxRoot) {
-                    return new String[]{FORCE_OPT, CONTEXTROOT_OPT, contextRoot, archive};
-                }
-                return new String[]{FORCE_OPT, archive};
-            } else {
-                if (doCtxRoot) {
-                    return new String[]{CONTEXTROOT_OPT, contextRoot, archive};
-                }
-                return new String[]{archive};
+                parameters.add(FORCE_OPT);
             }
+            if (!StringUtils.isEmpty(contextRoot)) {
+                parameters.add(CONTEXTROOT_OPT);
+                parameters.add(contextRoot);
+            }
+            if (!StringUtils.isEmpty(appName)) {
+                parameters.add(NAME_OPT);
+                parameters.add(appName);
+            }
+            parameters.add(archive);
+            return (String[]) parameters.toArray(new String[parameters.size()]);
         } else if (ACTION == UNDEPLOY_MODE) {
             if (component == null) {
                 throw new IllegalStateException("Cannot undeploy without a component");

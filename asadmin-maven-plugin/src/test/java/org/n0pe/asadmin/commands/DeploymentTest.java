@@ -61,11 +61,13 @@ public class DeploymentTest
             assertEquals(goodParams[i], deployCmd.getParameters()[i]);
         }
         goodParams = new String[]{AsAdmin.ASADMIN_COMMAND_NAME, deployCmd.getActionCommand(),
+                                  AsAdmin.HOST_OPT, TestAsConfigProvider.HOST,
+                                  AsAdmin.PORT_OPT, TestAsConfigProvider.PORT,
                                   AsAdmin.USER_OPT, TestAsConfigProvider.USER_NAME,
                                   AsAdmin.PASSWORDFILE_OPT, TestAsConfigProvider.PASSWORD_FILE,
                                   Deployment.CONTEXTROOT_OPT, CONTEXT_ROOT,
                                   ARCHIVE_NAME
-        };
+                };
         final String[] processParams = AsAdmin.buildProcessParams(deployCmd, TestAsConfigProvider.getInstance());
         assertEquals(goodParams.length, processParams.length);
         for (int i = 0; i < goodParams.length; i++) {
@@ -93,7 +95,7 @@ public class DeploymentTest
                                   AsAdmin.USER_OPT, TestAsConfigProvider.USER_NAME,
                                   AsAdmin.PASSWORDFILE_OPT, TestAsConfigProvider.PASSWORD_FILE,
                                   COMPONENT_NAME
-        };
+                };
         final String[] processParams = AsAdmin.buildProcessParams(undeployCmd, TestAsConfigProvider.getInstance());
         assertEquals(goodParams.length, processParams.length);
         for (int i = 0; i < goodParams.length; i++) {
