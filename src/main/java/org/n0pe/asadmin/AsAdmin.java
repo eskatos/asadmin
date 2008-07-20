@@ -77,7 +77,7 @@ public class AsAdmin {
     static {
         ASADMIN_COMMAND_NAME = SystemUtils.IS_OS_WINDOWS
                 ? "asadmin.bat"
-                : "./asadmin";
+                : "asadmin";
     }
 
 

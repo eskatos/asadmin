@@ -105,7 +105,7 @@ public abstract class AbstractAsadminMojo
 
 
     /**
-     * @parameter expression="${project.build.directory}/${project.build.finalName}.${project.packaging}"
+     * @parameter expression="${project.build.directory}/${project.build.finalName}.${project.artifact.artifactHandler.extension}"
      * @required
      */
     protected String appArchive;

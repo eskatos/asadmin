@@ -41,6 +41,9 @@ public class RedeployMojo
         if ("war".equalsIgnoreCase(mavenProject.getPackaging()) && !StringUtils.isEmpty(contextRoot)) {
             d.withContextRoot(contextRoot);
         }
+        if (!StringUtils.isEmpty(appName)) {
+            d.appName(appName);
+        }
         list.add(d.force(true).deploy());
         return list;
     }
