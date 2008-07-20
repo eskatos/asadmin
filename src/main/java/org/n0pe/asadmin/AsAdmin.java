@@ -22,6 +22,7 @@ package org.n0pe.asadmin;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -123,19 +124,49 @@ public class AsAdmin {
             final File gfBinPath = new File(config.getGlassfishHome() + File.separator + "bin");
             final String[] cmds = buildProcessParams(cmd, config);
             cmds[0] = gfBinPath + File.separator + cmds[0];
-            final ProcessBuilder pb = new ProcessBuilder(cmds);
-            pb.directory(gfBinPath);
-            System.out.println("AsAdmin will run the following command : " + pb.command());
-            final Process p = pb.start();
-            final BufferedReader br = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-            final StringWriter sw = new StringWriter();
-            String ln;
-            while ((ln = br.readLine()) != null) {
-                sw.append(ln);
+            int exitCode;
+            String errorOutput = "";
+            if (SystemUtils.IS_OS_WINDOWS) {
+                // Windows
+                final StringBuffer arg = new StringBuffer();
+                for (int i = 0; i < cmds.length; i++) {
+                    arg.append(cmds[i]);
+                    arg.append(" ");
+                }
+                final String args = arg.toString();
+                final String[] cm = new String[3];
+                if (SystemUtils.IS_OS_WINDOWS_95 || SystemUtils.IS_OS_WINDOWS_98 || SystemUtils.IS_OS_WINDOWS_ME) {
+                    cm[0] = "command.com";
+                    cm[1] = "/C";
+                    cm[2] = args;
+                } else {
+                    cm[0] = "cmd.exe";
+                    cm[1] = "/C";
+                    cm[2] = args;
+                }
+                System.out.println("AsAdmin will run the following command: " + cm[0] + " " + cm[1] + " " + cm[2]);
+                final Process proc = Runtime.getRuntime().exec(cm);
+                final StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "ERROR");
+                final StreamGobbler outputGobbler = new StreamGobbler(proc.getInputStream(), "OUTPUT");
+                errorGobbler.start();
+                outputGobbler.start();
+                exitCode = proc.waitFor();
+            } else {
+                // Non Windows
+                final ProcessBuilder pb = new ProcessBuilder(cmds);
+                pb.directory(gfBinPath);
+                System.out.println("AsAdmin will run the following command: " + pb.command());
+                final Process p = pb.start();
+                final BufferedReader br = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+                final StringWriter sw = new StringWriter();
+                String ln;
+                while ((ln = br.readLine()) != null) {
+                    sw.append(ln);
+                }
+                p.waitFor();
+                exitCode = p.exitValue();
+                errorOutput = sw.toString();
             }
-            p.waitFor();
-            final int exitCode = p.exitValue();
-            final String errorOutput = sw.toString();
             if (errorOutput.contains(ASADMIN_FAILED)) {
                 throw new AsAdminException("asadmin returned : " + String.valueOf(exitCode) +
                                            " error output is : \n" + errorOutput);
@@ -170,6 +201,39 @@ public class AsAdmin {
             }
         }
         return pbParams;
+    }
+
+
+    private class StreamGobbler
+            extends Thread {
+
+
+        private InputStream is;
+
+
+        private String type;
+
+
+        private StreamGobbler(InputStream is, String type) {
+            this.is = is;
+            this.type = type;
+        }
+
+
+        public void run() {
+            try {
+                InputStreamReader isr = new InputStreamReader(is);
+                BufferedReader br = new BufferedReader(isr);
+                String line = null;
+                while ((line = br.readLine()) != null) {
+                    System.out.println(type + ">" + line);
+                }
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
+
+
     }
 
 
