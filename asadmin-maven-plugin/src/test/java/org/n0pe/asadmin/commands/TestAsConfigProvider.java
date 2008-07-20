@@ -79,17 +79,17 @@ public class TestAsConfigProvider
     }
 
 
-    public static String getHost() {
+    public String getHost() {
         return HOST;
     }
 
 
-    public static String getPort() {
+    public String getPort() {
         return PORT;
     }
 
 
-    public static boolean isSecure() {
+    public boolean isSecure() {
         return SECURE;
     }
 
