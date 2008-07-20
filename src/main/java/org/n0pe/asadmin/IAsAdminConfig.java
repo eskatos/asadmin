@@ -45,4 +45,22 @@ public interface IAsAdminConfig {
     String getGlassfishHome();
 
 
+    /**
+     * @return The glassfish host.
+     */
+    String getHost();
+
+
+    /**
+     * @return The glassfish port.
+     */
+    String getPort();
+
+
+    /**
+     * @return True if gf admin connection is secure.
+     */
+    boolean isSecure();
+
+
 }

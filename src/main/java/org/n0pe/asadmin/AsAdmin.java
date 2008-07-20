@@ -25,10 +25,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
 
 
@@ -47,6 +51,15 @@ public class AsAdmin {
 
 
     private static Map instances;
+
+
+    public static final String HOST_OPT = "--host";
+
+
+    public static final String PORT_OPT = "--port";
+
+
+    public static final String SECURE_OPT = "--secure";
 
 
     public static final String USER_OPT = "--user";
@@ -180,27 +193,28 @@ public class AsAdmin {
 
 
     public static String[] buildProcessParams(final IAsAdminCmd cmd, final IAsAdminConfig config) {
-        final String[] pbParams;
-        if (cmd.needCredentials()) {
-            pbParams = new String[cmd.getParameters().length + 6];
-            pbParams[0] = ASADMIN_COMMAND_NAME;
-            pbParams[1] = cmd.getActionCommand();
-            pbParams[2] = USER_OPT;
-            pbParams[3] = config.getUser();
-            pbParams[4] = PASSWORDFILE_OPT;
-            pbParams[5] = config.getPasswordFile();
-            for (int i = 0; i < cmd.getParameters().length; i++) {
-                pbParams[i + 6] = cmd.getParameters()[i];
-            }
-        } else {
-            pbParams = new String[cmd.getParameters().length + 2];
-            pbParams[0] = ASADMIN_COMMAND_NAME;
-            pbParams[1] = cmd.getActionCommand();
-            for (int i = 0; i < cmd.getParameters().length; i++) {
-                pbParams[i + 2] = cmd.getParameters()[i];
-            }
+        final List pbParams = new ArrayList();
+        pbParams.add(ASADMIN_COMMAND_NAME);
+        pbParams.add(cmd.getActionCommand());
+        if (!StringUtils.isEmpty(config.getHost())) {
+            pbParams.add(HOST_OPT);
+            pbParams.add(config.getHost());
         }
-        return pbParams;
+        if (!StringUtils.isEmpty(config.getPort())) {
+            pbParams.add(PORT_OPT);
+            pbParams.add(config.getPort());
+        }
+        if (config.isSecure()) {
+            pbParams.add(SECURE_OPT);
+        }
+        if (cmd.needCredentials()) {
+            pbParams.add(USER_OPT);
+            pbParams.add(config.getUser());
+            pbParams.add(PASSWORDFILE_OPT);
+            pbParams.add(config.getPasswordFile());
+        }
+        pbParams.addAll(Arrays.asList(cmd.getParameters()));
+        return (String[]) pbParams.toArray(new String[pbParams.size()]);
     }
 
 

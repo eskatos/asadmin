@@ -31,6 +31,15 @@ public class TestAsConfigProvider
         implements IAsAdminConfig {
 
 
+    public static final String HOST = "deploy.host";
+
+
+    public static final String PORT = "deploy.port";
+
+
+    public static final boolean SECURE = false;
+
+
     public static final String USER_NAME = "user.name";
 
 
@@ -67,6 +76,21 @@ public class TestAsConfigProvider
 
     public String getGlassfishHome() {
         return GLASSFISH_HOME;
+    }
+
+
+    public static String getHost() {
+        return HOST;
+    }
+
+
+    public static String getPort() {
+        return PORT;
+    }
+
+
+    public static boolean isSecure() {
+        return SECURE;
     }
 
 
