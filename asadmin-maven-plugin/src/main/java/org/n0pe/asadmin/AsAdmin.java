@@ -57,6 +57,9 @@ public class AsAdmin {
     public static String ASADMIN_COMMAND_NAME;
 
 
+    
+
+
     static {
         ASADMIN_COMMAND_NAME = SystemUtils.IS_OS_WINDOWS
                 ? "asadmin.bat"
@@ -117,8 +120,11 @@ public class AsAdmin {
     public void run(final IAsAdminCmd cmd)
             throws AsAdminException {
         try {
-            final ProcessBuilder pb = new ProcessBuilder(buildProcessParams(cmd, config));
-            pb.directory(new File(config.getGlassfishHome() + File.separator + "bin"));
+            final File gfBinPath = new File(config.getGlassfishHome() + File.separator + "bin");
+            final String[] cmds = buildProcessParams(cmd, config);
+            cmds[0] = gfBinPath + File.separator + cmds[0];
+            final ProcessBuilder pb = new ProcessBuilder(cmds);
+            pb.directory(gfBinPath);
             System.out.println("AsAdmin will run the following command : " + pb.command());
             final Process p = pb.start();
             final BufferedReader br = new BufferedReader(new InputStreamReader(p.getErrorStream()));
