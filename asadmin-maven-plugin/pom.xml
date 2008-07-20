@@ -3,7 +3,7 @@
     
     <groupId>org.n0pe.mojo</groupId>
     <artifactId>asadmin-maven-plugin</artifactId>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
     
     <packaging>maven-plugin</packaging>
     
@@ -49,12 +49,12 @@
         <repository>
             <id>asadmin-maven-plugin-releases-repository</id>
             <name>asadmin-maven-plugin maven releases repository</name>
-            <url>file://${basedir}/../repository/releases</url>
+            <url>file://${basedir}/../../repository/releases</url>
         </repository>
         <snapshotRepository>
             <id>asadmin-maven-plugin-shapshots-repository</id>
             <name>asadmin-maven-plugin maven snapshots repository</name>
-            <url>file://${basedir}/../repository/snapshots</url>
+            <url>file://${basedir}/../../repository/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
     
