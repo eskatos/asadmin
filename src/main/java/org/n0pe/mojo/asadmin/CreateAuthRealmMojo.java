@@ -22,8 +22,6 @@ package org.n0pe.mojo.asadmin;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 
 import org.n0pe.asadmin.AsAdminCmdList;
 import org.n0pe.asadmin.commands.CreateAuthRealm;
@@ -66,11 +64,8 @@ public class CreateAuthRealmMojo
      * [--target target(Default server)] auth_realm_name
      * 
      * @return asadmin commands
-     * @throws org.apache.maven.plugin.MojoExecutionException MojoExecutionException
-     * @throws org.apache.maven.plugin.MojoFailureException MojoFailureException 
      */
-    protected AsAdminCmdList getAsCommandList()
-            throws MojoExecutionException, MojoFailureException {
+    protected AsAdminCmdList getAsCommandList() {
         getLog().info("Creating auth realm: " + realmName);
         final AsAdminCmdList list = new AsAdminCmdList();
         final CreateAuthRealm cmd = new CreateAuthRealm(realmName).withClassName(realmClassName);

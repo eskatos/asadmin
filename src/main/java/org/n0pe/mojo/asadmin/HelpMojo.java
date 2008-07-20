@@ -20,8 +20,6 @@ package org.n0pe.mojo.asadmin;
 
 
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 
 
 /**
@@ -35,8 +33,7 @@ public class HelpMojo
         extends AbstractMojo {
 
 
-    public void execute()
-            throws MojoExecutionException, MojoFailureException {
+    public void execute() {
         getLog().info("asadmin-glassfish-plugin help");
         displayCopyrightNotice();
     }
