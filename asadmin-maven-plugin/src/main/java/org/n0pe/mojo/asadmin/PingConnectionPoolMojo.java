@@ -19,9 +19,6 @@
 package org.n0pe.mojo.asadmin;
 
 
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-
 import org.n0pe.asadmin.AsAdminCmdList;
 import org.n0pe.asadmin.commands.PingConnectionPool;
 
@@ -42,8 +39,7 @@ public class PingConnectionPoolMojo
     private String connectionPoolName;
 
 
-    protected AsAdminCmdList getAsCommandList()
-            throws MojoExecutionException, MojoFailureException {
+    protected AsAdminCmdList getAsCommandList() {
         getLog().info("Pinging connection pool: " + connectionPoolName);
         final AsAdminCmdList list = new AsAdminCmdList();
         list.add(new PingConnectionPool(connectionPoolName));

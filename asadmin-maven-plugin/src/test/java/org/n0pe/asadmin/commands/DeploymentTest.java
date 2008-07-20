@@ -92,6 +92,8 @@ public class DeploymentTest
             assertEquals(goodParams[i], undeployCmd.getParameters()[i]);
         }
         goodParams = new String[]{AsAdmin.ASADMIN_COMMAND_NAME, undeployCmd.getActionCommand(),
+                                  AsAdmin.HOST_OPT, TestAsConfigProvider.HOST,
+                                  AsAdmin.PORT_OPT, TestAsConfigProvider.PORT,
                                   AsAdmin.USER_OPT, TestAsConfigProvider.USER_NAME,
                                   AsAdmin.PASSWORDFILE_OPT, TestAsConfigProvider.PASSWORD_FILE,
                                   COMPONENT_NAME

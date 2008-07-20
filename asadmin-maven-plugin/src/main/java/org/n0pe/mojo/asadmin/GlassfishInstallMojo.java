@@ -37,25 +37,25 @@ public class GlassfishInstallMojo
     public void execute()
             throws MojoExecutionException, MojoFailureException {
 
-    // install glassfish
-    // setup domain
-    // add lib
-    // add lib/endorsed
-    // add domain/xxxxxx/lib
+        // install glassfish
+        // setup domain
+        // add lib
+        // add lib/endorsed
+        // add domain/xxxxxx/lib
 
 
-    //                <echo file="${dependency.base.dir}/install.bat">
-    //<![CDATA[
-    //echo a > input
-    //java -Xmx256m -jar ${dependency.base.dir}/${glassfish.installer.jar} -console < ./input
-    //]]>
-    //                </echo>
-    //                <chmod file="${dependency.base.dir}/install.bat" perm="700"/>
-    //                <exec executable="${dependency.base.dir}/install.bat" dir="${dependency.base.dir}" />
-    //                <delete file="${dependency.base.dir}/install.bat"/>
-    //                <delete file="${dependency.base.dir}/input"/>
-    //                <ant antfile="${glassfish.home}/setup.xml" dir="${glassfish.home}" target="setup"/>
-    //                <echo file="${dependency.base.dir}/glassfish/password.txt">AS_ADMIN_PASSWORD=adminadmin</echo>
+        //                <echo file="${dependency.base.dir}/install.bat">
+        //<![CDATA[
+        //echo a > input
+        //java -Xmx256m -jar ${dependency.base.dir}/${glassfish.installer.jar} -console < ./input
+        //]]>
+        //                </echo>
+        //                <chmod file="${dependency.base.dir}/install.bat" perm="700"/>
+        //                <exec executable="${dependency.base.dir}/install.bat" dir="${dependency.base.dir}" />
+        //                <delete file="${dependency.base.dir}/install.bat"/>
+        //                <delete file="${dependency.base.dir}/input"/>
+        //                <ant antfile="${glassfish.home}/setup.xml" dir="${glassfish.home}" target="setup"/>
+        //                <echo file="${dependency.base.dir}/glassfish/password.txt">AS_ADMIN_PASSWORD=adminadmin</echo>
 
         throw new UnsupportedOperationException("Not supported yet.");
     }

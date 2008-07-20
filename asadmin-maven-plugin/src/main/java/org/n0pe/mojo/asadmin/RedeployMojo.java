@@ -19,8 +19,7 @@
 package org.n0pe.mojo.asadmin;
 
 
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
+import org.apache.commons.lang.StringUtils;
 
 import org.n0pe.asadmin.AsAdminCmdList;
 import org.n0pe.asadmin.commands.Deployment;
@@ -35,12 +34,11 @@ public class RedeployMojo
         extends AbstractAsadminMojo {
 
 
-    protected AsAdminCmdList getAsCommandList()
-            throws MojoExecutionException, MojoFailureException {
+    protected AsAdminCmdList getAsCommandList() {
         getLog().info("Redeploying application archive: " + appArchive);
         final AsAdminCmdList list = new AsAdminCmdList();
         final Deployment d = new Deployment().archive(appArchive);
-        if ("war".equalsIgnoreCase(mavenProject.getPackaging())) {
+        if ("war".equalsIgnoreCase(mavenProject.getPackaging()) && !StringUtils.isEmpty(contextRoot)) {
             d.withContextRoot(contextRoot);
         }
         list.add(d.force(true).deploy());
