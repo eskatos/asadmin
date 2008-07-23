@@ -34,6 +34,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
+import org.n0pe.asadmin.commands.Domain;
 
 
 /**
@@ -196,11 +197,11 @@ public class AsAdmin {
         final List pbParams = new ArrayList();
         pbParams.add(ASADMIN_COMMAND_NAME);
         pbParams.add(cmd.getActionCommand());
-        if (!StringUtils.isEmpty(config.getHost())) {
+        if (!StringUtils.isEmpty(config.getHost()) && !Domain.START.equals(cmd.getActionCommand())) {
             pbParams.add(HOST_OPT);
             pbParams.add(config.getHost());
         }
-        if (!StringUtils.isEmpty(config.getPort())) {
+        if (!StringUtils.isEmpty(config.getPort()) && !Domain.START.equals(cmd.getActionCommand())) {
             pbParams.add(PORT_OPT);
             pbParams.add(config.getPort());
         }
