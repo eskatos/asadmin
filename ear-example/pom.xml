@@ -49,6 +49,10 @@
                             <groupId>org.n0pe.mojo.examples</groupId>
                             <artifactId>war-example</artifactId>
                         </webModule>
+			<ejbModule>
+                            <groupId>org.n0pe.mojo.examples</groupId>
+                            <artifactId>ejb-example</artifactId>
+			</ejbModule>
                     </modules>
                 </configuration>
             </plugin>
@@ -85,6 +89,12 @@
             <artifactId>war-example</artifactId>
             <version>0.1-SNAPSHOT</version>
             <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.n0pe.mojo.examples</groupId>
+            <artifactId>ejb-example</artifactId>
+            <version>0.1-SNAPSHOT</version>
+            <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
