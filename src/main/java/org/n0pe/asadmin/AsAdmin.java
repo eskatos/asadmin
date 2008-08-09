@@ -197,11 +197,15 @@ public class AsAdmin {
         final List pbParams = new ArrayList();
         pbParams.add(ASADMIN_COMMAND_NAME);
         pbParams.add(cmd.getActionCommand());
-        if (!StringUtils.isEmpty(config.getHost()) && !Domain.START.equals(cmd.getActionCommand())) {
+        if (!StringUtils.isEmpty(config.getHost()) &&
+                !Domain.START.equals(cmd.getActionCommand()) &&
+                !Domain.STOP.equals(cmd.getActionCommand())) {
             pbParams.add(HOST_OPT);
             pbParams.add(config.getHost());
         }
-        if (!StringUtils.isEmpty(config.getPort()) && !Domain.START.equals(cmd.getActionCommand())) {
+        if (!StringUtils.isEmpty(config.getPort()) &&
+                !Domain.START.equals(cmd.getActionCommand()) &&
+                !Domain.STOP.equals(cmd.getActionCommand())) {
             pbParams.add(PORT_OPT);
             pbParams.add(config.getPort());
         }
