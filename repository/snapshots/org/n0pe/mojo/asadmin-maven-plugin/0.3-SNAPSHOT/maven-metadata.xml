@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><metadata>
   <groupId>org.n0pe.mojo</groupId>
   <artifactId>asadmin-maven-plugin</artifactId>
-  <version>0.1-SNAPSHOT</version>
+  <version>0.3-SNAPSHOT</version>
   <versioning>
-    <latest>0.3-SNAPSHOT</latest>
-    <versions>
-      <version>0.1-SNAPSHOT</version>
-      <version>0.3-SNAPSHOT</version>
-    </versions>
+    <snapshot>
+      <timestamp>20080812.154317</timestamp>
+      <buildNumber>1</buildNumber>
+    </snapshot>
     <lastUpdated>20080812154317</lastUpdated>
   </versioning>
 </metadata>
