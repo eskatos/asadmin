@@ -200,7 +200,9 @@ public abstract class AbstractAsadminMojo
         if (StringUtils.isEmpty(glassfishHome) || "ENV".equals(glassfishHome)) {
             if (SystemUtils.JAVA_VERSION_FLOAT < 1.5) {
                 throw new MojoExecutionException(
-                        "Neither GLASSFISH_HOME, AS_HOME nor the glassfishHome configuration parameter is set! Also, to save you the trouble, environment cannot be read running maven with a VM < 1.5, so set the glassFishHome configuration parameter or use -D.");
+                        "Neither GLASSFISH_HOME, AS_HOME nor the glassfishHome configuration parameter is set! " +
+                        "Also, to save you the trouble, environment cannot be read running maven with a VM < 1.5, " +
+                        "so set the glassFishHome configuration parameter or use -D.");
             }
             glassfishHome = System.getenv("GLASSFISH_HOME");
             if (StringUtils.isEmpty(glassfishHome)) {
