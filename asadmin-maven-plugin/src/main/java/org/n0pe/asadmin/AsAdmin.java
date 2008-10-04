@@ -159,7 +159,7 @@ public class AsAdmin {
                     cm[1] = "/C";
                     cm[2] = args;
                 }
-                System.out.println("AsAdmin will run the following command: " + cm[0] + " " + cm[1] + " " + cm[2]);
+                // System.out.println("AsAdmin will run the following command: " + cm[0] + " " + cm[1] + " " + cm[2]);
                 final Process proc = Runtime.getRuntime().exec(cm);
                 final StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "ERROR");
                 final StreamGobbler outputGobbler = new StreamGobbler(proc.getInputStream(), "OUTPUT");
@@ -170,7 +170,7 @@ public class AsAdmin {
                 // Non Windows
                 final ProcessBuilder pb = new ProcessBuilder(cmds);
                 pb.directory(gfBinPath);
-                System.out.println("AsAdmin will run the following command: " + pb.command());
+                // System.out.println("AsAdmin will run the following command: " + pb.command());
                 final Process p = pb.start();
                 final BufferedReader br = new BufferedReader(new InputStreamReader(p.getErrorStream()));
                 final StringWriter sw = new StringWriter();
