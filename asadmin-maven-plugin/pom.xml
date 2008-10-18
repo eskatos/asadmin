@@ -1,29 +1,24 @@
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
     <groupId>org.n0pe.mojo</groupId>
     <artifactId>asadmin-maven-plugin</artifactId>
     <version>0.3-SNAPSHOT</version>
-    
     <packaging>maven-plugin</packaging>
-    
     <name>asadmin-maven-plugin</name>
     <url>http://eskatos.wordpress.com</url>
     <description>asadmin based maven plugin for projects using Glassfish</description>
-    
     <licenses>
         <license>
             <name>GPLv3</name>
             <url>http://www.gnu.org/copyleft/gpl.html</url>
         </license>
     </licenses>
-    
     <scm>
         <url>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin</url>
         <connection>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin</connection>
         <developerConnection>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin</developerConnection>
     </scm>
-    
     <build>
         <plugins>
             <plugin>
@@ -31,7 +26,10 @@
                 <artifactId>maven-source-plugin</artifactId>
                 <executions>
                     <execution>
-                        <goals><goal>jar</goal></goals>
+                        <goals>
+                            <goal>jar
+                            </goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -44,7 +42,6 @@
             </plugin>
         </plugins>
     </build>
-    
     <distributionManagement>
         <repository>
             <id>asadmin-maven-plugin-releases-repository</id>
@@ -57,8 +54,12 @@
             <url>file://${basedir}/../../../repository/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
-    
     <dependencies>
+        <dependency>
+            <groupId>org.n0pe.mojo</groupId>
+            <artifactId>asadmin-java</artifactId>
+            <version>0.3-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <artifactId>maven-plugin-testing-harness</artifactId>
             <groupId>org.apache.maven.shared</groupId>
@@ -92,7 +93,6 @@
             <version>2.1</version>
         </dependency>
     </dependencies>
-    
     <reporting>
         <plugins>
             <plugin>
@@ -107,5 +107,4 @@
             </plugin>
         </plugins>
     </reporting>
-    
 </project>
