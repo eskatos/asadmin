@@ -24,40 +24,33 @@ import org.n0pe.asadmin.commands.Set;
 
 
 /**
- * @goal set-ports
- * @description AsAdmin set-ports mojo
+ * @goal set
+ * @description AsAdmin set property
  * @author Paul Merlin <eskatos@n0pe.org>
  */
-public class SetPortsMojo
+public class SetMojo
         extends AbstractAsadminMojo {
 
 
-    private static final String HTTP_LISTENER = "server.http-service.http-listener.http-listener-1.port";
-
-
-    private static final String HTTPS_LISTENER = "server.http-service.http-listener.http-listener-2.port";
+    /**
+     * @parameter
+     * @required
+     */
+    private String property;
 
 
     /**
-     * @parameter default-value="8081"
+     * @parameter
      * @required
      */
-    private String httpListenerPort;
-
-
-    /**
-     * @parameter default-value="8181"
-     * @required
-     */
-    private String httpsListenerPort;
+    private String value;
 
 
     protected AsAdminCmdList getAsCommandList() {
-        getLog().info("Setting listeners ports : HTTP(" + httpListenerPort +
-                      ") HTTPS(" + httpsListenerPort + ")");
+        getLog().info("Setting property : " + property +
+                      "=" + value + ")");
         final AsAdminCmdList list = new AsAdminCmdList();
-        list.add(new Set(HTTP_LISTENER, httpListenerPort));
-        list.add(new Set(HTTPS_LISTENER, httpsListenerPort));
+        list.add(new Set(property, value));
         return list;
     }
 
