@@ -52,10 +52,7 @@ public class DeploymentTest
         deployCmd.deploy();
         assertTrue(deployCmd.needCredentials());
         assertEquals(Deployment.DEPLOY, deployCmd.getActionCommand());
-        String[] goodParams = new String[]{Deployment.CONTEXTROOT_OPT,
-                                           CONTEXT_ROOT,
-                                           ARCHIVE_NAME
-        };
+        String[] goodParams = new String[]{Deployment.CONTEXTROOT_OPT, CONTEXT_ROOT, ARCHIVE_NAME};
         assertEquals(goodParams.length, deployCmd.getParameters().length);
         for (int i = 0; i < goodParams.length; i++) {
             assertEquals(goodParams[i], deployCmd.getParameters()[i]);

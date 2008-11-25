@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+   asadmin-glassfish-plugin war-exemple : a war exemple using asadmin-maven-plugin
+   
+   Copyright (C) 2008  Paul Merlin
+   
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+   
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <name>basic-example</name>
+    <description>TODO : écrire une description</description>
+    <packaging>pom</packaging>
+    <groupId>org.n0pe.mojo.examples</groupId>
+    <artifactId>basic-example</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.n0pe.mojo</groupId>
+                <artifactId>asadmin-maven-plugin</artifactId>
+                <version>0.3-SNAPSHOT</version>
+                <configuration>
+                    <properties>
+                        <!-- domain -->
+                        <property>domain.*</property>
+                        <!--property>domain.resources.*</property-->
+                        <!-- server -->
+                        <property>server-config.*</property>
+                        <property>server-config.java-config.*</property>
+                        <property>server-config.admin-service.*</property>
+                        <property>server-config.log-service.*</property>
+                        <property>server-config.ejb-container.*</property>
+                        <property>server-config.diagnostic-service.*</property>
+                        <!--property>server-config.monitoring-service.*</property-->
+                        <property>server-config.security-service.*</property>
+                        <!-- HTTP -->
+                        <property>server-config.http-service.http-protocol.*</property>
+                        <property>server-config.http-service.connection-pool.*</property>
+                        <property>server-config.http-service.keep-alive.*</property>
+                        <property>server-config.http-service.request-processing.*</property>
+                        <property>server-config.http-service.access-log.*</property>
+                        <!-- HTTP : listeners -->
+                        <property>server-config.http-service.http-listener.admin-listener.*</property>
+                        <property>server-config.http-service.http-listener.http-listener-1.*</property>
+                        <property>server-config.http-service.http-listener.http-listener-2.*</property>
+                        <!-- SOAP -->
+                        <property>server-config.security-service.message-security-config.SOAP.*</property>
+                        <property>server-config.security-service.message-security-config.SOAP.provider-config.DirectorySAM4WebAdmin.*</property>
+                    </properties>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

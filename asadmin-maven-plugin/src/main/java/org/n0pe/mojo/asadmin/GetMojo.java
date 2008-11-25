@@ -16,51 +16,36 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.n0pe.asadmin.commands;
+package org.n0pe.mojo.asadmin;
 
 
-import org.apache.commons.lang.StringUtils;
-
-import org.n0pe.asadmin.IAsAdminCmd;
-import org.n0pe.asadmin.Util;
+import org.n0pe.asadmin.AsAdminCmdList;
+import org.n0pe.asadmin.commands.Get;
 
 
 /**
- * Set.
- *
+ * @goal get
+ * @description AsAdmin set property
  * @author Paul Merlin <eskatos@n0pe.org>
  */
-public class Set
-        implements IAsAdminCmd {
+public class GetMojo
+        extends AbstractAsadminMojo {
 
 
-    private String property;
+    /**
+     * @parameter
+     * @required
+     */
+    private String[] properties;
 
 
-    private String value;
-
-
-    public Set(String propertyName, String propertyValue) {
-        property = propertyName;
-        value = propertyValue;
-    }
-
-
-    public boolean needCredentials() {
-        return false;
-    }
-
-
-    public String getActionCommand() {
-        return "set";
-    }
-
-
-    public String[] getParameters() {
-        if (StringUtils.isEmpty(property) || StringUtils.isEmpty(value)) {
-            throw new IllegalStateException();
+    protected AsAdminCmdList getAsCommandList() {
+        getLog().info("Getting property : " + properties);
+        final AsAdminCmdList list = new AsAdminCmdList();
+        for (int i = 0; i < properties.length; i++) {
+            list.add(new Get(properties[i]));
         }
-        return new String[]{property + "=" + Util.quoteCommandArgument(value)};
+        return list;
     }
 
 

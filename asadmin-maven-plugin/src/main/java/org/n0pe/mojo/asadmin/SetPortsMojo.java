@@ -55,7 +55,6 @@ public class SetPortsMojo
     protected AsAdminCmdList getAsCommandList() {
         getLog().info("Setting listeners ports : HTTP(" + httpListenerPort +
                       ") HTTPS(" + httpsListenerPort + ")");
-        getLog().info("Deploying application archive: " + appArchive);
         final AsAdminCmdList list = new AsAdminCmdList();
         list.add(new Set(HTTP_LISTENER, httpListenerPort));
         list.add(new Set(HTTPS_LISTENER, httpsListenerPort));
