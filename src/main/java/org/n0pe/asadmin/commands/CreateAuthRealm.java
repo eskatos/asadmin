@@ -27,6 +27,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 import org.n0pe.asadmin.IAsAdminCmd;
+import org.n0pe.asadmin.Util;
 
 
 /**
@@ -97,7 +98,7 @@ public class CreateAuthRealm
             String key;
             for (final Iterator it = properties.keySet().iterator(); it.hasNext();) {
                 key = (String) it.next();
-                sw.append(key).append("=").append((String) properties.get(key));
+                sw.append(key).append("=").append(Util.quoteCommandArgument((String) properties.get(key)));
                 if (it.hasNext()) {
                     sw.append(":");
                 }

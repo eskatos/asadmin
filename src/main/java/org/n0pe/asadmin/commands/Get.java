@@ -22,27 +22,22 @@ package org.n0pe.asadmin.commands;
 import org.apache.commons.lang.StringUtils;
 
 import org.n0pe.asadmin.IAsAdminCmd;
-import org.n0pe.asadmin.Util;
 
 
 /**
- * Set.
+ * Get.
  *
  * @author Paul Merlin <eskatos@n0pe.org>
  */
-public class Set
+public class Get
         implements IAsAdminCmd {
 
 
     private String property;
 
 
-    private String value;
-
-
-    public Set(String propertyName, String propertyValue) {
+    public Get(String propertyName) {
         property = propertyName;
-        value = propertyValue;
     }
 
 
@@ -52,15 +47,15 @@ public class Set
 
 
     public String getActionCommand() {
-        return "set";
+        return "get";
     }
 
 
     public String[] getParameters() {
-        if (StringUtils.isEmpty(property) || StringUtils.isEmpty(value)) {
+        if (StringUtils.isEmpty(property)) {
             throw new IllegalStateException();
         }
-        return new String[]{property + "=" + Util.quoteCommandArgument(value)};
+        return new String[]{property};
     }
 
 
