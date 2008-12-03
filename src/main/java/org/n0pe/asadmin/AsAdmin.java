@@ -34,6 +34,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
 
+import org.n0pe.asadmin.commands.Database;
 import org.n0pe.asadmin.commands.Domain;
 
 
@@ -46,6 +47,7 @@ import org.n0pe.asadmin.commands.Domain;
  * TODO : handle asadmin invocation return codes with exceptions
  * 
  * @author Paul Merlin <eskatos@n0pe.org>
+ * @author Christophe Souvignier <chris.so@free.fr>
  */
 public class AsAdmin {
 
@@ -185,13 +187,17 @@ public class AsAdmin {
         pbParams.add(cmd.getActionCommand());
         if (!StringUtils.isEmpty(config.getHost()) &&
                 !Domain.START.equals(cmd.getActionCommand()) &&
-                !Domain.STOP.equals(cmd.getActionCommand())) {
+                !Domain.STOP.equals(cmd.getActionCommand()) && 
+                !Database.STOP.equals(cmd.getActionCommand()) &&
+                !Database.START.equals(cmd.getActionCommand())) {
             pbParams.add(HOST_OPT);
             pbParams.add(config.getHost());
         }
         if (!StringUtils.isEmpty(config.getPort()) &&
                 !Domain.START.equals(cmd.getActionCommand()) &&
-                !Domain.STOP.equals(cmd.getActionCommand())) {
+                !Domain.STOP.equals(cmd.getActionCommand()) &&
+                !Database.STOP.equals(cmd.getActionCommand()) &&
+                !Database.START.equals(cmd.getActionCommand())) {
             pbParams.add(PORT_OPT);
             pbParams.add(config.getPort());
         }
