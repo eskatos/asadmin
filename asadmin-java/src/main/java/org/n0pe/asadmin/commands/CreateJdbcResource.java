@@ -1,83 +1,69 @@
 /**
  * asadmin-glassfish-plugin : a maven plugin for glassfish administratives tasks
- * 
+ *
  * Copyright (C) 2008  Paul Merlin
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.n0pe.asadmin.commands;
 
-
 import org.n0pe.asadmin.IAsAdminCmd;
 
-
 /**
- * Database.
+ * CreateJdbcResource.
  *
- * @author Paul Merlin <eskatos@n0pe.org>
- * @author Christophe Souvignier <chris.so@free.fr>
+ * @author Christophe SOUVIGNIER <chris.so@free.fr>
  */
-public class Database
-        implements IAsAdminCmd {
+public class CreateJdbcResource implements IAsAdminCmd {
 
-
-    public static final String START = "start-database";
-
-
-    public static final String STOP = "stop-database";
-
-
-    private Boolean start = null;
-
+    public static final String RESOURCE = "create-jdbc-resource";
+    public static final String CONNECTION_POOL_OPT = "--connectionpoolid";
+    private String resourceName;
+    private String connectionPoolId;
 
     /**
-     * Database CTOR.
+     * CreateJdbcResource default constructor.
      */
-    public Database() {
+    private CreateJdbcResource() {
     }
 
+    public CreateJdbcResource(String resourceName) {
+        this.resourceName = resourceName;
+    }
 
-    public Database start() {
-        start = Boolean.TRUE;
+    public CreateJdbcResource withConnectionPool(String connectionPoolId) {
+        this.connectionPoolId = connectionPoolId;
         return this;
     }
-
-
-    public Database stop() {
-        start = Boolean.FALSE;
-        return this;
-    }
-
 
     public boolean needCredentials() {
-        return false;
+        return true;
     }
-
 
     public String getActionCommand() {
-        if (start == null) {
+        if (resourceName == null) {
             throw new IllegalStateException();
         }
-        return start.booleanValue()
-                ? START
-                : STOP;
+        return RESOURCE;
     }
-
 
     public String[] getParameters() {
-        return new String[]{};
+        if (connectionPoolId == null) {
+            throw new IllegalStateException();
+        }
+        final String[] params;
+        params = new String[]{CONNECTION_POOL_OPT, connectionPoolId, resourceName};
+        return params;
     }
-
-
 }

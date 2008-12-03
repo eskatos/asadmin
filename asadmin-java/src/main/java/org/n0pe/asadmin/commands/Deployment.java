@@ -25,7 +25,6 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import org.n0pe.asadmin.IAsAdminCmd;
-import org.n0pe.asadmin.Util;
 
 
 /**
