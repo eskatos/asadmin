@@ -1,11 +1,8 @@
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.n0pe.mojo</groupId>
     <artifactId>asadmin-java</artifactId>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.3</version>
     <packaging>jar</packaging>
     <name>asadmin-java</name>
     <url>http://eskatos.wordpress.com</url>
@@ -17,9 +14,9 @@
         </license>
     </licenses>
     <scm>
-        <url>scm:svn:https://asadmin-java.googlecode.com/svn/trunk/asadmin-java</url>
-        <connection>scm:svn:https://asadmin-java.googlecode.com/svn/trunk/asadmin-java</connection>
-        <developerConnection>scm:svn:https://asadmin-java.googlecode.com/svn/trunk/asadmin-java</developerConnection>
+        <url>scm:svn:https://asadmin-java.googlecode.com/svn/tags/asadmin-java-0.3</url>
+        <connection>scm:svn:https://asadmin-java.googlecode.com/svn/tags/asadmin-java-0.3</connection>
+        <developerConnection>scm:svn:https://asadmin-java.googlecode.com/svn/tags/asadmin-java-0.3</developerConnection>
     </scm>
     <build>
         <plugins>
