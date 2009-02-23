@@ -27,6 +27,22 @@
     <groupId>org.n0pe.mojo.examples</groupId>
     <artifactId>basic-example</artifactId>
     <version>0.1-SNAPSHOT</version>
+<pluginRepositories>
+    <pluginRepository>
+        <id>asadmin-maven-plugin-releases-repository</id>
+        <name>asadmin-maven-plugin-releases-repository</name>
+        <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/repository/releases</url>
+        <releases><enabled>true</enabled></releases>
+        <snapshots><enabled>false</enabled></snapshots>
+    </pluginRepository>
+    <pluginRepository>
+        <id>asadmin-maven-plugin-snapshots-repository</id>
+        <name>asadmin-maven-plugin-snapshots-repository</name>
+        <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/repository/snapshots</url>
+        <releases><enabled>false</enabled></releases>
+        <snapshots><enabled>true</enabled></snapshots>
+    </pluginRepository>
+</pluginRepositories>
     <build>
         <plugins>
             <plugin>
