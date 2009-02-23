@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.n0pe.mojo</groupId>
     <artifactId>asadmin-maven-plugin</artifactId>
-    <version>0.3</version>
+    <version>0.4-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     <name>asadmin-maven-plugin</name>
     <url>http://eskatos.wordpress.com</url>
@@ -15,9 +15,9 @@
         </license>
     </licenses>
     <scm>
-        <url>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/tags/asadmin-maven-plugin-0.3</url>
-        <connection>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/tags/asadmin-maven-plugin-0.3</connection>
-        <developerConnection>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/tags/asadmin-maven-plugin-0.3</developerConnection>
+        <url>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin</url>
+        <connection>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin</connection>
+        <developerConnection>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin</developerConnection>
     </scm>
 <pluginRepositories>
     <pluginRepository>
