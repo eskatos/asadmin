@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.n0pe.mojo</groupId>
     <artifactId>asadmin-java</artifactId>
-    <version>0.4-SNAPSHOT</version>
+    <version>0.4.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>asadmin-java</name>
     <url>http://eskatos.wordpress.com</url>
