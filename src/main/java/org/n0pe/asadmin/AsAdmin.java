@@ -149,7 +149,7 @@ public class AsAdmin {
             final Process proc;
             if (SystemUtils.IS_OS_WINDOWS) {
                 // Windows
-                final String command = StringUtils.join(cmds, " ");
+                final String command = "\"" + StringUtils.join(cmds, "\" \"") + "\"";
                 final String[] windowsCommand;
                 if (SystemUtils.IS_OS_WINDOWS_95 || SystemUtils.IS_OS_WINDOWS_98 || SystemUtils.IS_OS_WINDOWS_ME) {
                     windowsCommand = new String[]{"command.com", "/C", command};
