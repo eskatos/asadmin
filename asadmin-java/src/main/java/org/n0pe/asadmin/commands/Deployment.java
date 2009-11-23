@@ -50,6 +50,9 @@ public class Deployment
 
     public static final String NAME_OPT = "--name";
 
+    
+    public static final String TARGET_OPT = "--name";
+
 
     private static final int DEPLOY_MODE = 1;
 
@@ -70,6 +73,9 @@ public class Deployment
 
 
     private String appName;
+
+    
+    private String target;
 
 
     private boolean force;
@@ -116,6 +122,12 @@ public class Deployment
         return this;
     }
 
+    
+    public Deployment target(String target) {
+        this.target = target;
+        return this;
+    }
+
 
     public boolean needCredentials() {
         return true;
@@ -134,11 +146,15 @@ public class Deployment
 
 
     public String[] getParameters() {
+        final List parameters = new ArrayList();
+        if (!StringUtils.isEmpty(target)) {
+            parameters.add(TARGET_OPT);
+            parameters.add(target);
+        }
         if (ACTION == DEPLOY_MODE) {
             if (archive == null) {
                 throw new IllegalStateException("Cannot deploy without an archive");
             }
-            final List parameters = new ArrayList();
             if (force) {
                 parameters.add(FORCE_OPT);
             }
@@ -151,14 +167,13 @@ public class Deployment
                 parameters.add(appName);
             }
             parameters.add(archive);
-            return (String[]) parameters.toArray(new String[parameters.size()]);
         } else if (ACTION == UNDEPLOY_MODE) {
             if (component == null) {
                 throw new IllegalStateException("Cannot undeploy without a component");
             }
-            return new String[]{component};
+            parameters.add(component);
         }
-        throw new IllegalStateException();
+        return (String[]) parameters.toArray(new String[parameters.size()]);
     }
 
 

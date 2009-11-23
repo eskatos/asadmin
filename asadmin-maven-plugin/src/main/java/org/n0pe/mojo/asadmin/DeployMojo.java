@@ -33,11 +33,17 @@ import org.n0pe.asadmin.commands.Deployment;
 public class DeployMojo
         extends AbstractAsadminMojo {
 
+    
+    /**
+     * @parameter
+     */
+    private String target;
+
 
     protected AsAdminCmdList getAsCommandList() {
         getLog().info("Deploying application archive: " + appArchive);
         final AsAdminCmdList list = new AsAdminCmdList();
-        final Deployment d = new Deployment().archive(appArchive);
+        final Deployment d = new Deployment().archive(appArchive).target(target);
         if ("war".equalsIgnoreCase(mavenProject.getPackaging()) && !StringUtils.isEmpty(contextRoot)) {
             d.withContextRoot(contextRoot);
         }

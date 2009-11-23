@@ -34,10 +34,16 @@ public class RedeployMojo
         extends AbstractAsadminMojo {
 
 
+    /**
+     * @parameter
+     */
+    private String target;
+
+
     protected AsAdminCmdList getAsCommandList() {
         getLog().info("Redeploying application archive: " + appArchive);
         final AsAdminCmdList list = new AsAdminCmdList();
-        final Deployment d = new Deployment().archive(appArchive);
+        final Deployment d = new Deployment().archive(appArchive).target(target);
         if ("war".equalsIgnoreCase(mavenProject.getPackaging()) && !StringUtils.isEmpty(contextRoot)) {
             d.withContextRoot(contextRoot);
         }

@@ -32,10 +32,16 @@ public class UndeployMojo
         extends AbstractAsadminMojo {
 
 
+    /**
+     * @parameter
+     */
+    private String target;
+
+
     protected AsAdminCmdList getAsCommandList() {
         getLog().info("Undeploying application: " + appName);
         final AsAdminCmdList list = new AsAdminCmdList();
-        list.add(new Deployment().undeploy().component(appName));
+        list.add(new Deployment().undeploy().component(appName).target(target));
         return list;
     }
 
