@@ -154,7 +154,7 @@ public class AsAdmin {
                 if (SystemUtils.IS_OS_WINDOWS_95 || SystemUtils.IS_OS_WINDOWS_98 || SystemUtils.IS_OS_WINDOWS_ME) {
                     windowsCommand = new String[]{"command.com", "/C", command};
                 } else {
-                    windowsCommand = new String[]{"cmd.com", "/C", command};
+                    windowsCommand = new String[]{"cmd.exe", "/C", command};
                 }
                 outPrintln("Will run the following command: " + StringUtils.join(windowsCommand, " "));
                 proc = Runtime.getRuntime().exec(windowsCommand);
