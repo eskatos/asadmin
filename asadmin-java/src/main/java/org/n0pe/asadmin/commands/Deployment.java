@@ -51,7 +51,7 @@ public class Deployment
     public static final String NAME_OPT = "--name";
 
     
-    public static final String TARGET_OPT = "--name";
+    public static final String TARGET_OPT = "--target";
 
 
     private static final int DEPLOY_MODE = 1;
