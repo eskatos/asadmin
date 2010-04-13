@@ -43,13 +43,13 @@ public class DeploymentTest
 
 
     public void testDeploy() {
-        final Deployment deployCmd = new Deployment().archive(ARCHIVE_NAME).withContextRoot(CONTEXT_ROOT);
+        final Deployment deployCmd = new Deployment();
         try {
             deployCmd.getParameters();
             fail("This test should have thrown an IllegalStateException");
         } catch (IllegalStateException ex) {
         }
-        deployCmd.deploy();
+        deployCmd.archive(ARCHIVE_NAME).withContextRoot(CONTEXT_ROOT).deploy();
         assertTrue(deployCmd.needCredentials());
         assertEquals(Deployment.DEPLOY, deployCmd.getActionCommand());
         String[] goodParams = new String[]{Deployment.CONTEXTROOT_OPT, CONTEXT_ROOT, ARCHIVE_NAME};
