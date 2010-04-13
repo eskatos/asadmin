@@ -172,6 +172,8 @@ public class Deployment
                 throw new IllegalStateException("Cannot undeploy without a component");
             }
             parameters.add(component);
+        } else {
+            throw new IllegalStateException("No action given");
         }
         return (String[]) parameters.toArray(new String[parameters.size()]);
     }
