@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.n0pe.mojo</groupId>
     <artifactId>asadmin-java</artifactId>
-    <version>0.4.1-SNAPSHOT</version>
+    <version>0.4.1</version>
     <packaging>jar</packaging>
     <name>asadmin-java</name>
     <url>http://eskatos.wordpress.com</url>
@@ -14,9 +14,9 @@
         </license>
     </licenses>
     <scm>
-	    <url>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-java</url>
-        <connection>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-java</connection>
-        <developerConnection>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-java</developerConnection>
+	    <url>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/tags/asadmin-java-0.4.1</url>
+        <connection>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/tags/asadmin-java-0.4.1</connection>
+        <developerConnection>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/tags/asadmin-java-0.4.1</developerConnection>
     </scm>
     <build>
         <plugins>
