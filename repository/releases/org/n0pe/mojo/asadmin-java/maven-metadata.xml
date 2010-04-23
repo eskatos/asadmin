@@ -5,11 +5,13 @@
   <artifactId>asadmin-java</artifactId>
   <version>0.3</version>
   <versioning>
-    <release>0.4.0</release>
+    <release>0.5</release>
     <versions>
       <version>0.3</version>
       <version>0.4.0</version>
+      <version>0.4.1</version>
+      <version>0.5</version>
     </versions>
-    <lastUpdated>20100414073754</lastUpdated>
+    <lastUpdated>20100423133846</lastUpdated>
   </versioning>
 </metadata>
