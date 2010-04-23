@@ -21,7 +21,7 @@ package org.n0pe.asadmin.commands;
 
 import org.apache.commons.lang.StringUtils;
 
-import org.n0pe.asadmin.IAsAdminCmd;
+import org.n0pe.asadmin.AbstractAsAdminCmd;
 import org.n0pe.asadmin.Util;
 
 
@@ -31,7 +31,7 @@ import org.n0pe.asadmin.Util;
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class Set
-        implements IAsAdminCmd {
+        extends  AbstractAsAdminCmd {
 
 
     private String property;

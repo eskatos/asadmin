@@ -18,14 +18,14 @@
  */
 package org.n0pe.asadmin.commands;
 
-import org.n0pe.asadmin.IAsAdminCmd;
+import org.n0pe.asadmin.AbstractAsAdminCmd;
 
 /**
  * DeleteJdbcConnectionPool.
  *
  * @author Christophe SOUVIGNIER <chris.so@free.fr>
  */
-public class DeleteJdbcConnectionPool implements IAsAdminCmd {
+public class DeleteJdbcConnectionPool extends  AbstractAsAdminCmd {
 
     public static final String JDBC = "delete-jdbc-connection-pool";
     private String poolName;

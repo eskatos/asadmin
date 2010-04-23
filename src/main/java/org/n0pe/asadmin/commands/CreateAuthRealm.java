@@ -18,7 +18,6 @@
  */
 package org.n0pe.asadmin.commands;
 
-
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,9 +25,8 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import org.n0pe.asadmin.IAsAdminCmd;
+import org.n0pe.asadmin.AbstractAsAdminCmd;
 import org.n0pe.asadmin.Util;
-
 
 /**
  * CreateAuthRealm.
@@ -36,38 +34,25 @@ import org.n0pe.asadmin.Util;
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class CreateAuthRealm
-        implements IAsAdminCmd {
-
+        extends AbstractAsAdminCmd {
 
     private static final String CLASSNAME_OPT = "--classname";
-
-
     private static final String PROPERTY_OPT = "--property";
-
-
     private String realmName;
-
-
     private String className;
-
-
     private Map properties;
-
 
     private CreateAuthRealm() {
     }
-
 
     public CreateAuthRealm(String realmName) {
         this.realmName = realmName;
     }
 
-
     public CreateAuthRealm withClassName(String className) {
         this.className = className;
         return this;
     }
-
 
     public CreateAuthRealm addProperty(String key, String value) {
         if (properties == null) {
@@ -77,16 +62,13 @@ public class CreateAuthRealm
         return this;
     }
 
-
     public boolean needCredentials() {
         return true;
     }
 
-
     public String getActionCommand() {
         return "create-auth-realm";
     }
-
 
     public String[] getParameters() {
         if (StringUtils.isEmpty(className)) {
@@ -110,6 +92,4 @@ public class CreateAuthRealm
         }
         return params;
     }
-
-
 }

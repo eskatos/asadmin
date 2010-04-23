@@ -18,14 +18,14 @@
  */
 package org.n0pe.asadmin.commands;
 
-import org.n0pe.asadmin.IAsAdminCmd;
+import org.n0pe.asadmin.AbstractAsAdminCmd;
 
 /**
  * CreateJdbcResource.
  *
  * @author Christophe SOUVIGNIER <chris.so@free.fr>
  */
-public class CreateJdbcResource implements IAsAdminCmd {
+public class CreateJdbcResource extends  AbstractAsAdminCmd {
 
     public static final String RESOURCE = "create-jdbc-resource";
     public static final String CONNECTION_POOL_OPT = "--connectionpoolid";

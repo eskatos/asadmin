@@ -18,7 +18,6 @@
  */
 package org.n0pe.asadmin;
 
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +36,6 @@ import org.apache.commons.lang.SystemUtils;
 import org.n0pe.asadmin.commands.Database;
 import org.n0pe.asadmin.commands.Domain;
 
-
 /**
  * asadmin command execution facility built as a multipleton which discriminator is a configuration provider.
  * 
@@ -51,46 +49,22 @@ import org.n0pe.asadmin.commands.Domain;
  */
 public class AsAdmin {
 
-
     private static final String ASADMIN_FAILED = "failed";
-
-
     private static final String OUTPUT_PREFIX = "[ASADMIN] ";
-
-
     private static Map instances;
-
-
     public static final String HOST_OPT = "--host";
-
-
     public static final String PORT_OPT = "--port";
-
-
     public static final String SECURE_OPT = "--secure";
-
-
     public static final String USER_OPT = "--user";
-
-
     public static final String PASSWORDFILE_OPT = "--passwordfile";
-
-
     public static String ASADMIN_COMMAND_NAME;
-
-
-    
-
 
     static {
         ASADMIN_COMMAND_NAME = SystemUtils.IS_OS_WINDOWS
                 ? "asadmin.bat"
                 : "asadmin";
     }
-
-
     private IAsAdminConfig config;
-
 
     /**
      * Get a asadmin instance configured with the given configuration provider.
@@ -110,11 +84,9 @@ public class AsAdmin {
         return instance;
     }
 
-
     private AsAdmin(final IAsAdminConfig config) {
         this.config = config;
     }
-
 
     /**
      * Run the given list of AsAdmin command.
@@ -131,7 +103,6 @@ public class AsAdmin {
             run(cmd);
         }
     }
-
 
     /**
      * Run the given AsAdmin command.
@@ -163,10 +134,12 @@ public class AsAdmin {
                 outPrintln("Will run the following command: " + StringUtils.join(cmds, " "));
                 proc = Runtime.getRuntime().exec(cmds);
             }
-            final ProcessStreamGobbler errorGobbler = new ProcessStreamGobbler(proc.getErrorStream(),
-                                                                               ProcessStreamGobbler.ERROR);
-            final ProcessStreamGobbler outputGobbler = new ProcessStreamGobbler(proc.getInputStream(),
-                                                                                ProcessStreamGobbler.OUTPUT);
+            final ProcessStreamGobbler errorGobbler = new ProcessStreamGobbler(cmd,
+                    proc.getErrorStream(),
+                    ProcessStreamGobbler.ERROR);
+            final ProcessStreamGobbler outputGobbler = new ProcessStreamGobbler(cmd,
+                    proc.getInputStream(),
+                    ProcessStreamGobbler.OUTPUT);
             errorGobbler.start();
             outputGobbler.start();
             exitCode = proc.waitFor();
@@ -180,14 +153,13 @@ public class AsAdmin {
         }
     }
 
-
     public static String[] buildProcessParams(final IAsAdminCmd cmd, final IAsAdminConfig config) {
         final List pbParams = new ArrayList();
         pbParams.add(ASADMIN_COMMAND_NAME);
         pbParams.add(cmd.getActionCommand());
         if (!StringUtils.isEmpty(config.getHost()) &&
                 !Domain.START.equals(cmd.getActionCommand()) &&
-                !Domain.STOP.equals(cmd.getActionCommand()) && 
+                !Domain.STOP.equals(cmd.getActionCommand()) &&
                 !Database.STOP.equals(cmd.getActionCommand()) &&
                 !Database.START.equals(cmd.getActionCommand())) {
             pbParams.add(HOST_OPT);
@@ -214,18 +186,15 @@ public class AsAdmin {
         return (String[]) pbParams.toArray(new String[pbParams.size()]);
     }
 
-
     private static void outPrintln(final String message) {
         System.out.print(OUTPUT_PREFIX);
         System.out.println(message);
     }
 
-
     private static void errPrintln(final String message) {
         System.out.print(OUTPUT_PREFIX);
         System.out.println(message);
     }
-
 
     /**
      * TODO : take a logger as constructor parameter and remove type
@@ -233,24 +202,19 @@ public class AsAdmin {
     private static class ProcessStreamGobbler
             extends Thread {
 
-
         private static final int OUTPUT = 0;
-
-
         private static final int ERROR = 1;
-
-
+        private AbstractAsAdminCmd cmd;
         private InputStream is;
-
-
         private int type = OUTPUT;
 
-
-        private ProcessStreamGobbler(InputStream is, int type) {
+        private ProcessStreamGobbler(final IAsAdminCmd cmd, InputStream is, int type) {
             this.is = is;
             this.type = type;
+            if (AbstractAsAdminCmd.class.isAssignableFrom(cmd.getClass())) {
+                this.cmd = (AbstractAsAdminCmd) cmd;
+            }
         }
-
 
         public void run() {
             try {
@@ -258,11 +222,18 @@ public class AsAdmin {
                 BufferedReader br = new BufferedReader(isr);
                 String line = null;
                 while ((line = br.readLine()) != null) {
+
                     switch (type) {
                         case OUTPUT:
+                            if (cmd != null) {
+                                cmd.appendStandardOutputLine(line);
+                            }
                             outPrintln("[OUTPUT] " + line);
                             break;
                         case ERROR:
+                            if (cmd != null) {
+                                cmd.appendErrorOutputLine(line);
+                            }
                             errPrintln("[ERROR]  " + line);
                     }
                 }
@@ -270,9 +241,5 @@ public class AsAdmin {
                 ioe.printStackTrace();
             }
         }
-
-
     }
-
-
 }
