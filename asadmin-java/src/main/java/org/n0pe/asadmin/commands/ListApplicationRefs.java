@@ -19,7 +19,7 @@
 
 package org.n0pe.asadmin.commands;
 
-import org.n0pe.asadmin.IAsAdminCmd;
+import org.n0pe.asadmin.AbstractAsAdminCmd;
 
 
 
@@ -30,7 +30,7 @@ import org.n0pe.asadmin.IAsAdminCmd;
  */
 
 public class ListApplicationRefs
-        implements IAsAdminCmd {
+        extends  AbstractAsAdminCmd {
 
     public static final String LIST_APPLICATION_REFS = "list-application-refs";
 

@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import org.n0pe.asadmin.IAsAdminCmd;
+import org.n0pe.asadmin.AbstractAsAdminCmd;
 
 
 /**
@@ -33,8 +33,7 @@ import org.n0pe.asadmin.IAsAdminCmd;
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class Deployment
-        implements IAsAdminCmd {
-
+extends  AbstractAsAdminCmd {
 
     public static final String DEPLOY = "deploy";
 

@@ -18,14 +18,14 @@
  */
 package org.n0pe.asadmin.commands;
 
-import org.n0pe.asadmin.IAsAdminCmd;
+import org.n0pe.asadmin.AbstractAsAdminCmd;
 
 /**
  * DeleteJdbcConnectionResource.
  *
  * @author Christophe SOUVIGNIER <chris.so@free.fr>
  */
-public class DeleteJdbcResource implements IAsAdminCmd {
+public class DeleteJdbcResource extends  AbstractAsAdminCmd {
 
     public static final String JDBC = "delete-jdbc-resource";
     private String resourceName;

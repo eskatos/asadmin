@@ -19,7 +19,7 @@
 package org.n0pe.asadmin.commands;
 
 
-import org.n0pe.asadmin.IAsAdminCmd;
+import org.n0pe.asadmin.AbstractAsAdminCmd;
 
 
 /**
@@ -28,7 +28,7 @@ import org.n0pe.asadmin.IAsAdminCmd;
  * @author Paul Merlin <eskatos@n0pe.org>
  */
 public class PingConnectionPool
-        implements IAsAdminCmd {
+extends  AbstractAsAdminCmd {
 
 
     public static final String PING = "ping-connection-pool";

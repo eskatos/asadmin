@@ -18,6 +18,8 @@
  */
 package org.n0pe.asadmin;
 
+import java.io.Reader;
+
 
 /**
  * IAsAdminCmd.
@@ -34,6 +36,12 @@ public interface IAsAdminCmd {
 
 
     String[] getParameters();
+
+    
+    Reader getStandardOutput();
+
+
+    Reader getErrorOutput();
 
 
 }

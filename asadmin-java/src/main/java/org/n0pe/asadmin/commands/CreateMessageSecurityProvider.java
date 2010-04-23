@@ -21,7 +21,7 @@ package org.n0pe.asadmin.commands;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import org.n0pe.asadmin.IAsAdminCmd;
+import org.n0pe.asadmin.AbstractAsAdminCmd;
 import org.n0pe.asadmin.Util;
 
 /**
@@ -29,7 +29,7 @@ import org.n0pe.asadmin.Util;
  *
  * @author Christophe SOUVIGNIER <chris.so@free.fr>
  */
-public class CreateMessageSecurityProvider implements IAsAdminCmd {
+public class CreateMessageSecurityProvider extends  AbstractAsAdminCmd {
 
     public static final String SECURITY_PROVIDER = "create-message-security-provider";
     public static final String LAYER_OPT = "--layer";

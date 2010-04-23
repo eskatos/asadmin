@@ -21,7 +21,7 @@ package org.n0pe.asadmin.commands;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import org.n0pe.asadmin.IAsAdminCmd;
+import org.n0pe.asadmin.AbstractAsAdminCmd;
 import org.n0pe.asadmin.Util;
 
 /**
@@ -29,7 +29,7 @@ import org.n0pe.asadmin.Util;
  *
  * @author Christophe Souvignier <chris.so@free.fr>
  */
-public class CreateJdbcConnectionPool implements IAsAdminCmd {
+public class CreateJdbcConnectionPool extends  AbstractAsAdminCmd {
 
     public static final String JDBC = "create-jdbc-connection-pool";
 

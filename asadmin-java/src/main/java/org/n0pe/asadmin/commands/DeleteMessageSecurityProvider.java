@@ -18,14 +18,14 @@
  */
 package org.n0pe.asadmin.commands;
 
-import org.n0pe.asadmin.IAsAdminCmd;
+import org.n0pe.asadmin.AbstractAsAdminCmd;
 
 /**
  * DeleteMessageSecurityProvider.
  *
  * @author Christophe SOUVIGNIER <chris.so@free.fr>
  */
-public class DeleteMessageSecurityProvider implements IAsAdminCmd {
+public class DeleteMessageSecurityProvider extends  AbstractAsAdminCmd {
 
     public static final String SECURITY_PROVIDER = "delete-message-security-provider";
     public static final String LAYER_OPT = "--layer";
