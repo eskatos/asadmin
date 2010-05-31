@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.n0pe.mojo</groupId>
     <artifactId>asadmin-maven-plugin</artifactId>
-    <version>0.4.0-SNAPSHOT</version>
+    <version>0.6-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     <name>asadmin-maven-plugin</name>
     <url>http://eskatos.wordpress.com</url>
@@ -19,22 +19,30 @@
         <connection>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin</connection>
         <developerConnection>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin</developerConnection>
     </scm>
-<pluginRepositories>
-    <pluginRepository>
-        <id>asadmin-maven-plugin-releases-repository</id>
-        <name>asadmin-maven-plugin-releases-repository</name>
-        <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/repository/releases</url>
-        <releases><enabled>true</enabled></releases>
-        <snapshots><enabled>false</enabled></snapshots>
-    </pluginRepository>
-    <pluginRepository>
-        <id>asadmin-maven-plugin-snapshots-repository</id>
-        <name>asadmin-maven-plugin-snapshots-repository</name>
-        <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/repository/snapshots</url>
-        <releases><enabled>false</enabled></releases>
-        <snapshots><enabled>true</enabled></snapshots>
-    </pluginRepository>
-</pluginRepositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>asadmin-maven-plugin-releases-repository</id>
+            <name>asadmin-maven-plugin-releases-repository</name>
+            <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/repository/releases</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>asadmin-maven-plugin-snapshots-repository</id>
+            <name>asadmin-maven-plugin-snapshots-repository</name>
+            <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/repository/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
     <build>
         <plugins>
             <plugin>
@@ -43,8 +51,7 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>jar
-                            </goal>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -74,7 +81,7 @@
         <dependency>
             <groupId>org.n0pe.mojo</groupId>
             <artifactId>asadmin-java</artifactId>
-            <version>0.4.0-SNAPSHOT</version>
+            <version>0.6-SNAPSHOT</version>
         </dependency>
         <dependency>
             <artifactId>maven-plugin-testing-harness</artifactId>
