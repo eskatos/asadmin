@@ -1,1 +1,5 @@
 asadmin-maven-plugin/target
+ear-example/target
+ejb-example/target
+multi-example/web/target
+war-example/target

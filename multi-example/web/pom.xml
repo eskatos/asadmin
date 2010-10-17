@@ -1,61 +1,28 @@
 <?xml version="1.0"?>
-<!--
-   asadmin-glassfish-plugin war-exemple : a war exemple using asadmin-maven-plugin
-   
-   Copyright (C) 2008  Paul Merlin
-   
-   This program is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-   
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-   
-   You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>org.n0pe.mojo.examples</groupId>
+        <groupId>org.codeartisans.asadmin-maven-plugin</groupId>
         <artifactId>multi-example</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.6-SNAPSHOT</version>
     </parent>
     
-    <groupId>org.n0pe.mojo.examples</groupId>
-    <artifactId>multi-example-web</artifactId>
-    <version>0.1-SNAPSHOT</version>
-    
+    <name>multi-example-web</name>
     <packaging>war</packaging>
     
-    <name>multi-example-web</name>
-    <url>http://maven.apache.org</url>
-    
-    <scm>
-        <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/multi-example/web/</url>
-    </scm>
+    <artifactId>multi-example-web</artifactId>
     
     <build>
         <plugins>
             <!-- configure asadmin-maven-plugin -->
             <plugin>
-                <groupId>org.n0pe.mojo</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>asadmin-maven-plugin</artifactId>
                 <configuration>
                     <contextRoot>multi-example</contextRoot>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
                 </configuration>
             </plugin>
         </plugins>

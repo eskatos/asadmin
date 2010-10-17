@@ -1,20 +1,28 @@
-
+<?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>5</version>
+    </parent>
+
+    <name>asadmin-maven-plugin-parent</name>
+    <description>asadmin based maven plugin for projects using Glassfish</description>
+    <url>http://eskatos.wordpress.com</url>
 
     <groupId>org.codeartisans.asadmin-maven-plugin</groupId>
     <artifactId>asadmin-maven-plugin-parent</artifactId>
     <version>0.6-SNAPSHOT</version>
 
     <packaging>pom</packaging>
-    <name>asadmin-maven-plugin-parent</name>
-    <url>http://eskatos.wordpress.com</url>
-    <description>asadmin based maven plugin for projects using Glassfish</description>
 
     <licenses>
         <license>
             <name>GPLv3</name>
             <url>http://www.gnu.org/copyleft/gpl.html</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
@@ -26,6 +34,11 @@
 
     <modules>
         <module>asadmin-maven-plugin</module>
+        <module>basic-example</module>
+        <module>ejb-example</module>
+        <module>war-example</module>
+        <module>ear-example</module>
+        <module>multi-example</module>
     </modules>
 
 </project>

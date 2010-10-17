@@ -1,99 +1,56 @@
 <?xml version="1.0"?>
-<!--
-   asadmin-glassfish-plugin ear-exemple : an ear exemple using asadmin-maven-plugin
-   
-   Copyright (C) 2008  Paul Merlin
-   
-   This program is free softeare: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Softeare Foundation, either version 3 of the License, or
-   (at your option) any later version.
-   
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied earranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-   
-   You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
-    <groupId>org.n0pe.mojo.examples</groupId>
-    <artifactId>ear-example</artifactId>
-    <packaging>ear</packaging>
-    <version>0.1-SNAPSHOT</version>
-    
+
+    <parent>
+        <groupId>org.codeartisans.asadmin-maven-plugin</groupId>
+        <artifactId>asadmin-maven-plugin-parent</artifactId>
+        <version>0.6-SNAPSHOT</version>
+    </parent>
+
     <name>ear-example</name>
-    <url>http://maven.apache.org</url>
-    
-    <scm>
-        <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/ear-example/</url>
-    </scm>
+    <packaging>ear</packaging>
+
+    <artifactId>ear-example</artifactId>
     
     <build>
         <plugins>
             <plugin>
-                <groupId>org.n0pe.mojo</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>asadmin-maven-plugin</artifactId>
-                <version>0.6-SNAPSHOT</version>
+                <version>${project.version}</version>
             </plugin>
             <plugin>
                 <artifactId>maven-ear-plugin</artifactId>
                 <configuration>
                     <modules>
                         <webModule>
-                            <groupId>org.n0pe.mojo.examples</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>war-example</artifactId>
                         </webModule>
-			<ejbModule>
-                            <groupId>org.n0pe.mojo.examples</groupId>
+                        <ejbModule>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>ejb-example</artifactId>
-			</ejbModule>
+                        </ejbModule>
                     </modules>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
                 </configuration>
             </plugin>
         </plugins>
     </build>
     
-    <pluginRepositories>
-        <pluginRepository>
-            <id>asadmin-maven-plugin-releases-repository</id>
-            <name>asadmin-maven-plugin-releases-repository</name>
-            <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/repository/releases</url>
-            <releases><enabled>true</enabled></releases>
-            <snapshots><enabled>false</enabled></snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>asadmin-maven-plugin-snapshots-repository</id>
-            <name>asadmin-maven-plugin-snapshots-repository</name>
-            <url>http://asadmin-maven-plugin.googlecode.com/svn/trunk/repository/snapshots</url>
-            <releases><enabled>false</enabled></releases>
-            <snapshots><enabled>true</enabled></snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-    
     <dependencies>
         <dependency>
-            <groupId>org.n0pe.mojo.examples</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>war-example</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.n0pe.mojo.examples</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>ejb-example</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
             <type>ejb</type>
         </dependency>
         <dependency>
