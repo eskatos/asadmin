@@ -10,7 +10,7 @@
 
     <name>asadmin-maven-plugin-parent</name>
     <description>asadmin based maven plugin for projects using Glassfish</description>
-    <url>http://eskatos.wordpress.com</url>
+    <url>http://github.com/eskatos/asadmin-maven-plugin</url>
 
     <groupId>org.codeartisans.asadmin-maven-plugin</groupId>
     <artifactId>asadmin-maven-plugin-parent</artifactId>
