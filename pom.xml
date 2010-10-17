@@ -27,9 +27,9 @@
     </licenses>
 
     <scm>
-        <url>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin</url>
-        <connection>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin</connection>
-        <developerConnection>scm:svn:https://asadmin-maven-plugin.googlecode.com/svn/trunk/asadmin-maven-plugin</developerConnection>
+        <url>git://github.com/eskatos/asadmin-maven-plugin.git</url>
+        <connection>scm:git:git://github.com/eskatos/asadmin-maven-plugin.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:eskatos/asadmin-maven-plugin.git</developerConnection>
     </scm>
 
     <modules>
