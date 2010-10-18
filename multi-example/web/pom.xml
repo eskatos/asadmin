@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.codeartisans.asadmin-maven-plugin</groupId>
         <artifactId>multi-example</artifactId>
-        <version>0.6</version>
+        <version>0.7-SNAPSHOT</version>
     </parent>
     
     <name>multi-example-web</name>
