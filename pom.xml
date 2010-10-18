@@ -27,9 +27,9 @@
     </licenses>
 
     <scm>
-        <url>git://github.com/eskatos/asadmin-maven-plugin.git</url>
-        <connection>scm:git:git://github.com/eskatos/asadmin-maven-plugin.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:eskatos/asadmin-maven-plugin.git</developerConnection>
+        <url>scm:git:git@github.com:eskatos/asadmin-maven-plugin.git</url>
+        <connection>scm:git:git@github.com:eskatos/asadmin-maven-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:eskatos/asadmin-maven-plugin.git</developerConnection>
     </scm>
 
     <modules>
