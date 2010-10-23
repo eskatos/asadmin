@@ -9,7 +9,7 @@ The project is hosted in maven central, to use it add the following snippet to y
 	<build>
 	  <plugins>
  	    <plugin>
-	      <groupId>org.codeartisans.asadmin-maven-plugtin</groupId>
+	      <groupId>org.codeartisans.asadmin-maven-plugin</groupId>
 	      <artifactId>asadmin-maven-plugin</artifactId>
 	      <version>0.6</version>
 	    </plugin>
