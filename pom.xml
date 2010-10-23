@@ -10,7 +10,7 @@
 
     <name>asadmin-maven-plugin-parent</name>
     <description>asadmin based maven plugin for projects using Glassfish</description>
-    <url>http://github.com/eskatos/asadmin-maven-plugin</url>
+    <url>http://github.com/Codeartisans/asadmin-maven-plugin</url>
 
     <groupId>org.codeartisans.asadmin-maven-plugin</groupId>
     <artifactId>asadmin-maven-plugin-parent</artifactId>
@@ -20,16 +20,16 @@
 
     <licenses>
         <license>
-            <name>GPLv3</name>
-            <url>http://www.gnu.org/copyleft/gpl.html</url>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
 
     <scm>
-        <url>scm:git:git@github.com:eskatos/asadmin-maven-plugin.git</url>
-        <connection>scm:git:git@github.com:eskatos/asadmin-maven-plugin.git</connection>
-        <developerConnection>scm:git:git@github.com:eskatos/asadmin-maven-plugin.git</developerConnection>
+        <url>scm:git:git@github.com:Codeartisans/asadmin-java.git</url>
+        <connection>scm:git:git@github.com:Codeartisans/asadmin-java.git</connection>
+        <developerConnection>scm:git:git@github.com:Codeartisans/asadmin-java.git</developerConnection>
     </scm>
 
     <modules>
