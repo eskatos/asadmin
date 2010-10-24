@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>org.codeartisans.asadmin-maven-plugin</groupId>
+        <groupId>org.codeartisans.asadmin</groupId>
         <artifactId>multi-example</artifactId>
         <version>0.7-SNAPSHOT</version>
     </parent>

@@ -5,15 +5,15 @@
     <parent>
         <groupId>org.codeartisans</groupId>
         <artifactId>codeartisans-parent</artifactId>
-        <version>5-SNAPSHOT</version>
+        <version>5</version>
     </parent>
 
-    <name>asadmin-maven-plugin-parent</name>
-    <description>asadmin based maven plugin for projects using Glassfish</description>
-    <url>http://github.com/Codeartisans/asadmin-maven-plugin</url>
+    <name>asadmin</name>
+    <description>asadmin based java api and maven plugin for projects using Glassfish</description>
+    <url>http://github.com/Codeartisans/asadmin</url>
 
-    <groupId>org.codeartisans.asadmin-maven-plugin</groupId>
-    <artifactId>asadmin-maven-plugin-parent</artifactId>
+    <groupId>org.codeartisans.asadmin</groupId>
+    <artifactId>asadmin</artifactId>
     <version>0.7-SNAPSHOT</version>
 
     <packaging>pom</packaging>
@@ -27,12 +27,13 @@
     </licenses>
 
     <scm>
-        <url>scm:git:git@github.com:Codeartisans/asadmin-java.git</url>
-        <connection>scm:git:git@github.com:Codeartisans/asadmin-java.git</connection>
-        <developerConnection>scm:git:git@github.com:Codeartisans/asadmin-java.git</developerConnection>
+        <url>scm:git:git@github.com:Codeartisans/asadmin.git</url>
+        <connection>scm:git:git@github.com:Codeartisans/asadmin.git</connection>
+        <developerConnection>scm:git:git@github.com:Codeartisans/asadmin.git</developerConnection>
     </scm>
 
     <modules>
+        <module>asadmin-java</module>
         <module>asadmin-maven-plugin</module>
         <module>basic-example</module>
         <module>ejb-example</module>
