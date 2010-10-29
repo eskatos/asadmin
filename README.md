@@ -80,3 +80,9 @@ Here is a pom example expressing the default configuration :
         [ ... ]
 
     </project>
+
+
+------------------
+
+This code was previously hosted [here](http://code.google.com/p/asadmin-maven-plugin/).
+
