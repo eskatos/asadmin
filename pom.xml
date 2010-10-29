@@ -23,6 +23,7 @@
             <name>The Apache Software License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
             <distribution>repo</distribution>
+            <comments>Copyrights retained by each developer.</comments>
         </license>
     </licenses>
 
@@ -31,6 +32,24 @@
         <connection>scm:git:git@github.com:Codeartisans/asadmin.git</connection>
         <developerConnection>scm:git:git@github.com:Codeartisans/asadmin.git</developerConnection>
     </scm>
+
+    <developers>
+        <developer>
+            <id>paul@nosphere.org</id>
+            <name>Paul Merlin</name>
+            <email>paul@nosphere.org</email>
+        </developer>
+        <developer>
+            <id>chris.so@free.fr</id>
+            <name>Christophe Souvignier</name>
+            <email>chris.so@free.fr</email>
+        </developer>
+        <developer>
+            <id>barsifedron@gmail.com</id>
+            <name>Jean-Michel Tonneau</name>
+            <email>barsifedron@gmail.com</email>
+        </developer>
+    </developers>
 
     <modules>
         <module>asadmin-java</module>
