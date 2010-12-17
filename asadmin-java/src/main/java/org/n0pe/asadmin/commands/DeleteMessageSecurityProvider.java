@@ -1,64 +1,66 @@
-/**
- * asadmin-glassfish-plugin : a maven plugin for glassfish administratives tasks
+/*
+ * Copyright (c) 2010, Christophe Souvignier. All Rights Reserved.
  *
- * Copyright (C) 2008  Paul Merlin
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.n0pe.asadmin.commands;
 
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 
 /**
- * DeleteMessageSecurityProvider.
- *
- * @author Christophe SOUVIGNIER <chris.so@free.fr>
+ * @author Christophe SOUVIGNIER
  */
-public class DeleteMessageSecurityProvider extends  AbstractAsAdminCmd {
+public class DeleteMessageSecurityProvider
+        extends AbstractAsAdminCmd
+{
 
     public static final String SECURITY_PROVIDER = "delete-message-security-provider";
     public static final String LAYER_OPT = "--layer";
     private String providerName;
     private String layer;
 
-    private DeleteMessageSecurityProvider() {
+    private DeleteMessageSecurityProvider()
+    {
     }
 
-    public DeleteMessageSecurityProvider(String providerName) {
+    public DeleteMessageSecurityProvider( String providerName )
+    {
         this.providerName = providerName;
     }
 
-    public DeleteMessageSecurityProvider withLayer(String layer) {
+    public DeleteMessageSecurityProvider withLayer( String layer )
+    {
         this.layer = layer;
         return this;
     }
 
-    public boolean needCredentials() {
+    public boolean needCredentials()
+    {
         return true;
     }
 
-    public String getActionCommand() {
-        if (providerName == null) {
+    public String getActionCommand()
+    {
+        if ( providerName == null ) {
             throw new IllegalStateException();
         }
         return SECURITY_PROVIDER;
     }
 
-    public String[] getParameters() {
-        if (layer == null) {
+    public String[] getParameters()
+    {
+        if ( layer == null ) {
             throw new IllegalStateException();
         }
-        return new String[]{LAYER_OPT, layer, providerName};
+        return new String[]{ LAYER_OPT, layer, providerName };
     }
+
 }

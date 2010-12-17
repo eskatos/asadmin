@@ -1,28 +1,23 @@
-/**
- * asadmin-glassfish-plugin : a maven plugin for glassfish administratives tasks
+/*
+ * Copyright (c) 2010, Christophe Souvignier. All Rights Reserved.
  *
- * Copyright (C) 2010 Christophe Souvignier
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.n0pe.asadmin.commands;
 
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 
-
-public class CreateFileUser extends AbstractAsAdminCmd {
+public class CreateFileUser
+        extends AbstractAsAdminCmd
+{
 
     public static final String CREATE_FILE_USER = "create-file-user";
     public static final String GROUPS = "--groups";
@@ -31,43 +26,50 @@ public class CreateFileUser extends AbstractAsAdminCmd {
     private String userName;
     private String group;
 
-     /**
+    /**
      * CreateFileUser default constructor.
      */
-    private CreateFileUser() {
+    private CreateFileUser()
+    {
     }
 
-    public CreateFileUser(String userName) {
+    public CreateFileUser( String userName )
+    {
         this.userName = userName;
     }
 
-    public CreateFileUser withGroup(String group) {
+    public CreateFileUser withGroup( String group )
+    {
         this.group = group;
         return this;
     }
 
-    public CreateFileUser withPasswordFile(String passwordFile) {
+    public CreateFileUser withPasswordFile( String passwordFile )
+    {
         this.passwordFile = passwordFile;
         return this;
     }
 
     @Override
-    public boolean needCredentials() {
+    public boolean needCredentials()
+    {
         return true;
     }
 
     @Override
-    public String getActionCommand() {
-        if (userName == null) {
+    public String getActionCommand()
+    {
+        if ( userName == null ) {
             throw new IllegalStateException();
         }
         return CREATE_FILE_USER;
     }
 
     @Override
-    public String[] getParameters() {
-       final String[] params;
-        params = new String[]{USER_PASSWORD_FILE, passwordFile, GROUPS, group, userName};
+    public String[] getParameters()
+    {
+        final String[] params;
+        params = new String[]{ USER_PASSWORD_FILE, passwordFile, GROUPS, group, userName };
         return params;
     }
 

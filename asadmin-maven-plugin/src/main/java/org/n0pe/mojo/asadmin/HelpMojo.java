@@ -1,50 +1,44 @@
-/**
- * asadmin-glassfish-plugin : a maven plugin for glassfish administratives tasks
- * 
- * Copyright (C) 2008  Paul Merlin
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*
+ * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 package org.n0pe.mojo.asadmin;
 
-
 import org.apache.maven.plugin.AbstractMojo;
-
 
 /**
  * HelpMojo.
  *
  * @goal help
  * @description AsAdmin help mojo
- * @author Paul Merlin <eskatos@n0pe.org>
+ * @author Paul Merlin
  */
 public class HelpMojo
-        extends AbstractMojo {
+        extends AbstractMojo
+{
 
-
-    public void execute() {
-        getLog().info("asadmin-glassfish-plugin help");
+    @Override
+    public void execute()
+    {
+        getLog().info( "asadmin-glassfish-plugin help" );
         displayCopyrightNotice();
     }
 
-
-    protected final void displayCopyrightNotice() {
-        getLog().info("asadmin-glassfish-plugin  Copyright (C) 2008 Paul Merlin");
-        getLog().info("This program comes with ABSOLUTELY NO WARRANTY; for details type `mvn asadmin:help'.");
-        getLog().info("This is free software, and you are welcome to redistribute it");
-        getLog().info("under certain conditions; type `mvn asadmin:help' for details.");
+    protected final void displayCopyrightNotice()
+    {
+        getLog().info( "asadmin-glassfish-plugin  Copyright (C) 2008 Paul Merlin" );
+        getLog().info( "This program comes with ABSOLUTELY NO WARRANTY; for details type `mvn asadmin:help'." );
+        getLog().info( "This is free software, and you are welcome to redistribute it" );
+        getLog().info( "under certain conditions; type `mvn asadmin:help' for details." );
     }
-
 
 }

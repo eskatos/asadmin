@@ -1,97 +1,81 @@
-/**
- * asadmin-glassfish-plugin : a maven plugin for glassfish administratives tasks
- * 
- * Copyright (C) 2008  Paul Merlin
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*
+ * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 package org.n0pe.asadmin.commands;
 
-
 import org.n0pe.asadmin.IAsAdminConfig;
 
-
 /**
- * TestAsConfigProvider.
- *
- * @author Paul Merlin <eskatos@n0pe.org>
+ * @author Paul Merlin
  */
 public class TestAsConfigProvider
-        implements IAsAdminConfig {
-
+        implements IAsAdminConfig
+{
 
     public static final String HOST = "deploy.host";
-
-
     public static final String PORT = "deploy.port";
-
-
     public static final boolean SECURE = false;
-
-
     public static final String USER_NAME = "user.name";
-
-
     public static final String PASSWORD_FILE = "path.to.password.file";
-
-
     public static final String GLASSFISH_HOME = "path.to.gf.home";
-
-
     private static TestAsConfigProvider instance;
 
-
-    public static TestAsConfigProvider getInstance() {
-        if (instance == null) {
+    public static TestAsConfigProvider getInstance()
+    {
+        if ( instance == null ) {
             instance = new TestAsConfigProvider();
         }
         return instance;
     }
 
-
-    private TestAsConfigProvider() {
+    private TestAsConfigProvider()
+    {
     }
 
-
-    public String getUser() {
+    @Override
+    public String getUser()
+    {
         return USER_NAME;
     }
 
-
-    public String getPasswordFile() {
+    @Override
+    public String getPasswordFile()
+    {
         return PASSWORD_FILE;
     }
 
-
-    public String getGlassfishHome() {
+    @Override
+    public String getGlassfishHome()
+    {
         return GLASSFISH_HOME;
     }
 
-
-    public String getHost() {
+    @Override
+    public String getHost()
+    {
         return HOST;
     }
 
-
-    public String getPort() {
+    @Override
+    public String getPort()
+    {
         return PORT;
     }
 
-
-    public boolean isSecure() {
+    @Override
+    public boolean isSecure()
+    {
         return SECURE;
     }
-
 
 }

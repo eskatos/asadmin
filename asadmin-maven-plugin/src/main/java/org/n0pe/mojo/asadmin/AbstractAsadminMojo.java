@@ -1,23 +1,17 @@
-/**
- * asadmin-glassfish-plugin : a maven plugin for glassfish administratives tasks
- * 
- * Copyright (C) 2008  Paul Merlin
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*
+ * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 package org.n0pe.mojo.asadmin;
-
 
 import java.io.File;
 
@@ -34,98 +28,74 @@ import org.n0pe.asadmin.AsAdminException;
 import org.n0pe.asadmin.AsAdminCmdList;
 import org.n0pe.asadmin.IAsAdminConfig;
 
-
 /**
  * Base class of all asadmin mojos.
  * Provides common parameters and basic check configuration, implements asadmin configuration provider.
  * 
- * @author Paul Merlin <eskatos@n0pe.org>
+ * @author Paul Merlin
  */
+@SuppressWarnings( "ProtectedField" )
 public abstract class AbstractAsadminMojo
         extends AbstractMojo
-        implements IAsAdminConfig {
-
+        implements IAsAdminConfig
+{
 
     /**
      * @parameter default-value="false"
      */
     private boolean skip;
-
-
     /**
      * @parameter default-value="ENV"
      * @required
      */
     private String glassfishHome;
-
-
     private File glassfishHomeDir;
-
-
     /**
      * @parameter default-value="admin"
      * @required
      */
     private String user;
-
-
     /**
      * @parameter default-value="HOME"
      * @required
      */
     private String passwordfile;
-
-
     /**
      * @parameter default-value="localhost"
      * @required
      */
     private String host;
-
-
     /**
      * @parameter default-value="4848"
      * @required
      */
     private String port;
-
-
     /**
      * @parameter default-value="false"
      * @required
      */
     private boolean secure;
-
-
     /**
      * @parameter default-value="domain1"
      * @required
      */
     protected String domain;
-
-
     /**
      * @parameter expression="${project.build.directory}/${project.build.finalName}.${project.artifact.artifactHandler.extension}"
      * @required
      */
     protected String appArchive;
-
-
     /**
      * @parameter expression="${project.build.finalName}"
      * @required
      */
     protected String appName;
-
-
     /**
      * Overrided context root for WAR archives, default to project.build.finalName.
      * 
      * @parameter expression="${project.build.finalName}"
      */
     protected String contextRoot;
-
-
     /**
      * @parameter expression="${project}"
      * @required
@@ -133,54 +103,60 @@ public abstract class AbstractAsadminMojo
      */
     protected MavenProject mavenProject;
 
-
+    @Override
     public final void execute()
-            throws MojoExecutionException, MojoFailureException {
-        if (skip) {
-            getLog().info("asadmin-maven-plugin execution is skipped");
+            throws MojoExecutionException, MojoFailureException
+    {
+        if ( skip ) {
+            getLog().info( "asadmin-maven-plugin execution is skipped" );
             return;
         }
         try {
 
             checkConfig();
 
-            AsAdmin.getInstance(this).run(getAsCommandList());
+            AsAdmin.getInstance( this ).run( getAsCommandList() );
 
-        } catch (AsAdminException ex) {
-            throw new MojoExecutionException(ex.getMessage(), ex);
+        } catch ( AsAdminException ex ) {
+            throw new MojoExecutionException( ex.getMessage(), ex );
         }
     }
 
-
-    public final String getGlassfishHome() {
+    @Override
+    public final String getGlassfishHome()
+    {
         return glassfishHome;
     }
 
-
-    public final String getUser() {
+    @Override
+    public final String getUser()
+    {
         return user;
     }
 
-
-    public final String getPasswordFile() {
+    @Override
+    public final String getPasswordFile()
+    {
         return passwordfile;
     }
 
-
-    public String getHost() {
+    @Override
+    public String getHost()
+    {
         return host;
     }
 
-
-    public String getPort() {
+    @Override
+    public String getPort()
+    {
         return port;
     }
 
-
-    public boolean isSecure() {
+    @Override
+    public boolean isSecure()
+    {
         return secure;
     }
-
 
     /**
      * Build and return a list of IAsCommand to be executed.
@@ -194,44 +170,43 @@ public abstract class AbstractAsadminMojo
     protected abstract AsAdminCmdList getAsCommandList()
             throws MojoExecutionException, MojoFailureException;
 
-
     private void checkConfig()
-            throws MojoExecutionException, MojoFailureException {
-        if (StringUtils.isEmpty(glassfishHome) || "ENV".equals(glassfishHome)) {
-            if (SystemUtils.JAVA_VERSION_FLOAT < 1.5) {
+            throws MojoExecutionException, MojoFailureException
+    {
+        if ( StringUtils.isEmpty( glassfishHome ) || "ENV".equals( glassfishHome ) ) {
+            if ( SystemUtils.JAVA_VERSION_FLOAT < 1.5 ) {
                 throw new MojoExecutionException(
-                        "Neither GLASSFISH_HOME, AS_HOME nor the glassfishHome configuration parameter is set! " +
-                        "Also, to save you the trouble, environment cannot be read running maven with a VM < 1.5, " +
-                        "so set the glassFishHome configuration parameter or use -D.");
+                        "Neither GLASSFISH_HOME, AS_HOME nor the glassfishHome configuration parameter is set! "
+                        + "Also, to save you the trouble, environment cannot be read running maven with a VM < 1.5, "
+                        + "so set the glassFishHome configuration parameter or use -D." );
             }
-            glassfishHome = System.getenv("GLASSFISH_HOME");
-            if (StringUtils.isEmpty(glassfishHome)) {
-                glassfishHome = System.getenv("AS_HOME");
+            glassfishHome = System.getenv( "GLASSFISH_HOME" );
+            if ( StringUtils.isEmpty( glassfishHome ) ) {
+                glassfishHome = System.getenv( "AS_HOME" );
             }
         }
-        if (StringUtils.isEmpty(glassfishHome)) {
+        if ( StringUtils.isEmpty( glassfishHome ) ) {
             throw new MojoExecutionException(
-                    "Neither GLASSFISH_HOME, AS_HOME nor the glassfishHome configuration parameter is set!");
+                    "Neither GLASSFISH_HOME, AS_HOME nor the glassfishHome configuration parameter is set!" );
         }
-        glassfishHomeDir = new File(glassfishHome);
-        if (!glassfishHomeDir.exists()) {
-            throw new MojoFailureException("The specifed glassfishHome does not exist.");
+        glassfishHomeDir = new File( glassfishHome );
+        if ( !glassfishHomeDir.exists() ) {
+            throw new MojoFailureException( "The specifed glassfishHome does not exist." );
         }
-        if (StringUtils.isEmpty(passwordfile) || "HOME".equals(passwordfile)) {
+        if ( StringUtils.isEmpty( passwordfile ) || "HOME".equals( passwordfile ) ) {
             passwordfile = null;
-            if (new File(System.getenv("HOME") + File.separator + ".asadminpass").exists()) {
-                passwordfile = System.getenv("HOME") + File.separator + ".asadminpass";
-            } else if (new File(System.getenv("HOME") + File.separator + ".asadmintruststore").exists()) {
-                passwordfile = System.getenv("HOME") + File.separator + ".asadmintruststore";
+            if ( new File( System.getenv( "HOME" ) + File.separator + ".asadminpass" ).exists() ) {
+                passwordfile = System.getenv( "HOME" ) + File.separator + ".asadminpass";
+            } else if ( new File( System.getenv( "HOME" ) + File.separator + ".asadmintruststore" ).exists() ) {
+                passwordfile = System.getenv( "HOME" ) + File.separator + ".asadmintruststore";
             }
-        } else if (!new File(passwordfile).exists()) {
+        } else if ( !new File( passwordfile ).exists() ) {
             passwordfile = null;
         }
-        if (StringUtils.isEmpty(passwordfile)) {
+        if ( StringUtils.isEmpty( passwordfile ) ) {
             throw new MojoFailureException(
-                    "Given password file does not exists or cannot find an existing asadmin password file");
+                    "Given password file does not exists or cannot find an existing asadmin password file" );
         }
     }
-
 
 }

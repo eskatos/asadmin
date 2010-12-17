@@ -1,20 +1,15 @@
-/**
- * asadmin-glassfish-plugin : a maven plugin for glassfish administratives tasks
+/*
+ * Copyright (c) 2010, Christophe Souvigner. All Rights Reserved.
  *
- * Copyright (C) 2008  Paul Merlin
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.n0pe.asadmin.commands;
 
@@ -26,59 +21,78 @@ import org.n0pe.asadmin.AsAdminCmdList;
 import org.n0pe.asadmin.AsAdminException;
 import org.n0pe.asadmin.IAsAdminConfig;
 
-public class ListDomainsTest extends TestCase {
+public class ListDomainsTest
+        extends TestCase
+{
 
     private final String glassfishHome = "/home/../glassfish";
 
-    public void testCommand() throws IOException {
+    public void testCommand()
+            throws IOException
+    {
 
-        assertTrue(true);
-        if (true) {
+        assertTrue( true );
+        if ( true ) {
             return;
         }
 
 
-        IAsAdminConfig config = new IAsAdminConfig() {
+        IAsAdminConfig config = new IAsAdminConfig()
+        {
 
-            public String getUser() {
+            @Override
+            public String getUser()
+            {
                 return "";
             }
 
-            public String getPasswordFile() {
+            @Override
+            public String getPasswordFile()
+            {
                 return "";
             }
 
-            public String getGlassfishHome() {
+            @Override
+            public String getGlassfishHome()
+            {
                 return glassfishHome;
             }
 
-            public String getHost() {
+            @Override
+            public String getHost()
+            {
                 return "";
             }
 
-            public String getPort() {
+            @Override
+            public String getPort()
+            {
                 return "";
             }
 
-            public boolean isSecure() {
+            @Override
+            public boolean isSecure()
+            {
                 return false;
             }
+
         };
 
         AsAdminCmdList listGlassfishCmd = new AsAdminCmdList();
         ListDomains listDomains = new ListDomains();
-        listGlassfishCmd.add(listDomains);
+        listGlassfishCmd.add( listDomains );
         try {
-            AsAdmin.getInstance(config).run(listGlassfishCmd);
+            AsAdmin.getInstance( config ).run( listGlassfishCmd );
 
-            BufferedReader buffReader = new BufferedReader(listDomains.getStandardOutput());
+            BufferedReader buffReader = new BufferedReader( listDomains.getStandardOutput() );
             String output = "d";
-            while (output != null) {
-                System.out.println(output + " =  output ");
+            while ( output != null ) {
+                System.out.println( output + " =  output " );
                 output = buffReader.readLine();
 
             }
-        } catch (AsAdminException ex) {
+        } catch ( AsAdminException ex ) {
         }
     }
+
 }
