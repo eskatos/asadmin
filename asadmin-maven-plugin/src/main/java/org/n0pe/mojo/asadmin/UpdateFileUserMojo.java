@@ -29,7 +29,7 @@ public class UpdateFileUserMojo
      * @parameter
      * @required
      */
-    private String passwordFile;
+    private String userPasswordFile;
     /**
      * @parameter
      * @required
@@ -42,7 +42,7 @@ public class UpdateFileUserMojo
     {
         getLog().info( "Update file user: " + userName );
         AsAdminCmdList cmdList = new AsAdminCmdList();
-        cmdList.add( new UpdateFileUser( userName ).withPasswordFile( passwordFile ) );
+        cmdList.add( new UpdateFileUser( userName ).withPasswordFile( userPasswordFile ) );
         return cmdList;
     }
 

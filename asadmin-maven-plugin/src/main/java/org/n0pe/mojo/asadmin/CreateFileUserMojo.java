@@ -30,7 +30,7 @@ public class CreateFileUserMojo
      * @parameter
      * @required
      */
-    private String passwordFile;
+    private String userPasswordFile;
     /**
      * @parameter
      * @required
@@ -48,7 +48,7 @@ public class CreateFileUserMojo
     {
         getLog().info( "Create file user: " + userName );
         AsAdminCmdList cmdList = new AsAdminCmdList();
-        cmdList.add( new CreateFileUser( userName ).withGroup( group ).withPasswordFile( passwordFile ) );
+        cmdList.add( new CreateFileUser( userName ).withGroup( group ).withPasswordFile( userPasswordFile ) );
         return cmdList;
     }
 
