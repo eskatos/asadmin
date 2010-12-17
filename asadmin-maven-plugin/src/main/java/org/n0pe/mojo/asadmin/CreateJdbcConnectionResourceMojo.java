@@ -21,7 +21,7 @@ import org.n0pe.asadmin.AsAdminCmdList;
 import org.n0pe.asadmin.commands.CreateJdbcResource;
 
 /**
- * @goal create-jdbc-connection-resource
+ * @goal create-jdbc-resource
  */
 public class CreateJdbcConnectionResourceMojo
         extends AbstractAsadminMojo

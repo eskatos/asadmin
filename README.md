@@ -25,17 +25,40 @@ The project is hosted in maven central, to use it add the following snippet to y
 	  </plugins>
 	</build>
 
-asadmin commands are simply mapped to goals:
+The following goals are available:
 
     mvn asadmin:start-database
+    mvn asadmin:stop-database
+
     mvn asadmin:start-domain
+    mvn asadmin:stop-domain
+
     mvn asadmin:deploy
     mvn asadmin:redeploy
     mvn asadmin:undeploy
-    mvn asadmin:stop-domain
-    mvn asadmin:stop-database
 
-By default the asadmin-maven-plugin use the following settings :
+    mvn asadmin:get
+    mvn asadmin:set
+    
+    mvn asadmin:set-ports # To change the http listeners ports
+
+    mvn asadmin:create-jdbc-connection-pool
+    mvn asadmin:ping-connection-pool
+    mvn asadmin:delete-jdbc-connection-pool
+
+    mvn asadmin:create-jdbc-resource
+    mvn asadmin:delete-jdbc-resource
+
+    mvn asadmin:create-auth-realm
+    mvn asadmin:list-file-users
+    mvn asadmin:create-file-user
+    mvn asadmin:update-file-user
+    mvn asadmin:delete-file-user
+
+    mvn asadmin:create-message-security-provider
+    mvn asadmin:delete-message-security-provider
+
+By default the asadmin-maven-plugin use the following settings:
 
     user: admin
     password-file: ~/.asadmintruststore
