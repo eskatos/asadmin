@@ -1,5 +1,4 @@
 /*
- * Copyright (c) 2010, Christophe Souvignier. All Rights Reserved.
  * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,12 +16,12 @@ package org.n0pe.mojo.asadmin;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.n0pe.asadmin.AsAdminCmdList;
-import org.n0pe.asadmin.commands.DeleteMessageSecurityProvider;
+import org.n0pe.asadmin.commands.UpdateFileUser;
 
 /**
- * @goal delete-message-security-provider
+ * @goal update-file-user
  */
-public class DeleteMessageSecurityProviderMojo
+public class UpdateFileUserMojo
         extends AbstractAsadminMojo
 {
 
@@ -30,22 +29,21 @@ public class DeleteMessageSecurityProviderMojo
      * @parameter
      * @required
      */
-    private String providerName;
+    private String passwordFile;
     /**
-     * @parameter default-value="SOAP"
+     * @parameter
      * @required
      */
-    private String layer;
+    private String userName;
 
     @Override
     protected AsAdminCmdList getAsCommandList()
             throws MojoExecutionException, MojoFailureException
     {
-        getLog().info( "Deleting security provider: " + providerName );
-        final AsAdminCmdList list = new AsAdminCmdList();
-        final DeleteMessageSecurityProvider cmd = new DeleteMessageSecurityProvider( providerName ).withLayer( layer );
-        list.add( cmd );
-        return list;
+        getLog().info( "Update file user: " + userName );
+        AsAdminCmdList cmdList = new AsAdminCmdList();
+        cmdList.add( new UpdateFileUser( userName ).withPasswordFile( passwordFile ) );
+        return cmdList;
     }
 
 }

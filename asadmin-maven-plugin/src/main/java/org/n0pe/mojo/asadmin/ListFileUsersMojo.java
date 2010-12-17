@@ -1,5 +1,4 @@
 /*
- * Copyright (c) 2010, Christophe Souvignier. All Rights Reserved.
  * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,36 +15,25 @@ package org.n0pe.mojo.asadmin;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+
 import org.n0pe.asadmin.AsAdminCmdList;
-import org.n0pe.asadmin.commands.DeleteMessageSecurityProvider;
+import org.n0pe.asadmin.commands.ListFileUsers;
 
 /**
- * @goal delete-message-security-provider
+ * @goal list-file-users
  */
-public class DeleteMessageSecurityProviderMojo
+public class ListFileUsersMojo
         extends AbstractAsadminMojo
 {
-
-    /**
-     * @parameter
-     * @required
-     */
-    private String providerName;
-    /**
-     * @parameter default-value="SOAP"
-     * @required
-     */
-    private String layer;
 
     @Override
     protected AsAdminCmdList getAsCommandList()
             throws MojoExecutionException, MojoFailureException
     {
-        getLog().info( "Deleting security provider: " + providerName );
-        final AsAdminCmdList list = new AsAdminCmdList();
-        final DeleteMessageSecurityProvider cmd = new DeleteMessageSecurityProvider( providerName ).withLayer( layer );
-        list.add( cmd );
-        return list;
+        getLog().info( "List file users" );
+        AsAdminCmdList cmdList = new AsAdminCmdList();
+        cmdList.add( new ListFileUsers() );
+        return cmdList;
     }
 
 }

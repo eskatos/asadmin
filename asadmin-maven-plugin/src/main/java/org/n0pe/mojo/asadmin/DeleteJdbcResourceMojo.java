@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2010, Christophe Souvignier. All Rights Reserved.
+ * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +20,7 @@ import org.n0pe.asadmin.AsAdminCmdList;
 import org.n0pe.asadmin.commands.DeleteJdbcResource;
 
 /**
- * @author Christophe SOUVIGNIER
+ * @goal delete-jdbc-resource
  */
 public class DeleteJdbcResourceMojo
         extends AbstractAsadminMojo

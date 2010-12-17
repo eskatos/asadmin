@@ -18,7 +18,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
 /**
- * @goal install-glassfish
  * @author Paul Merlin
  */
 public class GlassfishInstallMojo

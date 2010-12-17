@@ -17,10 +17,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 import org.n0pe.asadmin.AsAdminException;
 
-public class ListFileUser
+public class ListFileUsers
         extends AbstractAsAdminCmd
 {
 
