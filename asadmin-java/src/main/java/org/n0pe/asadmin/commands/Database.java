@@ -26,13 +26,29 @@ public class Database
 
     public static final String START = "start-database";
     public static final String STOP = "stop-database";
+    public static final String DB_HOST = "--dbhost";
+    public static final String DB_PORT = "--dbport";
     private Boolean start = null;
+    private String dbHost;
+    private String dbPort;
 
     /**
      * Database CTOR.
      */
     public Database()
     {
+    }
+
+    public Database setDbHost(String dbHost)
+    {
+        this.dbHost = dbHost;
+        return this;
+    }
+
+    public Database setDbPort(String dbPort)
+    {
+        this.dbPort = dbPort;
+        return this;
     }
 
     public Database start()
@@ -64,7 +80,9 @@ public class Database
 
     public String[] getParameters()
     {
-        return new String[]{};
+        final String[] params;
+        params = new String[]{ DB_HOST, dbHost, DB_PORT, dbPort };
+        return params;
     }
 
 }
