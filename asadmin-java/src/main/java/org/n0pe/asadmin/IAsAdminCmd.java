@@ -15,22 +15,26 @@ package org.n0pe.asadmin;
 
 import java.io.Reader;
 
-/**
- * IAsAdminCmd.
- *
- * @author Paul Merlin
- */
 public interface IAsAdminCmd
 {
-
-    boolean needCredentials();
-
-    String getActionCommand();
-
-    String[] getParameters();
 
     Reader getStandardOutput();
 
     Reader getErrorOutput();
+
+    boolean needCredentials();
+
+    /**
+     * Hooks called by AsAdmin to allow commands to impact the configured password file.
+     *
+     * @param configuredPasswordFile    Configured password file
+     * @return                          Password file, same or changed if needed
+     */
+    String handlePasswordFile( String configuredPasswordFile )
+            throws AsAdminException;
+
+    String getActionCommand();
+
+    String[] getParameters();
 
 }

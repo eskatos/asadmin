@@ -15,9 +15,6 @@ package org.n0pe.asadmin;
 
 import org.apache.commons.lang.exception.NestableException;
 
-/**
- * @author Paul Merlin
- */
 public class AsAdminException
         extends NestableException
 {

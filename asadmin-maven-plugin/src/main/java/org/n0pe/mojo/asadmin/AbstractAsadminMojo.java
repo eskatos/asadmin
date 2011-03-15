@@ -14,6 +14,8 @@
 package org.n0pe.mojo.asadmin;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
@@ -120,6 +122,11 @@ public abstract class AbstractAsadminMojo
         } catch ( AsAdminException ex ) {
             throw new MojoExecutionException( ex.getMessage(), ex );
         }
+    }
+
+    public Map<String, String> getEnvironmentVariables()
+    {
+        return Collections.emptyMap();
     }
 
     @Override

@@ -47,7 +47,7 @@ public class AsAdmin
 
     private static final String ASADMIN_FAILED = "failed";
     private static final String OUTPUT_PREFIX = "[ASADMIN] ";
-    private static Map instances;
+    private static Map<IAsAdminConfig, AsAdmin> instances;
     public static final String HOST_OPT = "--host";
     public static final String PORT_OPT = "--port";
     public static final String SECURE_OPT = "--secure";
@@ -56,9 +56,7 @@ public class AsAdmin
     public static String ASADMIN_COMMAND_NAME;
 
     static {
-        ASADMIN_COMMAND_NAME = SystemUtils.IS_OS_WINDOWS
-                               ? "asadmin.bat"
-                               : "asadmin";
+        ASADMIN_COMMAND_NAME = SystemUtils.IS_OS_WINDOWS ? "asadmin.bat" : "asadmin";
     }
 
     private IAsAdminConfig config;
@@ -72,9 +70,9 @@ public class AsAdmin
     public static AsAdmin getInstance( final IAsAdminConfig config )
     {
         if ( instances == null ) {
-            instances = new HashMap( 1 );
+            instances = new HashMap<IAsAdminConfig, AsAdmin>( 1 );
         }
-        AsAdmin instance = ( AsAdmin ) instances.get( config );
+        AsAdmin instance = instances.get( config );
         if ( instance == null ) {
             instance = new AsAdmin( config );
             instances.put( config, instance );
@@ -96,11 +94,9 @@ public class AsAdmin
     public void run( final AsAdminCmdList cmdList )
             throws AsAdminException
     {
-        final Iterator it = cmdList.iterator();
-        IAsAdminCmd cmd;
+        final Iterator<IAsAdminCmd> it = cmdList.iterator();
         while ( it.hasNext() ) {
-            cmd = ( IAsAdminCmd ) it.next();
-            run( cmd );
+            run( it.next() );
         }
     }
 
@@ -119,6 +115,7 @@ public class AsAdmin
             cmds[0] = gfBinPath + File.separator + cmds[0];
             int exitCode;
             final Process proc;
+            String[] env = buildEnvironmentStrings( config.getEnvironmentVariables() );
             if ( SystemUtils.IS_OS_WINDOWS ) {
                 // Windows
                 final String command = "\"\"" + StringUtils.join( cmds, "\" \"" ) + "\"\"";
@@ -129,11 +126,11 @@ public class AsAdmin
                     windowsCommand = new String[]{ "cmd.exe", "/C", command };
                 }
                 outPrintln( "Will run the following command: " + StringUtils.join( windowsCommand, " " ) );
-                proc = Runtime.getRuntime().exec( windowsCommand );
+                proc = Runtime.getRuntime().exec( windowsCommand, env );
             } else {
                 // Non Windows
                 outPrintln( "Will run the following command: " + StringUtils.join( cmds, " " ) );
-                proc = Runtime.getRuntime().exec( cmds );
+                proc = Runtime.getRuntime().exec( cmds, env );
             }
             final ProcessStreamGobbler errorGobbler = new ProcessStreamGobbler( cmd,
                                                                                 proc.getErrorStream(),
@@ -155,8 +152,9 @@ public class AsAdmin
     }
 
     public static String[] buildProcessParams( final IAsAdminCmd cmd, final IAsAdminConfig config )
+            throws AsAdminException
     {
-        final List pbParams = new ArrayList();
+        final List<String> pbParams = new ArrayList<String>();
         pbParams.add( ASADMIN_COMMAND_NAME );
         pbParams.add( cmd.getActionCommand() );
         if ( !StringUtils.isEmpty( config.getHost() )
@@ -182,10 +180,11 @@ public class AsAdmin
             pbParams.add( USER_OPT );
             pbParams.add( config.getUser() );
             pbParams.add( PASSWORDFILE_OPT );
-            pbParams.add( config.getPasswordFile() );
+            pbParams.add( cmd.handlePasswordFile( config.getPasswordFile() ) );
+
         }
         pbParams.addAll( Arrays.asList( cmd.getParameters() ) );
-        return ( String[] ) pbParams.toArray( new String[ pbParams.size() ] );
+        return pbParams.toArray( new String[ pbParams.size() ] );
     }
 
     private static void outPrintln( final String message )
@@ -198,6 +197,55 @@ public class AsAdmin
     {
         System.out.print( OUTPUT_PREFIX );
         System.out.println( message );
+    }
+
+    /**
+     * Ensure variable names do not contains spaces and quote their values if needed.
+     */
+    /* package */ static String[] buildEnvironmentStrings( Map<String, String> envVariables )
+    {
+        if ( envVariables == null || envVariables.isEmpty() ) {
+            return new String[]{};
+        }
+        String[] array = new String[ envVariables.size() ];
+        int idx = 0;
+        for ( Map.Entry<String, String> eachEntry : envVariables.entrySet() ) {
+            String key = eachEntry.getKey().trim();
+            if ( !key.matches( "^\\S+$" ) ) {
+                throw new IllegalArgumentException( "Environment variable names cannot contain spaces: " + key );
+            }
+            String value = eachEntry.getValue();
+            array[idx] = key + "=" + quoteArgument( value );
+            idx++;
+        }
+        return array;
+    }
+
+    private static final String SINGLE_QUOTE = "\'";
+    private static final String DOUBLE_QUOTE = "\"";
+
+    private static String quoteArgument( final String argument )
+    {
+        String cleanedArgument = argument.trim();
+        // strip the quotes from both ends
+        while ( cleanedArgument.startsWith( SINGLE_QUOTE ) || cleanedArgument.startsWith( DOUBLE_QUOTE ) ) {
+            cleanedArgument = cleanedArgument.substring( 1 );
+        }
+        while ( cleanedArgument.endsWith( SINGLE_QUOTE ) || cleanedArgument.endsWith( DOUBLE_QUOTE ) ) {
+            cleanedArgument = cleanedArgument.substring( 0, cleanedArgument.length() - 1 );
+        }
+        final StringBuffer sb = new StringBuffer();
+        if ( cleanedArgument.indexOf( DOUBLE_QUOTE ) > -1 ) {
+            if ( cleanedArgument.indexOf( SINGLE_QUOTE ) > -1 ) {
+                throw new IllegalArgumentException( "Can't handle single and double quotes in same argument" );
+            } else {
+                return sb.append( SINGLE_QUOTE ).append( cleanedArgument ).append( SINGLE_QUOTE ).toString();
+            }
+        } else if ( cleanedArgument.indexOf( SINGLE_QUOTE ) > -1 || cleanedArgument.indexOf( " " ) > -1 ) {
+            return sb.append( DOUBLE_QUOTE ).append( cleanedArgument ).append( DOUBLE_QUOTE ).toString();
+        } else {
+            return cleanedArgument;
+        }
     }
 
     /**
@@ -222,6 +270,8 @@ public class AsAdmin
             }
         }
 
+        @Override
+        @SuppressWarnings( "CallToThreadDumpStack" )
         public void run()
         {
             try {

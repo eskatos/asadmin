@@ -13,13 +13,23 @@
  */
 package org.n0pe.asadmin;
 
+import java.util.Map;
+
 /**
  * Configuration provider for AsAdmin.
- * 
- * @author Paul Merlin
  */
 public interface IAsAdminConfig
 {
+
+    /**
+     * @return A map of environment to use when forking the asadmin process.
+     */
+    Map<String, String> getEnvironmentVariables();
+
+    /**
+     * @return The glassfish home path.
+     */
+    String getGlassfishHome();
 
     /**
      * @return The username to use with asadmin.
@@ -30,11 +40,6 @@ public interface IAsAdminConfig
      * @return The file where credentials are stored.
      */
     String getPasswordFile();
-
-    /**
-     * @return The glassfish home path.
-     */
-    String getGlassfishHome();
 
     /**
      * @return The glassfish host.

@@ -13,6 +13,8 @@
  */
 package org.n0pe.asadmin.commands;
 
+import java.util.Collections;
+import java.util.Map;
 import org.n0pe.asadmin.IAsAdminConfig;
 
 /**
@@ -76,6 +78,11 @@ public class TestAsConfigProvider
     public boolean isSecure()
     {
         return SECURE;
+    }
+
+    public Map<String, String> getEnvironmentVariables()
+    {
+        return Collections.emptyMap();
     }
 
 }

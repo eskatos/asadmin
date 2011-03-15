@@ -15,6 +15,8 @@ package org.n0pe.asadmin.commands;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
 import junit.framework.TestCase;
 import org.n0pe.asadmin.AsAdmin;
 import org.n0pe.asadmin.AsAdminCmdList;
@@ -74,6 +76,11 @@ public class ListDomainsTest
             public boolean isSecure()
             {
                 return false;
+            }
+
+            public Map<String, String> getEnvironmentVariables()
+            {
+                return Collections.emptyMap();
             }
 
         };

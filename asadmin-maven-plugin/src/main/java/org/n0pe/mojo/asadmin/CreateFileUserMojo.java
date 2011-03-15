@@ -30,17 +30,17 @@ public class CreateFileUserMojo
      * @parameter
      * @required
      */
-    private String userPasswordFile;
+    private String userName;
+    /**
+     * @parameter
+     * @required
+     */
+    private String userPassword;
     /**
      * @parameter
      * @required
      */
     private String group;
-    /**
-     * @parameter
-     * @required
-     */
-    private String userName;
 
     @Override
     protected AsAdminCmdList getAsCommandList()
@@ -48,7 +48,7 @@ public class CreateFileUserMojo
     {
         getLog().info( "Create file user: " + userName );
         AsAdminCmdList cmdList = new AsAdminCmdList();
-        cmdList.add( new CreateFileUser( userName ).withGroup( group ).withPasswordFile( userPasswordFile ) );
+        cmdList.add( new CreateFileUser( userName ).withGroup( group ).withPassword( userPassword.toCharArray() ) );
         return cmdList;
     }
 

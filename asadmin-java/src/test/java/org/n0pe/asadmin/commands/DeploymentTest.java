@@ -16,10 +16,8 @@ package org.n0pe.asadmin.commands;
 import junit.framework.TestCase;
 
 import org.n0pe.asadmin.AsAdmin;
+import org.n0pe.asadmin.AsAdminException;
 
-/**
- * @author Paul Merlin
- */
 public class DeploymentTest
         extends TestCase
 {
@@ -29,6 +27,7 @@ public class DeploymentTest
     private static final String CONTEXT_ROOT = "my-ctx-root";
 
     public void testDeploy()
+            throws AsAdminException
     {
         final Deployment deployCmd = new Deployment();
         try {
@@ -51,7 +50,7 @@ public class DeploymentTest
                                    AsAdmin.PASSWORDFILE_OPT, TestAsConfigProvider.PASSWORD_FILE,
                                    Deployment.CONTEXTROOT_OPT, CONTEXT_ROOT,
                                    ARCHIVE_NAME
-                };
+        };
         final String[] processParams = AsAdmin.buildProcessParams( deployCmd, TestAsConfigProvider.getInstance() );
         assertEquals( goodParams.length, processParams.length );
         for ( int i = 0; i < goodParams.length; i++ ) {
@@ -60,6 +59,7 @@ public class DeploymentTest
     }
 
     public void testUndeploy()
+            throws AsAdminException
     {
         final Deployment undeployCmd = new Deployment().component( COMPONENT_NAME );
         try {
@@ -81,7 +81,7 @@ public class DeploymentTest
                                    AsAdmin.USER_OPT, TestAsConfigProvider.USER_NAME,
                                    AsAdmin.PASSWORDFILE_OPT, TestAsConfigProvider.PASSWORD_FILE,
                                    COMPONENT_NAME
-                };
+        };
         final String[] processParams = AsAdmin.buildProcessParams( undeployCmd, TestAsConfigProvider.getInstance() );
         assertEquals( goodParams.length, processParams.length );
         for ( int i = 0; i < goodParams.length; i++ ) {

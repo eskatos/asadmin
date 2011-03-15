@@ -36,6 +36,12 @@ public abstract class AbstractAsAdminCmd
         return new CharSequenceReader( stderrBuilder );
     }
 
+    public String handlePasswordFile( String configuredPasswordFile )
+            throws AsAdminException
+    {
+        return configuredPasswordFile;
+    }
+
     final void appendStandardOutputLine( String line )
     {
         stdoutBuilder.append( line ).append( "\n" );

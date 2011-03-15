@@ -13,9 +13,6 @@
  */
 package org.n0pe.asadmin;
 
-/**
- * @author Paul Merlin
- */
 public final class Util
 {
 

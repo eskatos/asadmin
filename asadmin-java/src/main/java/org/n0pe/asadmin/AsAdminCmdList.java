@@ -15,64 +15,15 @@ package org.n0pe.asadmin;
 
 import java.util.ArrayList;
 
-/**
- * An ArrayList containing IAsCommands.
- * Generics in maven ?
- *
- * @author Paul Merlin <eskatos@n0pe.org>
- */
 public class AsAdminCmdList
-        extends ArrayList
+        extends ArrayList<IAsAdminCmd>
 {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * AsAdminCmdList CTOR.
-     */
     public AsAdminCmdList()
     {
         super();
-    }
-
-    public boolean add( IAsAdminCmd e )
-    {
-        return super.add( e );
-    }
-
-    public void add( int index, IAsAdminCmd element )
-    {
-        super.add( index, element );
-    }
-
-    public boolean contains( IAsAdminCmd o )
-    {
-        return super.contains( o );
-    }
-
-    public int indexOf( IAsAdminCmd o )
-    {
-        return super.indexOf( o );
-    }
-
-    public int lastIndexOf( IAsAdminCmd o )
-    {
-        return super.lastIndexOf( o );
-    }
-
-    public boolean remove( IAsAdminCmd o )
-    {
-        return super.remove( o );
-    }
-
-    public IAsAdminCmd set( int index, IAsAdminCmd element )
-    {
-        return ( IAsAdminCmd ) super.set( index, element );
-    }
-
-    public IAsAdminCmd[] toArray( IAsAdminCmd[] a )
-    {
-        return ( IAsAdminCmd[] ) super.toArray( a );
     }
 
 }
