@@ -1,10 +1,10 @@
 asadmin-java
 ============
 
-asadmin-java is a java api to invoke glassfish v2 asadmin commands
+asadmin-java is a java api to invoke glassfish V3 and V2 asadmin commands
 
 The project is hosted in maven central.
-[here](https://repository.sonatype.org/index.html#nexus-search;gav~org.codeartisans.asadmin~asadmin-java~~~) you'll find a quick copy/paste for the dependency.
+[here](http://search.maven.org/#search%7Cga%7C1%7Casadmin-java) you'll find a quick copy/paste for the dependency.
 
 
 asadmin-maven-plugin
