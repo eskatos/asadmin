@@ -126,7 +126,11 @@ public class AsAdmin
                     windowsCommand = new String[]{ "cmd.exe", "/C", command };
                 }
                 outPrintln( "Will run the following command: " + StringUtils.join( windowsCommand, " " ) );
-                proc = Runtime.getRuntime().exec( windowsCommand, env );
+                if ( env.length > 0 ) {
+                    proc = Runtime.getRuntime().exec( windowsCommand, env );
+                } else {
+                    proc = Runtime.getRuntime().exec( windowsCommand );
+                }
             } else {
                 // Non Windows
                 outPrintln( "Will run the following command: " + StringUtils.join( cmds, " " ) );
