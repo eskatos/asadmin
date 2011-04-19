@@ -30,7 +30,9 @@ public class StartDomainMojo
     {
         getLog().info( "Starting AS domain: " + domain );
         final AsAdminCmdList list = new AsAdminCmdList();
-        list.add( new Domain( domain ).start() );
+        Domain domainCmd = new Domain( domain ).start();
+        setPatterns(domainCmd);
+        list.add(domainCmd);
         return list;
     }
 

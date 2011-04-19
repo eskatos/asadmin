@@ -14,6 +14,9 @@
  */
 package org.n0pe.asadmin.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 
 /**
@@ -80,9 +83,23 @@ public class Database
 
     public String[] getParameters()
     {
-        final String[] params;
-        params = new String[]{ DB_HOST, dbHost, DB_PORT, dbPort };
-        return params;
+    	final List<String> params = new ArrayList<String>();
+    	if(isSet(dbHost))
+    	{
+    		params.add(DB_HOST);
+    		params.add(dbHost);
+    	}
+    	if(isSet(dbPort))
+    	{
+    		params.add(DB_PORT);
+    		params.add(dbPort);
+    	}
+    	return params.toArray(new String[0]);
+    }
+    
+    private final boolean isSet(String str)
+    {
+    	return str != null && str.trim().length() > 0; 
     }
 
 }

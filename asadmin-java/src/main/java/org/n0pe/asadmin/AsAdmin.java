@@ -27,8 +27,9 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
-
+import org.n0pe.asadmin.commands.AddResources;
 import org.n0pe.asadmin.commands.Database;
+import org.n0pe.asadmin.commands.Deployment;
 import org.n0pe.asadmin.commands.Domain;
 
 /**
@@ -45,7 +46,6 @@ import org.n0pe.asadmin.commands.Domain;
 public class AsAdmin
 {
 
-    private static final String ASADMIN_FAILED = "failed";
     private static final String OUTPUT_PREFIX = "[ASADMIN] ";
     private static Map<IAsAdminConfig, AsAdmin> instances;
     public static final String HOST_OPT = "--host";
@@ -146,7 +146,11 @@ public class AsAdmin
             outputGobbler.start();
             exitCode = proc.waitFor();
             if ( exitCode != 0 ) {
-                throw new AsAdminException( "asadmin invocation failed and returned : " + String.valueOf( exitCode ) );
+            	if(cmd.failOnNonZeroExit())
+            	{
+            		throw new AsAdminException( "asadmin invocation failed and returned : " + String.valueOf( exitCode ) );
+            	}
+            	errPrintln("Ignoring accpetable asadmin error");
             }
         } catch ( final InterruptedException ex ) {
             throw new AsAdminException( "AsAdmin error occurred: " + ex.getMessage(), ex );
@@ -160,7 +164,10 @@ public class AsAdmin
     {
         final List<String> pbParams = new ArrayList<String>();
         pbParams.add( ASADMIN_COMMAND_NAME );
-        pbParams.add( cmd.getActionCommand() );
+        if(!Deployment.UNDEPLOY.equals(cmd.getActionCommand()) &&
+        		!Deployment.DEPLOY.equals(cmd.getActionCommand()) &&
+        		!"add-resources".equals(cmd.getActionCommand()))
+        	pbParams.add( cmd.getActionCommand() );
         if ( !StringUtils.isEmpty( config.getHost() )
              && !Domain.START.equals( cmd.getActionCommand() )
              && !Domain.STOP.equals( cmd.getActionCommand() )
@@ -187,6 +194,10 @@ public class AsAdmin
             pbParams.add( cmd.handlePasswordFile( config.getPasswordFile() ) );
 
         }
+        if(Deployment.UNDEPLOY.equals(cmd.getActionCommand()) || 
+        		Deployment.DEPLOY.equals(cmd.getActionCommand()) ||
+        		"add-resources".equals(cmd.getActionCommand()))
+        	pbParams.add( cmd.getActionCommand() );
         pbParams.addAll( Arrays.asList( cmd.getParameters() ) );
         return pbParams.toArray( new String[ pbParams.size() ] );
     }
