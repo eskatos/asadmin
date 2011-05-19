@@ -21,7 +21,6 @@ import org.n0pe.asadmin.commands.Deployment;
 /**
  * @goal deploy
  * @description AsAdmin deploy mojo
- * @author Paul Merlin
  */
 public class DeployMojo
         extends AbstractAsadminMojo
@@ -31,6 +30,10 @@ public class DeployMojo
      * @parameter
      */
     private String target;
+    /**
+     * @parameter default-value="false"
+     */
+    private boolean force;
 
     @Override
     protected AsAdminCmdList getAsCommandList()
@@ -44,7 +47,7 @@ public class DeployMojo
         if ( !StringUtils.isEmpty( appName ) ) {
             d.appName( appName );
         }
-        list.add( d.deploy() );
+        list.add( d.force( force ).deploy() );
         return list;
     }
 
