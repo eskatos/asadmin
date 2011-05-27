@@ -22,6 +22,8 @@ public abstract class AbstractAsAdminCmd
         implements IAsAdminCmd
 {
 
+	public static final String[] EMPTY_ARRAY = new String[0];
+	
     private final StringBuilder stdoutBuilder = new StringBuilder();
     private final StringBuilder stderrBuilder = new StringBuilder();
     private Pattern okayErrorPattern = null;
@@ -78,11 +80,13 @@ public abstract class AbstractAsAdminCmd
 
     final void appendStandardOutputLine( String line )
     {
+    	//System.out.println("Out: " + line);
         stdoutBuilder.append( line ).append( "\n" );
     }
 
     final void appendErrorOutputLine( String line )
     {
+    	//System.err.println("Err: " + line);
         stderrBuilder.append( line ).append( "\n" );
     }
 }
