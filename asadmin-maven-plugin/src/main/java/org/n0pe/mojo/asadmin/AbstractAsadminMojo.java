@@ -83,6 +83,12 @@ public abstract class AbstractAsadminMojo
      * @required
      */
     protected String domain;
+    
+    /**
+     * @parameter default-value="cluster"
+     */
+    protected String cluster;
+    
     /**
      * @parameter expression="${project.build.directory}/${project.build.finalName}.${project.artifact.artifactHandler.extension}"
      * @required

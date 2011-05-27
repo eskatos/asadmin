@@ -38,6 +38,7 @@ public class UndeployMojo
         Deployment deployment = new Deployment().undeploy().component( appName ).target( target );
         setPatterns(deployment);
         list.add( deployment );
+        setPatterns(deployment);
         return list;
     }
 
