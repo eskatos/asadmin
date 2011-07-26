@@ -38,6 +38,12 @@ public class Database
     public Database()
     {
     }
+    
+    public Database(String dbHost, String dbPort)
+    {
+        this.dbHost=dbHost;
+        this.dbPort=dbPort;
+    }
 
     public Database setDbHost(String dbHost)
     {
