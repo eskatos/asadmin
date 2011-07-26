@@ -30,7 +30,7 @@ public class StartDatabaseMojo
     {
         getLog().info( "Starting database" );
         final AsAdminCmdList list = new AsAdminCmdList();
-        list.add( new Database().start() );
+        list.add( new Database(dbHost, dbPort).start() );
         return list;
     }
 

@@ -30,7 +30,7 @@ public class StopDatabaseMojo
     {
         getLog().info( "Stopping database" );
         final AsAdminCmdList list = new AsAdminCmdList();
-        list.add( new Database().stop() );
+        list.add( new Database(dbHost, dbPort).stop() );
         return list;
     }
 

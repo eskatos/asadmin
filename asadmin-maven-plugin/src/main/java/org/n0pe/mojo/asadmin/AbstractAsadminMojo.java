@@ -72,6 +72,16 @@ public abstract class AbstractAsadminMojo
      * @required
      */
     private String port;
+/**
+     * @parameter default-value="localhost"
+     * @required
+     */
+    protected String dbHost;
+    /**
+     * @parameter default-value="1527"
+     * @required
+     */
+    protected String dbPort;
     /**
      * @parameter default-value="false"
      * @required
