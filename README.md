@@ -20,7 +20,7 @@ The project is hosted in maven central, to use it add the following snippet to y
  	    <plugin>
 	      <groupId>org.codeartisans.asadmin</groupId>
 	      <artifactId>asadmin-maven-plugin</artifactId>
-	      <version>0.8</version>
+	      <version>0.9</version>
 	    </plugin>
 	  </plugins>
 	</build>
@@ -85,7 +85,7 @@ Here is a pom example expressing the default configuration :
                 <plugin>
                     <groupId>org.codeartisans.asadmin</groupId>
                     <artifactId>asadmin-maven-plugin</artifactId>
-                    <version>0.8</version>
+                    <version>0.9</version>
                     <configuration>
                         <glassfishHome>/path/to/your/glassfish/installation/folder</glassfishHome>
                         <domain>domain1</domain>
