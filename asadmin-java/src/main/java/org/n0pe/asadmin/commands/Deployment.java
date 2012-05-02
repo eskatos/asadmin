@@ -33,6 +33,7 @@ public class Deployment
     public static final String CONTEXTROOT_OPT = "--contextroot";
     public static final String NAME_OPT = "--name";
     public static final String TARGET_OPT = "--target";
+    public static final String AVAILABILITY_OPT = "--availabilityenabled";
     private static final int DEPLOY_MODE = 1;
     private static final int UNDEPLOY_MODE = 2;
     private int ACTION = -1;
@@ -42,6 +43,7 @@ public class Deployment
     private String appName;
     private String target;
     private boolean force;
+    private Boolean availability = null;
 
     public Deployment deploy()
     {
@@ -91,6 +93,12 @@ public class Deployment
         return this;
     }
 
+    public Deployment availability( boolean haEnable )
+    {
+        this.availability = haEnable;
+        return this;
+    }
+    
     public boolean needCredentials()
     {
         return true;
@@ -109,7 +117,7 @@ public class Deployment
 
     public String[] getParameters()
     {
-        final List parameters = new ArrayList();
+        final List<String> parameters = new ArrayList<String>();
         if ( !StringUtils.isEmpty( target ) ) {
             parameters.add( TARGET_OPT );
             parameters.add( target );
@@ -121,6 +129,11 @@ public class Deployment
             if ( force ) {
                 parameters.add( FORCE_OPT );
             }
+            if ( availability != null) {
+                parameters.add( AVAILABILITY_OPT );
+                parameters.add( availability.toString());
+            }
+            
             if ( !StringUtils.isEmpty( contextRoot ) ) {
                 parameters.add( CONTEXTROOT_OPT );
                 parameters.add( contextRoot );

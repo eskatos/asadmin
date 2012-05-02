@@ -35,7 +35,10 @@ public class UndeployMojo
     {
         getLog().info( "Undeploying application: " + appName );
         final AsAdminCmdList list = new AsAdminCmdList();
-        list.add( new Deployment().undeploy().component( appName ).target( target ) );
+        Deployment deployment = new Deployment().undeploy().component( appName ).target( target );
+        setPatterns(deployment);
+        list.add( deployment );
+        setPatterns(deployment);
         return list;
     }
 

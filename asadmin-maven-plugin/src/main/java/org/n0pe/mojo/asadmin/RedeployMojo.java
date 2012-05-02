@@ -32,6 +32,11 @@ public class RedeployMojo
      */
     private String target;
 
+    /**
+     * @parameter
+     */
+    private Boolean availabilityenabled = null;
+    
     @Override
     protected AsAdminCmdList getAsCommandList()
     {
@@ -44,7 +49,8 @@ public class RedeployMojo
         if ( !StringUtils.isEmpty( appName ) ) {
             d.appName( appName );
         }
-        list.add( d.force( true ).deploy() );
+        list.add( d.force( true ).availability(availabilityenabled).deploy() );
+        setPatterns(d);
         return list;
     }
 

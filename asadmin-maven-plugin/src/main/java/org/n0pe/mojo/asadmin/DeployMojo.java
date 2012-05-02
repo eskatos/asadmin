@@ -30,10 +30,16 @@ public class DeployMojo
      * @parameter
      */
     private String target;
+    
     /**
      * @parameter default-value="false"
      */
     private boolean force;
+    
+    /**
+     * @parameter
+     */
+    private Boolean availabilityenabled = null;
 
     @Override
     protected AsAdminCmdList getAsCommandList()
@@ -48,6 +54,8 @@ public class DeployMojo
             d.appName( appName );
         }
         list.add( d.force( force ).deploy() );
+        list.add( d.availability(availabilityenabled).deploy() );
+        setPatterns(d);
         return list;
     }
 

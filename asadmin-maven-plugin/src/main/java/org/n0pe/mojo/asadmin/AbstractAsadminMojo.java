@@ -16,18 +16,19 @@ package org.n0pe.mojo.asadmin;
 import java.io.File;
 import java.util.Collections;
 import java.util.Map;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
-
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-
 import org.n0pe.asadmin.AsAdmin;
-import org.n0pe.asadmin.AsAdminException;
 import org.n0pe.asadmin.AsAdminCmdList;
+import org.n0pe.asadmin.AsAdminException;
+import org.n0pe.asadmin.IAsAdminCmd;
 import org.n0pe.asadmin.IAsAdminConfig;
 
 /**
@@ -92,6 +93,12 @@ public abstract class AbstractAsadminMojo
      * @required
      */
     protected String domain;
+    
+    /**
+     * @parameter default-value="cluster"
+     */
+    protected String cluster;
+    
     /**
      * @parameter expression="${project.build.directory}/${project.build.finalName}.${project.artifact.artifactHandler.extension}"
      * @required
@@ -114,6 +121,24 @@ public abstract class AbstractAsadminMojo
      * @readonly
      */
     protected MavenProject mavenProject;
+    
+    /**
+     * @parameter default-value="false"
+     */
+    protected boolean ignoreAllErrors = false;
+    
+    /**
+     * @parameter default-value=""
+     */
+    protected String okayErrorOutputRegex = null;
+    protected Pattern okayErrorOutputPattern = null;
+    
+
+    /**
+     * @parameter default-value=""
+     */
+    protected String okayStdOutputRegex = null;
+    protected Pattern okayStdOutputPattern = null;
 
     @Override
     public final void execute()
@@ -130,7 +155,10 @@ public abstract class AbstractAsadminMojo
             AsAdmin.getInstance( this ).run( getAsCommandList() );
 
         } catch ( AsAdminException ex ) {
-            throw new MojoExecutionException( ex.getMessage(), ex );
+        	if(!ignoreAllErrors)
+        		throw new MojoExecutionException( ex.getMessage(), ex );
+        	else
+        		getLog().info("Ignoring error", ex);
         }
     }
 
@@ -224,6 +252,37 @@ public abstract class AbstractAsadminMojo
             throw new MojoFailureException(
                     "Given password file does not exists or cannot find an existing asadmin password file" );
         }
+        if(okayErrorOutputRegex != null && okayErrorOutputRegex.trim().length() != 0)
+        {
+        	try {
+				okayErrorOutputPattern = Pattern.compile(okayErrorOutputRegex);
+			} catch (PatternSyntaxException e) {
+				throw new MojoExecutionException("Cannot compile the okayErrorOutputRegex: ", e );
+			} catch(IllegalArgumentException e){
+				throw new MojoExecutionException("Cannot compile the okayErrorOutputRegex: ", e );
+			} 
+        }
+        if(okayStdOutputRegex != null && okayStdOutputRegex.trim().length() != 0)
+        {
+        	try {
+				okayStdOutputPattern = Pattern.compile(okayStdOutputRegex);
+			} catch (PatternSyntaxException e) {
+				throw new MojoExecutionException("Cannot compile the okayStdOutputRegex: ", e );
+			} catch(IllegalArgumentException e){
+				throw new MojoExecutionException("Cannot compile the okayStdOutputRegex: ", e );
+			} 
+        }
     }
 
+    protected void setPatterns(IAsAdminCmd cmd)
+    {
+    	if(okayStdOutputPattern != null)
+    	{
+    		cmd.setOkayStdOutPattern(okayStdOutputPattern);
+    	}
+    	if(okayErrorOutputPattern != null)
+    	{
+    		cmd.setOkayErrorPattern(okayErrorOutputPattern);
+    	}
+    }
 }
