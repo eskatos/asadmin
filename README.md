@@ -33,9 +33,15 @@ The following goals are available:
     mvn asadmin:start-domain
     mvn asadmin:stop-domain
 
+    mvn asadmin:start-cluster
+    mvn asadmin:stop-cluster
+
     mvn asadmin:deploy
     mvn asadmin:redeploy
     mvn asadmin:undeploy
+
+    mvn asadmin:uptime
+    mvn asadmin:get-health
 
     mvn asadmin:get
     mvn asadmin:set
@@ -46,6 +52,7 @@ The following goals are available:
     mvn asadmin:ping-connection-pool
     mvn asadmin:delete-jdbc-connection-pool
 
+    mvn asadmin:add-resources
     mvn asadmin:create-jdbc-resource
     mvn asadmin:delete-jdbc-resource
 
