@@ -30,6 +30,7 @@ public class Deployment
     public static final String DEPLOY = "deploy";
     public static final String UNDEPLOY = "undeploy";
     public static final String FORCE_OPT = "--force";
+    public static final String UPLOAD_OPT = "--upload";
     public static final String CONTEXTROOT_OPT = "--contextroot";
     public static final String NAME_OPT = "--name";
     public static final String TARGET_OPT = "--target";
@@ -43,6 +44,7 @@ public class Deployment
     private String appName;
     private String target;
     private boolean force;
+    private boolean upload;
     private Boolean availability = null;
 
     public Deployment deploy()
@@ -78,6 +80,12 @@ public class Deployment
     public Deployment force( boolean force )
     {
         this.force = force;
+        return this;
+    }
+    
+    public Deployment upload( boolean upload )
+    {
+        this.upload = upload;
         return this;
     }
 
@@ -128,6 +136,9 @@ public class Deployment
             }
             if ( force ) {
                 parameters.add( FORCE_OPT );
+            }
+            if ( upload ) {
+                parameters.add( UPLOAD_OPT );
             }
             if ( availability != null) {
                 parameters.add( AVAILABILITY_OPT );

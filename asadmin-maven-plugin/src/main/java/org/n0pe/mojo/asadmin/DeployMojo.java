@@ -37,6 +37,11 @@ public class DeployMojo
     private boolean force;
     
     /**
+     * @parameter default-value="false"
+     */
+    private boolean upload;
+    
+    /**
      * @parameter
      */
     private Boolean availabilityenabled = null;
@@ -53,8 +58,8 @@ public class DeployMojo
         if ( !StringUtils.isEmpty( appName ) ) {
             d.appName( appName );
         }
-        list.add( d.force( force ).deploy() );
-        list.add( d.availability(availabilityenabled).deploy() );
+        list.add( d.force( force ).upload( upload ).deploy() );
+        list.add( d.availability( availabilityenabled ).deploy() );
         setPatterns(d);
         return list;
     }
