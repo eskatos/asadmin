@@ -30,21 +30,21 @@ public class DeployMojo
      * @parameter
      */
     private String target;
-    
+
     /**
      * @parameter default-value="false"
      */
     private boolean force;
-    
+
     /**
      * @parameter default-value="false"
      */
     private boolean upload;
-    
+
     /**
-     * @parameter
+     * @parameter default-value="false"
      */
-    private Boolean availabilityenabled = null;
+    private boolean availability;
 
     @Override
     protected AsAdminCmdList getAsCommandList()
@@ -58,9 +58,8 @@ public class DeployMojo
         if ( !StringUtils.isEmpty( appName ) ) {
             d.appName( appName );
         }
-        list.add( d.force( force ).upload( upload ).deploy() );
-        list.add( d.availability( availabilityenabled ).deploy() );
-        setPatterns(d);
+        list.add( d.force( force ).upload( upload ).availability( availability ).deploy() );
+        setPatterns( d );
         return list;
     }
 
