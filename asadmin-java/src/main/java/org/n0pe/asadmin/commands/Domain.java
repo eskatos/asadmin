@@ -24,11 +24,17 @@ public class Domain
 
     public static final String START = "start-domain";
     public static final String STOP = "stop-domain";
-    private Boolean start = null;
+    public static final String RESTART = "restart-domain";
+    public static final int START_MODE = 1;
+    public static final int STOP_MODE = 2;
+    public static final int RESTART_MODE = 3;
+    private int ACTION = -1;
     private String domain;
 
-    private Domain()
+    public Domain()
     {
+        //restart-domain does not require a domain name to be
+        //provided.
     }
 
     public Domain( String domain )
@@ -38,37 +44,48 @@ public class Domain
 
     public Domain start()
     {
-        start = Boolean.TRUE;
+        ACTION = START_MODE;
         return this;
     }
 
     public Domain stop()
     {
-        start = Boolean.FALSE;
+        ACTION = STOP_MODE;
+        return this;
+    }
+
+    public Domain restart()
+    {
+        ACTION = RESTART_MODE;
         return this;
     }
 
     public boolean needCredentials()
     {
-        return false;
+        return (ACTION == RESTART_MODE);
     }
 
     public String getActionCommand()
     {
-        if ( start == null ) {
+        if (ACTION == START_MODE) {
+            return START;
+        } else if (ACTION == STOP_MODE) {
+            return STOP;
+        } else if (ACTION == RESTART_MODE) {
+            return RESTART;
+        } else {
             throw new IllegalStateException();
         }
-        return start.booleanValue()
-               ? START
-               : STOP;
     }
 
     public String[] getParameters()
     {
-        if ( start == null ) {
+        if ( ACTION == -1 ) {
             throw new IllegalStateException();
         }
-        return new String[]{ domain };
+        return (ACTION == RESTART_MODE)
+                ? new String[]{}
+                : new String[]{ domain };
     }
 
 }
