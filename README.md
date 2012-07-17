@@ -32,6 +32,7 @@ The following goals are available:
 
     mvn asadmin:start-domain
     mvn asadmin:stop-domain
+    mvn asadmin:restart-domain
 
     mvn asadmin:start-cluster
     mvn asadmin:stop-cluster
