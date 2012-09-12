@@ -46,19 +46,21 @@ public class DeployMojo
      */
     private boolean availability;
 
+	private boolean precompilejsp;
+
     @Override
     protected AsAdminCmdList getAsCommandList()
     {
         getLog().info( "Deploying application archive: " + appArchive );
         final AsAdminCmdList list = new AsAdminCmdList();
-        final Deployment d = new Deployment().archive( appArchive ).target( target );
+        final Deployment d = new Deployment().archive( appArchive ).target( target ).precompilejsp(precompilejsp);
         if ( "war".equalsIgnoreCase( mavenProject.getPackaging() ) && !StringUtils.isEmpty( contextRoot ) ) {
             d.withContextRoot( contextRoot );
         }
         if ( !StringUtils.isEmpty( appName ) ) {
             d.appName( appName );
         }
-        list.add( d.force( force ).upload( upload ).availability( availability ).deploy() );
+        list.add( d.force( force ).upload( upload ).availability( availability ).precompilejsp(precompilejsp).deploy() );
         setPatterns( d );
         return list;
     }

@@ -36,20 +36,21 @@ public class RedeployMojo
      * @parameter
      */
     private Boolean availabilityenabled = null;
+	private Boolean precompilejsp = null;
     
     @Override
     protected AsAdminCmdList getAsCommandList()
     {
         getLog().info( "Redeploying application archive: " + appArchive );
         final AsAdminCmdList list = new AsAdminCmdList();
-        final Deployment d = new Deployment().archive( appArchive ).target( target );
+        final Deployment d = new Deployment().archive( appArchive ).target( target ).precompilejsp(precompilejsp);
         if ( "war".equalsIgnoreCase( mavenProject.getPackaging() ) && !StringUtils.isEmpty( contextRoot ) ) {
             d.withContextRoot( contextRoot );
         }
         if ( !StringUtils.isEmpty( appName ) ) {
             d.appName( appName );
         }
-        list.add( d.force( true ).availability(availabilityenabled).deploy() );
+        list.add( d.force( true ).availability(availabilityenabled).precompilejsp(precompilejsp).deploy() );
         setPatterns(d);
         return list;
     }

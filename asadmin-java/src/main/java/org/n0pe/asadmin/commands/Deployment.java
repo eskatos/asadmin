@@ -35,6 +35,7 @@ public class Deployment
     public static final String NAME_OPT = "--name";
     public static final String TARGET_OPT = "--target";
     public static final String AVAILABILITY_OPT = "--availabilityenabled";
+	public static final String PRECOMPILE_JSP_OPT = "--precompilejsp";
     private static final int DEPLOY_MODE = 1;
     private static final int UNDEPLOY_MODE = 2;
     private int ACTION = -1;
@@ -45,6 +46,7 @@ public class Deployment
     private String target;
     private boolean force;
     private boolean upload;
+	private Boolean precompilejsp = null;
     private Boolean availability = null;
 
     public Deployment deploy()
@@ -88,6 +90,12 @@ public class Deployment
         this.upload = upload;
         return this;
     }
+
+	public Deployment precompilejsp( boolean precompilejsp)
+	{
+		this.precompilejsp = precompilejsp;
+		return this;
+	}
 
     public Deployment appName( String appName )
     {
@@ -144,6 +152,10 @@ public class Deployment
                 parameters.add( AVAILABILITY_OPT );
                 parameters.add( availability.toString());
             }
+			if ( precompilejsp != null ) {
+				parameters.add(PRECOMPILE_JSP_OPT);
+				parameters.add(precompilejsp.toString());
+			}
             
             if ( !StringUtils.isEmpty( contextRoot ) ) {
                 parameters.add( CONTEXTROOT_OPT );
