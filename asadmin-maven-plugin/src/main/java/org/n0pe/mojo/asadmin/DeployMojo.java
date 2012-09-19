@@ -46,6 +46,9 @@ public class DeployMojo
      */
     private boolean availability;
 
+	/**
+	 * @parameter default-value="false"
+	 */
 	private boolean precompilejsp;
 
     @Override

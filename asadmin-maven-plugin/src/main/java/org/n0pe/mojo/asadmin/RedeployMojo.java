@@ -36,8 +36,12 @@ public class RedeployMojo
      * @parameter
      */
     private Boolean availabilityenabled = null;
+
+	/**
+	 * @parameter
+	 */
 	private Boolean precompilejsp = null;
-    
+
     @Override
     protected AsAdminCmdList getAsCommandList()
     {
