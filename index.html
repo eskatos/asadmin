@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>asadmin by Codeartisans</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>asadmin</h1>
+        <p>Java API and Maven plugin to invoke Glassfish v3 &amp; V2 asadmin commands</p>
+
+        <p class="view"><a href="https://github.com/Codeartisans/asadmin">View the Project on GitHub <small>Codeartisans/asadmin</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/Codeartisans/asadmin/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Codeartisans/asadmin/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Codeartisans/asadmin">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>asadmin-java</h1>
+
+<p>asadmin-java is a java api to invoke glassfish V3 and V2 asadmin commands</p>
+
+<p>The project is hosted in maven central.
+<a href="http://search.maven.org/#search%7Cga%7C1%7Casadmin-java">here</a> you'll find a quick copy/paste for the dependency.</p>
+
+<h1>asadmin-maven-plugin</h1>
+
+<p>asadmin-maven-plugin is a maven plugin based on asadmin commands</p>
+
+<p>The project is hosted in maven central, to use it add the following snippet to your pom.xml:</p>
+
+<pre><code>&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.codeartisans.asadmin&lt;/groupId&gt;
+      &lt;artifactId&gt;asadmin-maven-plugin&lt;/artifactId&gt;
+      &lt;version&gt;0.10&lt;/version&gt;
+    &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+
+<p>The following goals are available:</p>
+
+<pre><code>mvn asadmin:start-database
+mvn asadmin:stop-database
+
+mvn asadmin:start-domain
+mvn asadmin:stop-domain
+mvn asadmin:restart-domain
+
+mvn asadmin:start-cluster
+mvn asadmin:stop-cluster
+
+mvn asadmin:deploy
+mvn asadmin:redeploy
+mvn asadmin:undeploy
+
+mvn asadmin:uptime
+mvn asadmin:get-health
+
+mvn asadmin:get
+mvn asadmin:set
+
+mvn asadmin:set-ports # To change the http listeners ports
+
+mvn asadmin:create-jdbc-connection-pool
+mvn asadmin:ping-connection-pool
+mvn asadmin:delete-jdbc-connection-pool
+
+mvn asadmin:add-resources
+mvn asadmin:create-jdbc-resource
+mvn asadmin:delete-jdbc-resource
+
+mvn asadmin:create-auth-realm
+mvn asadmin:list-file-users
+mvn asadmin:create-file-user
+mvn asadmin:update-file-user
+mvn asadmin:delete-file-user
+
+mvn asadmin:create-message-security-provider
+mvn asadmin:delete-message-security-provider
+</code></pre>
+
+<p>By default the asadmin-maven-plugin use the following settings:</p>
+
+<pre><code>user: admin
+password-file: ~/.asadmintruststore
+admin-host: localhost
+admin-port: 4848
+domain: domain1
+contextRoot: ${finalName} (only for WAR projects)
+</code></pre>
+
+<p>By default, the deploy and undeploy mojos use the archive (jar/war/ear) produced by your maven project and deploy it using your project's artifactId as module name.</p>
+
+<p>Here is a pom example expressing the default configuration :</p>
+
+<pre><code>&lt;?xml version="1.0"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    [ ... ]
+
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.codeartisans.asadmin&lt;/groupId&gt;
+                &lt;artifactId&gt;asadmin-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;0.10&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;glassfishHome&gt;/path/to/your/glassfish/installation/folder&lt;/glassfishHome&gt;
+                    &lt;domain&gt;domain1&lt;/domain&gt;
+                    &lt;host&gt;localhost&lt;/host&gt;
+                    &lt;port&gt;4848&lt;/port&gt;
+                    &lt;user&gt;admin&lt;/user&gt;
+                    &lt;passwordfile&gt;~/.asadmintruststore&lt;/passwordfile&gt;
+                    &lt;appArchive&gt;${project.build.directory}/${project.build.finalName}.${project.artifact.artifactHandler.extension}&lt;/appArchive&gt;
+                    &lt;contextRoot&gt;war-exemple&lt;/contextRoot&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+
+    [ ... ]
+
+&lt;/project&gt;
+</code></pre>
+
+<h1>ChangeLog</h1>
+
+<p><strong>asadmin-0.10</strong> - 2012-11-04</p>
+
+<p>Thanks to J.Francis and Charles Brown for their contribution to this release.</p>
+
+<ul>
+<li>Added JSP precompile option to all deployment goals</li>
+<li>Added asadmin:restart-domain goal</li>
+<li>Added ability to deploy to remote instance/cluster</li>
+<li>Added add-resources command and goal</li>
+<li>Added start-cluster and stop-cluster commands and goals</li>
+<li>Added --availabilityenabled param to the deploy command and goal</li>
+<li>Added get-health command and goal</li>
+<li>Added uptime command and goal</li>
+<li>Better error handling</li>
+</ul><p><strong>asadmin-0.9</strong> - 2012-05-02</p>
+
+<hr><p>This code was previously hosted <a href="http://code.google.com/p/asadmin-maven-plugin/">here</a>.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Codeartisans">Codeartisans</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-36075991-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
