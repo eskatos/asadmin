@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2010, Christophe Souvignier. All Rights Reserved.
- * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ * Copyright (c) 2010, Christophe Souvignier.
+ * Copyright (c) 2010, Paul Merlin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,8 @@ package org.n0pe.mojo.asadmin;
 
 import java.util.Iterator;
 import java.util.Map;
-
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-
 import org.n0pe.asadmin.AsAdminCmdList;
 import org.n0pe.asadmin.commands.CreateMessageSecurityProvider;
 
@@ -27,7 +25,7 @@ import org.n0pe.asadmin.commands.CreateMessageSecurityProvider;
  * @goal create-message-security-provider
  */
 public class CreateMessageSecurityProviderMojo
-        extends AbstractAsadminMojo
+    extends AbstractAsadminMojo
 {
 
     /**
@@ -57,17 +55,19 @@ public class CreateMessageSecurityProviderMojo
 
     @Override
     protected AsAdminCmdList getAsCommandList()
-            throws MojoExecutionException, MojoFailureException
+        throws MojoExecutionException, MojoFailureException
     {
         getLog().info( "Creating auth realm: " + providerName );
         final AsAdminCmdList list = new AsAdminCmdList();
         final CreateMessageSecurityProvider cmd = new CreateMessageSecurityProvider( providerName ).withClassName( className ).
-                withLayer( layer ).withProviderType( providerType );
-        if ( securityProviderProperties != null && !securityProviderProperties.isEmpty() ) {
+            withLayer( layer ).withProviderType( providerType );
+        if( securityProviderProperties != null && !securityProviderProperties.isEmpty() )
+        {
             final Iterator it = securityProviderProperties.keySet().iterator();
-            while ( it.hasNext() ) {
-                final String key = ( String ) it.next();
-                cmd.addProperty( key, ( String ) securityProviderProperties.get( key ) );
+            while( it.hasNext() )
+            {
+                final String key = (String) it.next();
+                cmd.addProperty( key, (String) securityProviderProperties.get( key ) );
             }
         }
         list.add( cmd );

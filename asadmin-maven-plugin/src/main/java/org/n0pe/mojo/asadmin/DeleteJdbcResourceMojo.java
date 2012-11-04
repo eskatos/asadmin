@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2010, Christophe Souvignier. All Rights Reserved.
- * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ * Copyright (c) 2010, Christophe Souvignier.
+ * Copyright (c) 2010, Paul Merlin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import org.n0pe.asadmin.commands.DeleteJdbcResource;
  * @goal delete-jdbc-resource
  */
 public class DeleteJdbcResourceMojo
-        extends AbstractAsadminMojo
+    extends AbstractAsadminMojo
 {
 
     /**
@@ -34,7 +34,7 @@ public class DeleteJdbcResourceMojo
 
     @Override
     protected AsAdminCmdList getAsCommandList()
-            throws MojoExecutionException, MojoFailureException
+        throws MojoExecutionException, MojoFailureException
     {
         getLog().info( "Delete jdbc resource: " + resourceName );
         final AsAdminCmdList list = new AsAdminCmdList();

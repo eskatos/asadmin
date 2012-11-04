@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ * Copyright (c) 2010, Paul Merlin.
+ * Copyright (c) 2011, J. Francis.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +20,9 @@ import org.n0pe.asadmin.commands.Domain;
 /**
  * @goal start-domain
  * @description AsAdmin start-domain mojo
- * @author Paul Merlin
  */
 public class StartDomainMojo
-        extends AbstractAsadminMojo
+    extends AbstractAsadminMojo
 {
 
     @Override
@@ -31,8 +31,8 @@ public class StartDomainMojo
         getLog().info( "Starting AS domain: " + domain );
         final AsAdminCmdList list = new AsAdminCmdList();
         Domain domainCmd = new Domain( domain ).start();
-        setPatterns(domainCmd);
-        list.add(domainCmd);
+        setPatterns( domainCmd );
+        list.add( domainCmd );
         return list;
     }
 

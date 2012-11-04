@@ -15,10 +15,9 @@ package org.n0pe.asadmin.commands;
 
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 
-/**
- * @author Christophe SOUVIGNIER
- */
-public class CreateJdbcResource extends  AbstractAsAdminCmd {
+public class CreateJdbcResource
+    extends AbstractAsAdminCmd
+{
 
     public static final String RESOURCE = "create-jdbc-resource";
     public static final String CONNECTION_POOL_OPT = "--connectionpoolid";
@@ -28,35 +27,47 @@ public class CreateJdbcResource extends  AbstractAsAdminCmd {
     /**
      * CreateJdbcResource default constructor.
      */
-    private CreateJdbcResource() {
+    private CreateJdbcResource()
+    {
     }
 
-    public CreateJdbcResource(String resourceName) {
+    public CreateJdbcResource( String resourceName )
+    {
         this.resourceName = resourceName;
     }
 
-    public CreateJdbcResource withConnectionPool(String connectionPoolId) {
+    public CreateJdbcResource withConnectionPool( String connectionPoolId )
+    {
         this.connectionPoolId = connectionPoolId;
         return this;
     }
 
-    public boolean needCredentials() {
+    public boolean needCredentials()
+    {
         return true;
     }
 
-    public String getActionCommand() {
-        if (resourceName == null) {
+    public String getActionCommand()
+    {
+        if( resourceName == null )
+        {
             throw new IllegalStateException();
         }
         return RESOURCE;
     }
 
-    public String[] getParameters() {
-        if (connectionPoolId == null) {
+    public String[] getParameters()
+    {
+        if( connectionPoolId == null )
+        {
             throw new IllegalStateException();
         }
         final String[] params;
-        params = new String[]{CONNECTION_POOL_OPT, connectionPoolId, resourceName};
+        params = new String[]
+        {
+            CONNECTION_POOL_OPT, connectionPoolId, resourceName
+        };
         return params;
     }
+
 }

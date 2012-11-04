@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ * Copyright (c) 2010, Paul Merlin.
+ * Copyright (c) 2011, Marenz.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +20,9 @@ import org.n0pe.asadmin.commands.Database;
 /**
  * @goal start-database
  * @description AsAdmin start-database mojo
- * @author Paul Merlin
  */
 public class StartDatabaseMojo
-        extends AbstractAsadminMojo
+    extends AbstractAsadminMojo
 {
 
     @Override
@@ -30,7 +30,7 @@ public class StartDatabaseMojo
     {
         getLog().info( "Starting database" );
         final AsAdminCmdList list = new AsAdminCmdList();
-        list.add( new Database(dbHost, dbPort).start() );
+        list.add( new Database( dbHost, dbPort ).start() );
         return list;
     }
 

@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ * Copyright (c) 2010, Paul Merlin.
+ * Copyright (c) 2011, J. Francis.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +20,9 @@ import org.n0pe.asadmin.commands.Deployment;
 /**
  * @goal undeploy
  * @description AsAdmin undeploy mojo
- * @author Paul Merlin
  */
 public class UndeployMojo
-        extends AbstractAsadminMojo
+    extends AbstractAsadminMojo
 {
 
     /**
@@ -36,9 +36,9 @@ public class UndeployMojo
         getLog().info( "Undeploying application: " + appName );
         final AsAdminCmdList list = new AsAdminCmdList();
         Deployment deployment = new Deployment().undeploy().component( appName ).target( target );
-        setPatterns(deployment);
+        setPatterns( deployment );
         list.add( deployment );
-        setPatterns(deployment);
+        setPatterns( deployment );
         return list;
     }
 

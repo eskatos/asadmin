@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ * Copyright (c) 2012, Charles Brown.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,11 @@ package org.n0pe.asadmin.commands;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
-
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 
-/**
- * @author Paul Merlin
- */
 public class Deployment
-        extends AbstractAsAdminCmd
+    extends AbstractAsAdminCmd
 {
 
     public static final String DEPLOY = "deploy";
@@ -35,7 +30,7 @@ public class Deployment
     public static final String NAME_OPT = "--name";
     public static final String TARGET_OPT = "--target";
     public static final String AVAILABILITY_OPT = "--availabilityenabled";
-	public static final String PRECOMPILE_JSP_OPT = "--precompilejsp";
+    public static final String PRECOMPILE_JSP_OPT = "--precompilejsp";
     private static final int DEPLOY_MODE = 1;
     private static final int UNDEPLOY_MODE = 2;
     private int ACTION = -1;
@@ -46,7 +41,7 @@ public class Deployment
     private String target;
     private boolean force;
     private boolean upload;
-	private Boolean precompilejsp = null;
+    private Boolean precompilejsp = null;
     private Boolean availability = null;
 
     public Deployment deploy()
@@ -84,18 +79,18 @@ public class Deployment
         this.force = force;
         return this;
     }
-    
+
     public Deployment upload( boolean upload )
     {
         this.upload = upload;
         return this;
     }
 
-	public Deployment precompilejsp( boolean precompilejsp)
-	{
-		this.precompilejsp = precompilejsp;
-		return this;
-	}
+    public Deployment precompilejsp( boolean precompilejsp )
+    {
+        this.precompilejsp = precompilejsp;
+        return this;
+    }
 
     public Deployment appName( String appName )
     {
@@ -114,7 +109,7 @@ public class Deployment
         this.availability = haEnable;
         return this;
     }
-    
+
     public boolean needCredentials()
     {
         return true;
@@ -122,11 +117,16 @@ public class Deployment
 
     public String getActionCommand()
     {
-        if ( ACTION == DEPLOY_MODE ) {
+        if( ACTION == DEPLOY_MODE )
+        {
             return DEPLOY;
-        } else if ( ACTION == UNDEPLOY_MODE ) {
+        }
+        else if( ACTION == UNDEPLOY_MODE )
+        {
             return UNDEPLOY;
-        } else {
+        }
+        else
+        {
             throw new IllegalStateException();
         }
     }
@@ -134,47 +134,61 @@ public class Deployment
     public String[] getParameters()
     {
         final List<String> parameters = new ArrayList<String>();
-        if ( !StringUtils.isEmpty( target ) ) {
+        if( !StringUtils.isEmpty( target ) )
+        {
             parameters.add( TARGET_OPT );
             parameters.add( target );
         }
-        if ( ACTION == DEPLOY_MODE ) {
-            if ( archive == null ) {
+        if( ACTION == DEPLOY_MODE )
+        {
+            if( archive == null )
+            {
                 throw new IllegalStateException( "Cannot deploy without an archive" );
             }
-            if ( force ) {
+            if( force )
+            {
                 parameters.add( FORCE_OPT );
             }
-            if ( upload ) {
+            if( upload )
+            {
                 parameters.add( UPLOAD_OPT );
             }
-            if ( availability != null) {
+            if( availability != null )
+            {
                 parameters.add( AVAILABILITY_OPT );
-                parameters.add( availability.toString());
+                parameters.add( availability.toString() );
             }
-			if ( precompilejsp != null ) {
-				parameters.add(PRECOMPILE_JSP_OPT);
-				parameters.add(precompilejsp.toString());
-			}
-            
-            if ( !StringUtils.isEmpty( contextRoot ) ) {
+            if( precompilejsp != null )
+            {
+                parameters.add( PRECOMPILE_JSP_OPT );
+                parameters.add( precompilejsp.toString() );
+            }
+
+            if( !StringUtils.isEmpty( contextRoot ) )
+            {
                 parameters.add( CONTEXTROOT_OPT );
                 parameters.add( contextRoot );
             }
-            if ( !StringUtils.isEmpty( appName ) ) {
+            if( !StringUtils.isEmpty( appName ) )
+            {
                 parameters.add( NAME_OPT );
                 parameters.add( appName );
             }
             parameters.add( archive );
-        } else if ( ACTION == UNDEPLOY_MODE ) {
-            if ( component == null ) {
+        }
+        else if( ACTION == UNDEPLOY_MODE )
+        {
+            if( component == null )
+            {
                 throw new IllegalStateException( "Cannot undeploy without a component" );
             }
             parameters.add( component );
-        } else {
+        }
+        else
+        {
             throw new IllegalStateException( "No action given" );
         }
-        return ( String[] ) parameters.toArray( new String[ parameters.size() ] );
+        return (String[]) parameters.toArray( new String[ parameters.size() ] );
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, Christophe Souvignier. All Rights Reserved.
+ * Copyright (c) 2010, Christophe Souvignier.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,8 @@ package org.n0pe.asadmin.commands;
 
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 
-/**
- * @author Christophe SOUVIGNIER
- */
 public class DeleteMessageSecurityProvider
-        extends AbstractAsAdminCmd
+    extends AbstractAsAdminCmd
 {
 
     public static final String SECURITY_PROVIDER = "delete-message-security-provider";
@@ -49,7 +46,8 @@ public class DeleteMessageSecurityProvider
 
     public String getActionCommand()
     {
-        if ( providerName == null ) {
+        if( providerName == null )
+        {
             throw new IllegalStateException();
         }
         return SECURITY_PROVIDER;
@@ -57,10 +55,14 @@ public class DeleteMessageSecurityProvider
 
     public String[] getParameters()
     {
-        if ( layer == null ) {
+        if( layer == null )
+        {
             throw new IllegalStateException();
         }
-        return new String[]{ LAYER_OPT, layer, providerName };
+        return new String[]
+            {
+                LAYER_OPT, layer, providerName
+            };
     }
 
 }

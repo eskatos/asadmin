@@ -15,11 +15,8 @@ package org.n0pe.asadmin.commands;
 
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 
-/**
- * @author Christophe SOUVIGNIER
- */
 public class DeleteJdbcConnectionPool
-        extends AbstractAsAdminCmd
+    extends AbstractAsAdminCmd
 {
 
     public static final String JDBC = "delete-jdbc-connection-pool";
@@ -41,7 +38,8 @@ public class DeleteJdbcConnectionPool
 
     public String getActionCommand()
     {
-        if ( poolName == null ) {
+        if( poolName == null )
+        {
             throw new IllegalStateException();
         }
         return JDBC;
@@ -49,7 +47,10 @@ public class DeleteJdbcConnectionPool
 
     public String[] getParameters()
     {
-        return new String[]{ poolName };
+        return new String[]
+            {
+                poolName
+            };
     }
 
 }

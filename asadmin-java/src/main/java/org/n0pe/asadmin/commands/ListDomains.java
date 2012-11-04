@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2010, Christophe Souvignier. All Rights Reserved.
+ * Copyright (c) 2010, Christophe Souvignier.
+ * Copyright (c) 2010, Paul Merlin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +17,7 @@ package org.n0pe.asadmin.commands;
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 
 public class ListDomains
-        extends AbstractAsAdminCmd
+    extends AbstractAsAdminCmd
 {
 
     public static final String LIST_DOMAINS = "list-domains";
@@ -33,7 +34,9 @@ public class ListDomains
 
     public String[] getParameters()
     {
-        return new String[]{};
+        return new String[]
+            {
+            };
     }
 
 }

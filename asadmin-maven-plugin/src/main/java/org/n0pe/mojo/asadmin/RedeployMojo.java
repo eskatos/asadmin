@@ -1,5 +1,7 @@
 /*
- * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ * Copyright (c) 2010, Paul Merlin.
+ * Copyright (c) 2011, J. Francis.
+ * Copyright (c) 2012, Charles Brown.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,48 +16,46 @@
 package org.n0pe.mojo.asadmin;
 
 import org.apache.commons.lang.StringUtils;
-
 import org.n0pe.asadmin.AsAdminCmdList;
 import org.n0pe.asadmin.commands.Deployment;
 
 /**
  * @goal redeploy
  * @description AsAdmin redeploy mojo
- * @author Paul Merlin
  */
 public class RedeployMojo
-        extends AbstractAsadminMojo
+    extends AbstractAsadminMojo
 {
 
     /**
      * @parameter
      */
     private String target;
-
     /**
      * @parameter
      */
     private Boolean availabilityenabled = null;
-
-	/**
-	 * @parameter
-	 */
-	private Boolean precompilejsp = null;
+    /**
+     * @parameter
+     */
+    private Boolean precompilejsp = null;
 
     @Override
     protected AsAdminCmdList getAsCommandList()
     {
         getLog().info( "Redeploying application archive: " + appArchive );
         final AsAdminCmdList list = new AsAdminCmdList();
-        final Deployment d = new Deployment().archive( appArchive ).target( target ).precompilejsp(precompilejsp);
-        if ( "war".equalsIgnoreCase( mavenProject.getPackaging() ) && !StringUtils.isEmpty( contextRoot ) ) {
+        final Deployment d = new Deployment().archive( appArchive ).target( target ).precompilejsp( precompilejsp );
+        if( "war".equalsIgnoreCase( mavenProject.getPackaging() ) && !StringUtils.isEmpty( contextRoot ) )
+        {
             d.withContextRoot( contextRoot );
         }
-        if ( !StringUtils.isEmpty( appName ) ) {
+        if( !StringUtils.isEmpty( appName ) )
+        {
             d.appName( appName );
         }
-        list.add( d.force( true ).availability(availabilityenabled).precompilejsp(precompilejsp).deploy() );
-        setPatterns(d);
+        list.add( d.force( true ).availability( availabilityenabled ).precompilejsp( precompilejsp ).deploy() );
+        setPatterns( d );
         return list;
     }
 

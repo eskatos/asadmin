@@ -1,5 +1,7 @@
 /*
- * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ * Copyright (c) 2010, Paul Merlin.
+ * Copyright (c) 2012, J.Francis.
+ * Copyright (c) 2012, Charles Brown.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +16,6 @@
 package org.n0pe.mojo.asadmin;
 
 import org.apache.commons.lang.StringUtils;
-
 import org.n0pe.asadmin.AsAdminCmdList;
 import org.n0pe.asadmin.commands.Deployment;
 
@@ -23,47 +24,45 @@ import org.n0pe.asadmin.commands.Deployment;
  * @description AsAdmin deploy mojo
  */
 public class DeployMojo
-        extends AbstractAsadminMojo
+    extends AbstractAsadminMojo
 {
 
     /**
      * @parameter
      */
     private String target;
-
     /**
      * @parameter default-value="false"
      */
     private boolean force;
-
     /**
      * @parameter default-value="false"
      */
     private boolean upload;
-
     /**
      * @parameter default-value="false"
      */
     private boolean availability;
-
-	/**
-	 * @parameter default-value="false"
-	 */
-	private boolean precompilejsp;
+    /**
+     * @parameter default-value="false"
+     */
+    private boolean precompilejsp;
 
     @Override
     protected AsAdminCmdList getAsCommandList()
     {
         getLog().info( "Deploying application archive: " + appArchive );
         final AsAdminCmdList list = new AsAdminCmdList();
-        final Deployment d = new Deployment().archive( appArchive ).target( target ).precompilejsp(precompilejsp);
-        if ( "war".equalsIgnoreCase( mavenProject.getPackaging() ) && !StringUtils.isEmpty( contextRoot ) ) {
+        final Deployment d = new Deployment().archive( appArchive ).target( target ).precompilejsp( precompilejsp );
+        if( "war".equalsIgnoreCase( mavenProject.getPackaging() ) && !StringUtils.isEmpty( contextRoot ) )
+        {
             d.withContextRoot( contextRoot );
         }
-        if ( !StringUtils.isEmpty( appName ) ) {
+        if( !StringUtils.isEmpty( appName ) )
+        {
             d.appName( appName );
         }
-        list.add( d.force( force ).upload( upload ).availability( availability ).precompilejsp(precompilejsp).deploy() );
+        list.add( d.force( force ).upload( upload ).availability( availability ).precompilejsp( precompilejsp ).deploy() );
         setPatterns( d );
         return list;
     }

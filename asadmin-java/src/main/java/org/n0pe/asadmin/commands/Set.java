@@ -14,15 +14,11 @@
 package org.n0pe.asadmin.commands;
 
 import org.apache.commons.lang.StringUtils;
-
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 import org.n0pe.asadmin.Util;
 
-/**
- * @author Paul Merlin
- */
 public class Set
-        extends AbstractAsAdminCmd
+    extends AbstractAsAdminCmd
 {
 
     private String property;
@@ -46,10 +42,14 @@ public class Set
 
     public String[] getParameters()
     {
-        if ( StringUtils.isEmpty( property ) || StringUtils.isEmpty( value ) ) {
+        if( StringUtils.isEmpty( property ) || StringUtils.isEmpty( value ) )
+        {
             throw new IllegalStateException();
         }
-        return new String[]{ property + "=" + Util.quoteCommandArgument( value ) };
+        return new String[]
+            {
+                property + "=" + Util.quoteCommandArgument( value )
+            };
     }
 
 }

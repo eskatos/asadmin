@@ -18,14 +18,12 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import org.apache.commons.io.FileUtils;
-
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 import org.n0pe.asadmin.AsAdminException;
 
 public class CreateFileUser
-        extends AbstractAsAdminCmd
+    extends AbstractAsAdminCmd
 {
 
     public static final String CREATE_FILE_USER = "create-file-user";
@@ -64,7 +62,8 @@ public class CreateFileUser
     @Override
     public String getActionCommand()
     {
-        if ( userName == null ) {
+        if( userName == null )
+        {
             throw new IllegalStateException();
         }
         return CREATE_FILE_USER;
@@ -74,15 +73,19 @@ public class CreateFileUser
     public String[] getParameters()
     {
         final String[] params;
-        params = new String[]{ GROUPS, group, userName };
+        params = new String[]
+        {
+            GROUPS, group, userName
+        };
         return params;
     }
 
     @Override
     public String handlePasswordFile( String configuredPasswordFile )
-            throws AsAdminException
+        throws AsAdminException
     {
-        try {
+        try
+        {
             File passwordTempFile = File.createTempFile( "asadmin-create-file-user", ".pwd" );
             passwordTempFile.deleteOnExit();
             FileUtils.copyFile( new File( configuredPasswordFile ), passwordTempFile );
@@ -90,7 +93,9 @@ public class CreateFileUser
             out.write( "AS_ADMIN_USERPASSWORD=" + new String( password ) );
             out.close();
             return passwordTempFile.getAbsolutePath();
-        } catch ( IOException ex ) {
+        }
+        catch( IOException ex )
+        {
             throw new AsAdminException( "Unable to handle password file for CreateFileUser command", ex );
         }
     }

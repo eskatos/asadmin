@@ -1,5 +1,8 @@
 /*
- * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ * Copyright (c) 2010, Paul Merlin.
+ * Copyright (c) 2010, Christophe Souvignier.
+ * Copyright (c) 2010, Jean-Michel Tonneau.
+ * Copyright (c) 2011, J. Francis.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,24 +27,19 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
-import org.n0pe.asadmin.commands.AddResources;
 import org.n0pe.asadmin.commands.Database;
 import org.n0pe.asadmin.commands.Deployment;
 import org.n0pe.asadmin.commands.Domain;
 
 /**
  * asadmin command execution facility built as a multipleton which discriminator is a configuration provider.
- * 
+ *
  * TODO : allows AsAdminCommands to provide input lines for stdin, implements this command :
  *        echo y | asadmin generate-diagnostic-report --outputfile report-dosadi.jar domainName
- * 
+ *
  * TODO : handle asadmin invocation return codes with exceptions
- * 
- * @author Paul Merlin <eskatos@n0pe.org>
- * @author Christophe Souvignier <chris.so@free.fr>
  */
 public class AsAdmin
 {
@@ -55,7 +53,8 @@ public class AsAdmin
     public static final String PASSWORDFILE_OPT = "--passwordfile";
     public static String ASADMIN_COMMAND_NAME;
 
-    static {
+    static
+    {
         ASADMIN_COMMAND_NAME = SystemUtils.IS_OS_WINDOWS ? "asadmin.bat" : "asadmin";
     }
 
@@ -63,17 +62,19 @@ public class AsAdmin
 
     /**
      * Get a asadmin instance configured with the given configuration provider.
-     * 
+     *
      * @param config
      * @return
      */
     public static AsAdmin getInstance( final IAsAdminConfig config )
     {
-        if ( instances == null ) {
+        if( instances == null )
+        {
             instances = new HashMap<IAsAdminConfig, AsAdmin>( 1 );
         }
         AsAdmin instance = instances.get( config );
-        if ( instance == null ) {
+        if( instance == null )
+        {
             instance = new AsAdmin( config );
             instances.put( config, instance );
         }
@@ -87,51 +88,68 @@ public class AsAdmin
 
     /**
      * Run the given list of AsAdmin command.
-     * 
+     *
      * @param cmdList AsAdmin commands to be run
      * @throws org.n0pe.asadmin.AsAdminException AsAdminException
      */
     public void run( final AsAdminCmdList cmdList )
-            throws AsAdminException
+        throws AsAdminException
     {
         final Iterator<IAsAdminCmd> it = cmdList.iterator();
-        while ( it.hasNext() ) {
+        while( it.hasNext() )
+        {
             run( it.next() );
         }
     }
 
     /**
      * Run the given AsAdmin command.
-     * 
+     *
      * @param cmd AsAdmin command to be run
      * @throws org.n0pe.asadmin.AsAdminException AsAdminException
      */
     public void run( final IAsAdminCmd cmd )
-            throws AsAdminException
+        throws AsAdminException
     {
-        try {
+        try
+        {
             final File gfBinPath = new File( config.getGlassfishHome() + File.separator + "bin" );
             final String[] cmds = buildProcessParams( cmd, config );
             cmds[0] = gfBinPath + File.separator + cmds[0];
             int exitCode;
             final Process proc;
             String[] env = buildEnvironmentStrings( config.getEnvironmentVariables() );
-            if ( SystemUtils.IS_OS_WINDOWS ) {
+            if( SystemUtils.IS_OS_WINDOWS )
+            {
                 // Windows
                 final String command = "\"\"" + StringUtils.join( cmds, "\" \"" ) + "\"\"";
                 final String[] windowsCommand;
-                if ( SystemUtils.IS_OS_WINDOWS_95 || SystemUtils.IS_OS_WINDOWS_98 || SystemUtils.IS_OS_WINDOWS_ME ) {
-                    windowsCommand = new String[]{ "command.com", "/C", command };
-                } else {
-                    windowsCommand = new String[]{ "cmd.exe", "/C", command };
+                if( SystemUtils.IS_OS_WINDOWS_95 || SystemUtils.IS_OS_WINDOWS_98 || SystemUtils.IS_OS_WINDOWS_ME )
+                {
+                    windowsCommand = new String[]
+                    {
+                        "command.com", "/C", command
+                    };
+                }
+                else
+                {
+                    windowsCommand = new String[]
+                    {
+                        "cmd.exe", "/C", command
+                    };
                 }
                 outPrintln( "Will run the following command: " + StringUtils.join( windowsCommand, " " ) );
-                if ( env.length > 0 ) {
+                if( env.length > 0 )
+                {
                     proc = Runtime.getRuntime().exec( windowsCommand, env );
-                } else {
+                }
+                else
+                {
                     proc = Runtime.getRuntime().exec( windowsCommand );
                 }
-            } else {
+            }
+            else
+            {
                 // Non Windows
                 outPrintln( "Will run the following command: " + StringUtils.join( cmds, " " ) );
                 proc = Runtime.getRuntime().exec( cmds, env );
@@ -145,59 +163,72 @@ public class AsAdmin
             errorGobbler.start();
             outputGobbler.start();
             exitCode = proc.waitFor();
-            if ( exitCode != 0 ) {
-            	if(cmd.failOnNonZeroExit())
-            	{
-            		throw new AsAdminException( "asadmin invocation failed and returned : " + String.valueOf( exitCode ) );
-            	}
-            	errPrintln("Ignoring accpetable asadmin error");
+            if( exitCode != 0 )
+            {
+                if( cmd.failOnNonZeroExit() )
+                {
+                    throw new AsAdminException( "asadmin invocation failed and returned : " + String.valueOf( exitCode ) );
+                }
+                errPrintln( "Ignoring accpetable asadmin error" );
             }
-        } catch ( final InterruptedException ex ) {
+        }
+        catch( final InterruptedException ex )
+        {
             throw new AsAdminException( "AsAdmin error occurred: " + ex.getMessage(), ex );
-        } catch ( final IOException ex ) {
+        }
+        catch( final IOException ex )
+        {
             throw new AsAdminException( "AsAdmin error occurred: " + ex.getMessage(), ex );
         }
     }
 
     public static String[] buildProcessParams( final IAsAdminCmd cmd, final IAsAdminConfig config )
-            throws AsAdminException
+        throws AsAdminException
     {
         final List<String> pbParams = new ArrayList<String>();
         pbParams.add( ASADMIN_COMMAND_NAME );
-        if(!Deployment.UNDEPLOY.equals(cmd.getActionCommand()) &&
-        		!Deployment.DEPLOY.equals(cmd.getActionCommand()) &&
-        		!"add-resources".equals(cmd.getActionCommand()))
-        	pbParams.add( cmd.getActionCommand() );
-        if ( !StringUtils.isEmpty( config.getHost() )
-             && !Domain.START.equals( cmd.getActionCommand() )
-             && !Domain.STOP.equals( cmd.getActionCommand() )
-             && !Database.STOP.equals( cmd.getActionCommand() )
-             && !Database.START.equals( cmd.getActionCommand() ) ) {
+        if( !Deployment.UNDEPLOY.equals( cmd.getActionCommand() )
+            && !Deployment.DEPLOY.equals( cmd.getActionCommand() )
+            && !"add-resources".equals( cmd.getActionCommand() ) )
+        {
+            pbParams.add( cmd.getActionCommand() );
+        }
+        if( !StringUtils.isEmpty( config.getHost() )
+            && !Domain.START.equals( cmd.getActionCommand() )
+            && !Domain.STOP.equals( cmd.getActionCommand() )
+            && !Database.STOP.equals( cmd.getActionCommand() )
+            && !Database.START.equals( cmd.getActionCommand() ) )
+        {
             pbParams.add( HOST_OPT );
             pbParams.add( config.getHost() );
         }
-        if ( !StringUtils.isEmpty( config.getPort() )
-             && !Domain.START.equals( cmd.getActionCommand() )
-             && !Domain.STOP.equals( cmd.getActionCommand() )
-             && !Database.STOP.equals( cmd.getActionCommand() )
-             && !Database.START.equals( cmd.getActionCommand() ) ) {
+        if( !StringUtils.isEmpty( config.getPort() )
+            && !Domain.START.equals( cmd.getActionCommand() )
+            && !Domain.STOP.equals( cmd.getActionCommand() )
+            && !Database.STOP.equals( cmd.getActionCommand() )
+            && !Database.START.equals( cmd.getActionCommand() ) )
+        {
             pbParams.add( PORT_OPT );
             pbParams.add( config.getPort() );
         }
-        if ( config.isSecure() ) {
+        if( config.isSecure() )
+        {
             pbParams.add( SECURE_OPT );
         }
-        if ( cmd.needCredentials() ) {
+        if( cmd.needCredentials() )
+        {
             pbParams.add( USER_OPT );
             pbParams.add( config.getUser() );
             pbParams.add( PASSWORDFILE_OPT );
             pbParams.add( cmd.handlePasswordFile( config.getPasswordFile() ) );
 
         }
-        if(Deployment.UNDEPLOY.equals(cmd.getActionCommand()) || 
-        		Deployment.DEPLOY.equals(cmd.getActionCommand()) ||
-        		"add-resources".equals(cmd.getActionCommand()))
-        	pbParams.add( cmd.getActionCommand() );
+        if( Deployment.UNDEPLOY.equals( cmd.getActionCommand() )
+            || Deployment.DEPLOY.equals( cmd.getActionCommand() )
+            || "add-resources".equals( cmd.getActionCommand() ) )
+        {
+            pbParams.add( cmd.getActionCommand() );
+        }
         pbParams.addAll( Arrays.asList( cmd.getParameters() ) );
         return pbParams.toArray( new String[ pbParams.size() ] );
     }
@@ -219,14 +250,19 @@ public class AsAdmin
      */
     /* package */ static String[] buildEnvironmentStrings( Map<String, String> envVariables )
     {
-        if ( envVariables == null || envVariables.isEmpty() ) {
-            return new String[]{};
+        if( envVariables == null || envVariables.isEmpty() )
+        {
+            return new String[]
+                {
+                };
         }
         String[] array = new String[ envVariables.size() ];
         int idx = 0;
-        for ( Map.Entry<String, String> eachEntry : envVariables.entrySet() ) {
+        for( Map.Entry<String, String> eachEntry : envVariables.entrySet() )
+        {
             String key = eachEntry.getKey().trim();
-            if ( !key.matches( "^\\S+$" ) ) {
+            if( !key.matches( "^\\S+$" ) )
+            {
                 throw new IllegalArgumentException( "Environment variable names cannot contain spaces: " + key );
             }
             String value = eachEntry.getValue();
@@ -243,22 +279,32 @@ public class AsAdmin
     {
         String cleanedArgument = argument.trim();
         // strip the quotes from both ends
-        while ( cleanedArgument.startsWith( SINGLE_QUOTE ) || cleanedArgument.startsWith( DOUBLE_QUOTE ) ) {
+        while( cleanedArgument.startsWith( SINGLE_QUOTE ) || cleanedArgument.startsWith( DOUBLE_QUOTE ) )
+        {
             cleanedArgument = cleanedArgument.substring( 1 );
         }
-        while ( cleanedArgument.endsWith( SINGLE_QUOTE ) || cleanedArgument.endsWith( DOUBLE_QUOTE ) ) {
+        while( cleanedArgument.endsWith( SINGLE_QUOTE ) || cleanedArgument.endsWith( DOUBLE_QUOTE ) )
+        {
             cleanedArgument = cleanedArgument.substring( 0, cleanedArgument.length() - 1 );
         }
         final StringBuffer sb = new StringBuffer();
-        if ( cleanedArgument.indexOf( DOUBLE_QUOTE ) > -1 ) {
-            if ( cleanedArgument.indexOf( SINGLE_QUOTE ) > -1 ) {
+        if( cleanedArgument.indexOf( DOUBLE_QUOTE ) > -1 )
+        {
+            if( cleanedArgument.indexOf( SINGLE_QUOTE ) > -1 )
+            {
                 throw new IllegalArgumentException( "Can't handle single and double quotes in same argument" );
-            } else {
+            }
+            else
+            {
                 return sb.append( SINGLE_QUOTE ).append( cleanedArgument ).append( SINGLE_QUOTE ).toString();
             }
-        } else if ( cleanedArgument.indexOf( SINGLE_QUOTE ) > -1 || cleanedArgument.indexOf( " " ) > -1 ) {
+        }
+        else if( cleanedArgument.indexOf( SINGLE_QUOTE ) > -1 || cleanedArgument.indexOf( " " ) > -1 )
+        {
             return sb.append( DOUBLE_QUOTE ).append( cleanedArgument ).append( DOUBLE_QUOTE ).toString();
-        } else {
+        }
+        else
+        {
             return cleanedArgument;
         }
     }
@@ -267,7 +313,7 @@ public class AsAdmin
      * TODO : take a logger as constructor parameter and remove type
      */
     private static class ProcessStreamGobbler
-            extends Thread
+        extends Thread
     {
 
         private static final int OUTPUT = 0;
@@ -280,8 +326,9 @@ public class AsAdmin
         {
             this.is = is;
             this.type = type;
-            if ( AbstractAsAdminCmd.class.isAssignableFrom( cmd.getClass() ) ) {
-                this.cmd = ( AbstractAsAdminCmd ) cmd;
+            if( AbstractAsAdminCmd.class.isAssignableFrom( cmd.getClass() ) )
+            {
+                this.cmd = (AbstractAsAdminCmd) cmd;
             }
         }
 
@@ -289,27 +336,34 @@ public class AsAdmin
         @SuppressWarnings( "CallToThreadDumpStack" )
         public void run()
         {
-            try {
+            try
+            {
                 InputStreamReader isr = new InputStreamReader( is );
                 BufferedReader br = new BufferedReader( isr );
-                String line = null;
-                while ( ( line = br.readLine() ) != null ) {
+                String line;
+                while( ( line = br.readLine() ) != null )
+                {
 
-                    switch ( type ) {
+                    switch( type )
+                    {
                         case OUTPUT:
-                            if ( cmd != null ) {
+                            if( cmd != null )
+                            {
                                 cmd.appendStandardOutputLine( line );
                             }
                             outPrintln( "[OUTPUT] " + line );
                             break;
                         case ERROR:
-                            if ( cmd != null ) {
+                            if( cmd != null )
+                            {
                                 cmd.appendErrorOutputLine( line );
                             }
                             errPrintln( "[ERROR]  " + line );
                     }
                 }
-            } catch ( IOException ioe ) {
+            }
+            catch( IOException ioe )
+            {
                 ioe.printStackTrace();
             }
         }

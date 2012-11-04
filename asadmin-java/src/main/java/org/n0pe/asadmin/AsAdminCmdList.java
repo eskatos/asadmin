@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ * Copyright (c) 2010, Paul Merlin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@ package org.n0pe.asadmin;
 import java.util.ArrayList;
 
 public class AsAdminCmdList
-        extends ArrayList<IAsAdminCmd>
+    extends ArrayList<IAsAdminCmd>
 {
 
     private static final long serialVersionUID = 1L;

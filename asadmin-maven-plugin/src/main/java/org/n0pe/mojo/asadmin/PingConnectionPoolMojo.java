@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ * Copyright (c) 2010, Paul Merlin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,9 @@ import org.n0pe.asadmin.commands.PingConnectionPool;
 /**
  * @goal ping-connection-pool
  * @description AsAdmin ping connection pool mojo
- * @author Paul Merlin
  */
 public class PingConnectionPoolMojo
-        extends AbstractAsadminMojo
+    extends AbstractAsadminMojo
 {
 
     /**

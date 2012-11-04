@@ -65,6 +65,23 @@
         </developer>
     </developers>
 
+    <contributors>
+        <contributor>
+            <name>Marens</name>
+            <url>https://github.com/dermarens</url>
+        </contributor>
+        <contributor>
+            <name>J.Francis</name>
+            <email>jfrancis@his.co.uk</email>
+            <url>https://github.com/JF9</url>
+        </contributor>
+        <contributor>
+            <name>Charles Brown</name>
+            <email>charles.e.brown1@gmail.com</email>
+            <url>https://github.com/charlesbrown</url>
+        </contributor>
+    </contributors>
+
     <modules>
         <module>asadmin-java</module>
         <module>asadmin-maven-plugin</module>

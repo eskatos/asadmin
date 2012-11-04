@@ -1,5 +1,7 @@
 /*
- * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ * Copyright (c) 2010, Paul Merlin.
+ * Copyright (c) 2011, J.Francis.
+ * Copyright (c) 2011, Marenz.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +20,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.maven.plugin.AbstractMojo;
@@ -34,13 +35,13 @@ import org.n0pe.asadmin.IAsAdminConfig;
 /**
  * Base class of all asadmin mojos.
  * Provides common parameters and basic check configuration, implements asadmin configuration provider.
- * 
+ *
  * @author Paul Merlin
  */
 @SuppressWarnings( "ProtectedField" )
 public abstract class AbstractAsadminMojo
-        extends AbstractMojo
-        implements IAsAdminConfig
+    extends AbstractMojo
+    implements IAsAdminConfig
 {
 
     /**
@@ -73,7 +74,7 @@ public abstract class AbstractAsadminMojo
      * @required
      */
     private String port;
-/**
+    /**
      * @parameter default-value="localhost"
      * @required
      */
@@ -93,12 +94,10 @@ public abstract class AbstractAsadminMojo
      * @required
      */
     protected String domain;
-    
     /**
      * @parameter default-value="cluster"
      */
     protected String cluster;
-    
     /**
      * @parameter expression="${project.build.directory}/${project.build.finalName}.${project.artifact.artifactHandler.extension}"
      * @required
@@ -111,7 +110,7 @@ public abstract class AbstractAsadminMojo
     protected String appName;
     /**
      * Overrided context root for WAR archives, default to project.build.finalName.
-     * 
+     *
      * @parameter expression="${project.build.finalName}"
      */
     protected String contextRoot;
@@ -121,19 +120,15 @@ public abstract class AbstractAsadminMojo
      * @readonly
      */
     protected MavenProject mavenProject;
-    
     /**
      * @parameter default-value="false"
      */
     protected boolean ignoreAllErrors = false;
-    
     /**
      * @parameter default-value=""
      */
     protected String okayErrorOutputRegex = null;
     protected Pattern okayErrorOutputPattern = null;
-    
-
     /**
      * @parameter default-value=""
      */
@@ -142,23 +137,28 @@ public abstract class AbstractAsadminMojo
 
     @Override
     public final void execute()
-            throws MojoExecutionException, MojoFailureException
+        throws MojoExecutionException, MojoFailureException
     {
-        if ( skip ) {
+        if( skip )
+        {
             getLog().info( "asadmin-maven-plugin execution is skipped" );
             return;
         }
-        try {
-
+        try
+        {
             checkConfig();
-
             AsAdmin.getInstance( this ).run( getAsCommandList() );
-
-        } catch ( AsAdminException ex ) {
-        	if(!ignoreAllErrors)
-        		throw new MojoExecutionException( ex.getMessage(), ex );
-        	else
-        		getLog().info("Ignoring error", ex);
+        }
+        catch( AsAdminException ex )
+        {
+            if( !ignoreAllErrors )
+            {
+                throw new MojoExecutionException( ex.getMessage(), ex );
+            }
+            else
+            {
+                getLog().info( "Ignoring error", ex );
+            }
         }
     }
 
@@ -205,84 +205,107 @@ public abstract class AbstractAsadminMojo
 
     /**
      * Build and return a list of IAsCommand to be executed.
-     * 
+     *
      * AbstractAsadminMojo subclasses need to implement this method.
-     * 
+     *
      * @return A list of IAsCommand to be executed
      * @throws org.apache.maven.plugin.MojoExecutionException MojoExecutionException
      * @throws org.apache.maven.plugin.MojoFailureException MojoFailureException
      */
     protected abstract AsAdminCmdList getAsCommandList()
-            throws MojoExecutionException, MojoFailureException;
+        throws MojoExecutionException, MojoFailureException;
 
     private void checkConfig()
-            throws MojoExecutionException, MojoFailureException
+        throws MojoExecutionException, MojoFailureException
     {
-        if ( StringUtils.isEmpty( glassfishHome ) || "ENV".equals( glassfishHome ) ) {
-            if ( SystemUtils.JAVA_VERSION_FLOAT < 1.5 ) {
+        if( StringUtils.isEmpty( glassfishHome ) || "ENV".equals( glassfishHome ) )
+        {
+            if( SystemUtils.JAVA_VERSION_FLOAT < 1.5 )
+            {
                 throw new MojoExecutionException(
-                        "Neither GLASSFISH_HOME, AS_HOME nor the glassfishHome configuration parameter is set! "
-                        + "Also, to save you the trouble, environment cannot be read running maven with a VM < 1.5, "
-                        + "so set the glassFishHome configuration parameter or use -D." );
+                    "Neither GLASSFISH_HOME, AS_HOME nor the glassfishHome configuration parameter is set! "
+                    + "Also, to save you the trouble, environment cannot be read running maven with a VM < 1.5, "
+                    + "so set the glassFishHome configuration parameter or use -D." );
             }
             glassfishHome = System.getenv( "GLASSFISH_HOME" );
-            if ( StringUtils.isEmpty( glassfishHome ) ) {
+            if( StringUtils.isEmpty( glassfishHome ) )
+            {
                 glassfishHome = System.getenv( "AS_HOME" );
             }
         }
-        if ( StringUtils.isEmpty( glassfishHome ) ) {
+        if( StringUtils.isEmpty( glassfishHome ) )
+        {
             throw new MojoExecutionException(
-                    "Neither GLASSFISH_HOME, AS_HOME nor the glassfishHome configuration parameter is set!" );
+                "Neither GLASSFISH_HOME, AS_HOME nor the glassfishHome configuration parameter is set!" );
         }
         glassfishHomeDir = new File( glassfishHome );
-        if ( !glassfishHomeDir.exists() ) {
+        if( !glassfishHomeDir.exists() )
+        {
             throw new MojoFailureException( "The specifed glassfishHome does not exist." );
         }
-        if ( StringUtils.isEmpty( passwordfile ) || "HOME".equals( passwordfile ) ) {
+        if( StringUtils.isEmpty( passwordfile ) || "HOME".equals( passwordfile ) )
+        {
             passwordfile = null;
-            if ( new File( System.getenv( "HOME" ) + File.separator + ".asadminpass" ).exists() ) {
+            if( new File( System.getenv( "HOME" ) + File.separator + ".asadminpass" ).exists() )
+            {
                 passwordfile = System.getenv( "HOME" ) + File.separator + ".asadminpass";
-            } else if ( new File( System.getenv( "HOME" ) + File.separator + ".asadmintruststore" ).exists() ) {
+            }
+            else if( new File( System.getenv( "HOME" ) + File.separator + ".asadmintruststore" ).exists() )
+            {
                 passwordfile = System.getenv( "HOME" ) + File.separator + ".asadmintruststore";
             }
-        } else if ( !new File( passwordfile ).exists() ) {
+        }
+        else if( !new File( passwordfile ).exists() )
+        {
             passwordfile = null;
         }
-        if ( StringUtils.isEmpty( passwordfile ) ) {
+        if( StringUtils.isEmpty( passwordfile ) )
+        {
             throw new MojoFailureException(
-                    "Given password file does not exists or cannot find an existing asadmin password file" );
+                "Given password file does not exists or cannot find an existing asadmin password file" );
         }
-        if(okayErrorOutputRegex != null && okayErrorOutputRegex.trim().length() != 0)
+        if( okayErrorOutputRegex != null && okayErrorOutputRegex.trim().length() != 0 )
         {
-        	try {
-				okayErrorOutputPattern = Pattern.compile(okayErrorOutputRegex);
-			} catch (PatternSyntaxException e) {
-				throw new MojoExecutionException("Cannot compile the okayErrorOutputRegex: ", e );
-			} catch(IllegalArgumentException e){
-				throw new MojoExecutionException("Cannot compile the okayErrorOutputRegex: ", e );
-			} 
+            try
+            {
+                okayErrorOutputPattern = Pattern.compile( okayErrorOutputRegex );
+            }
+            catch( PatternSyntaxException e )
+            {
+                throw new MojoExecutionException( "Cannot compile the okayErrorOutputRegex: ", e );
+            }
+            catch( IllegalArgumentException e )
+            {
+                throw new MojoExecutionException( "Cannot compile the okayErrorOutputRegex: ", e );
+            }
         }
-        if(okayStdOutputRegex != null && okayStdOutputRegex.trim().length() != 0)
+        if( okayStdOutputRegex != null && okayStdOutputRegex.trim().length() != 0 )
         {
-        	try {
-				okayStdOutputPattern = Pattern.compile(okayStdOutputRegex);
-			} catch (PatternSyntaxException e) {
-				throw new MojoExecutionException("Cannot compile the okayStdOutputRegex: ", e );
-			} catch(IllegalArgumentException e){
-				throw new MojoExecutionException("Cannot compile the okayStdOutputRegex: ", e );
-			} 
+            try
+            {
+                okayStdOutputPattern = Pattern.compile( okayStdOutputRegex );
+            }
+            catch( PatternSyntaxException e )
+            {
+                throw new MojoExecutionException( "Cannot compile the okayStdOutputRegex: ", e );
+            }
+            catch( IllegalArgumentException e )
+            {
+                throw new MojoExecutionException( "Cannot compile the okayStdOutputRegex: ", e );
+            }
         }
     }
 
-    protected void setPatterns(IAsAdminCmd cmd)
+    protected void setPatterns( IAsAdminCmd cmd )
     {
-    	if(okayStdOutputPattern != null)
-    	{
-    		cmd.setOkayStdOutPattern(okayStdOutputPattern);
-    	}
-    	if(okayErrorOutputPattern != null)
-    	{
-    		cmd.setOkayErrorPattern(okayErrorOutputPattern);
-    	}
+        if( okayStdOutputPattern != null )
+        {
+            cmd.setOkayStdOutPattern( okayStdOutputPattern );
+        }
+        if( okayErrorOutputPattern != null )
+        {
+            cmd.setOkayErrorPattern( okayErrorOutputPattern );
+        }
     }
+
 }

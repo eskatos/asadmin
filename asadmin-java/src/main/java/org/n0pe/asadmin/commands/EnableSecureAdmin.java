@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ * Copyright (c) 2010, Christophe Souvignier.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -11,18 +11,16 @@
  * limitations under the License.
  *
  */
-
 package org.n0pe.asadmin.commands;
 
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 
 /**
- *
- * @author Christophe Souvignier
  * This method enable DAS for remote admin console access on Glassfish v3
- *
  */
-public class EnableSecureAdmin extends AbstractAsAdminCmd {
+public class EnableSecureAdmin
+    extends AbstractAsAdminCmd
+{
 
     public static final String ENABLE_SECURE_ADMIN = "enable-secure-admin";
     public static final String ADMIN_ALIAS = "--adminalias";
@@ -42,17 +40,23 @@ public class EnableSecureAdmin extends AbstractAsAdminCmd {
         return this;
     }
 
-    public boolean needCredentials() {
+    public boolean needCredentials()
+    {
         return true;
     }
 
-    public String getActionCommand() {
+    public String getActionCommand()
+    {
         return ENABLE_SECURE_ADMIN;
     }
 
-    public String[] getParameters() {
+    public String[] getParameters()
+    {
         final String[] params;
-        params = new String[]{ ADMIN_ALIAS, adminAlias, INSTANCE_ALIAS,  instanceAlias};
+        params = new String[]
+        {
+            ADMIN_ALIAS, adminAlias, INSTANCE_ALIAS, instanceAlias
+        };
         return params;
     }
 

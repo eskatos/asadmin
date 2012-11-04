@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2010, Christophe Souvignier. All Rights Reserved.
- * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ * Copyright (c) 2010, Christophe Souvignier.
+ * Copyright (c) 2010, Paul Merlin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,8 @@ package org.n0pe.mojo.asadmin;
 
 import java.util.Iterator;
 import java.util.Map;
-
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-
 import org.n0pe.asadmin.AsAdminCmdList;
 import org.n0pe.asadmin.commands.CreateJdbcConnectionPool;
 
@@ -27,7 +25,7 @@ import org.n0pe.asadmin.commands.CreateJdbcConnectionPool;
  * @goal create-jdbc-connection-pool
  */
 public class CreateJdbcConnectionPoolMojo
-        extends AbstractAsadminMojo
+    extends AbstractAsadminMojo
 {
 
     /**
@@ -52,16 +50,18 @@ public class CreateJdbcConnectionPoolMojo
 
     @Override
     protected AsAdminCmdList getAsCommandList()
-            throws MojoExecutionException, MojoFailureException
+        throws MojoExecutionException, MojoFailureException
     {
         getLog().info( "Creating auth realm: " + poolName );
         final AsAdminCmdList list = new AsAdminCmdList();
         final CreateJdbcConnectionPool cmd = new CreateJdbcConnectionPool( poolName ).withDataSource( poolDataSource ).withRestype( restype );
-        if ( poolProperties != null && !poolProperties.isEmpty() ) {
+        if( poolProperties != null && !poolProperties.isEmpty() )
+        {
             final Iterator it = poolProperties.keySet().iterator();
-            while ( it.hasNext() ) {
-                final String key = ( String ) it.next();
-                cmd.addProperty( key, ( String ) poolProperties.get( key ) );
+            while( it.hasNext() )
+            {
+                final String key = (String) it.next();
+                cmd.addProperty( key, (String) poolProperties.get( key ) );
             }
         }
         list.add( cmd );

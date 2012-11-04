@@ -19,11 +19,8 @@ import java.util.Map;
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 import org.n0pe.asadmin.Util;
 
-/**
- * @author Christophe SOUVIGNIER
- */
 public class CreateMessageSecurityProvider
-        extends AbstractAsAdminCmd
+    extends AbstractAsAdminCmd
 {
 
     public static final String SECURITY_PROVIDER = "create-message-security-provider";
@@ -66,7 +63,8 @@ public class CreateMessageSecurityProvider
 
     public CreateMessageSecurityProvider addProperty( String key, String value )
     {
-        if ( properties == null ) {
+        if( properties == null )
+        {
             properties = new HashMap();
         }
         properties.put( key, value );
@@ -80,7 +78,8 @@ public class CreateMessageSecurityProvider
 
     public String getActionCommand()
     {
-        if ( providerName == null ) {
+        if( providerName == null )
+        {
             throw new IllegalStateException();
         }
         return SECURITY_PROVIDER;
@@ -88,24 +87,36 @@ public class CreateMessageSecurityProvider
 
     public String[] getParameters()
     {
-        if ( ( providerType == null ) || ( layer == null ) || ( classname == null ) ) {
+        if( ( providerType == null ) || ( layer == null ) || ( classname == null ) )
+        {
             throw new IllegalStateException();
         }
         final String[] params;
-        if ( properties != null && !properties.isEmpty() ) {
+        if( properties != null && !properties.isEmpty() )
+        {
             final StringBuffer sw = new StringBuffer();
             String key;
-            for ( final Iterator it = properties.keySet().iterator(); it.hasNext(); ) {
-                key = ( String ) it.next();
-                sw.append( key ).append( "=" ).append( Util.quoteCommandArgument( ( String ) properties.get( key ) ) );
-                if ( it.hasNext() ) {
+            for( final Iterator it = properties.keySet().iterator(); it.hasNext(); )
+            {
+                key = (String) it.next();
+                sw.append( key ).append( "=" ).append( Util.quoteCommandArgument( (String) properties.get( key ) ) );
+                if( it.hasNext() )
+                {
                     sw.append( ":" );
                 }
             }
-            params = new String[]{ LAYER_OPT, layer, PROVIDER_TYPE_OPT, providerType, CLASSNAME, classname, PROPERTY_OPT, sw.toString(), providerName };
+            params = new String[]
+            {
+                LAYER_OPT, layer, PROVIDER_TYPE_OPT, providerType, CLASSNAME, classname, PROPERTY_OPT, sw.toString(), providerName
+            };
 
-        } else {
-            params = new String[]{ LAYER_OPT, layer, PROVIDER_TYPE_OPT, providerType, CLASSNAME, classname, providerName };
+        }
+        else
+        {
+            params = new String[]
+            {
+                LAYER_OPT, layer, PROVIDER_TYPE_OPT, providerType, CLASSNAME, classname, providerName
+            };
         }
         return params;
     }

@@ -16,7 +16,7 @@ package org.n0pe.asadmin.commands;
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 
 public class DeleteFileUser
-        extends AbstractAsAdminCmd
+    extends AbstractAsAdminCmd
 {
 
     public static final String DELETE_FILE_USER = "delete-file-user";
@@ -43,7 +43,8 @@ public class DeleteFileUser
     @Override
     public String getActionCommand()
     {
-        if ( userName == null ) {
+        if( userName == null )
+        {
             throw new IllegalStateException();
         }
         return DELETE_FILE_USER;
@@ -53,7 +54,10 @@ public class DeleteFileUser
     public String[] getParameters()
     {
         final String[] params;
-        params = new String[]{ userName };
+        params = new String[]
+        {
+            userName
+        };
         return params;
     }
 

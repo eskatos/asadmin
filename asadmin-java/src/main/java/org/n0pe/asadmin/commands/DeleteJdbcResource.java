@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, Christophe Souvignier. All Rights Reserved.
+ * Copyright (c) 2010, Christophe Souvignier.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,8 @@ package org.n0pe.asadmin.commands;
 
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 
-/**
- * @author Christophe SOUVIGNIER
- */
 public class DeleteJdbcResource
-        extends AbstractAsAdminCmd
+    extends AbstractAsAdminCmd
 {
 
     public static final String JDBC = "delete-jdbc-resource";
@@ -41,7 +38,8 @@ public class DeleteJdbcResource
 
     public String getActionCommand()
     {
-        if ( resourceName == null ) {
+        if( resourceName == null )
+        {
             throw new IllegalStateException();
         }
         return JDBC;
@@ -49,7 +47,10 @@ public class DeleteJdbcResource
 
     public String[] getParameters()
     {
-        return new String[]{ resourceName };
+        return new String[]
+            {
+                resourceName
+            };
     }
 
 }

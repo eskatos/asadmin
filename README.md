@@ -1,5 +1,4 @@
-asadmin-java
-============
+# asadmin-java
 
 asadmin-java is a java api to invoke glassfish V3 and V2 asadmin commands
 
@@ -7,8 +6,7 @@ The project is hosted in maven central.
 [here](http://search.maven.org/#search%7Cga%7C1%7Casadmin-java) you'll find a quick copy/paste for the dependency.
 
 
-asadmin-maven-plugin
-====================
+# asadmin-maven-plugin
 
 asadmin-maven-plugin is a maven plugin based on asadmin commands
 
@@ -20,7 +18,7 @@ The project is hosted in maven central, to use it add the following snippet to y
  	    <plugin>
 	      <groupId>org.codeartisans.asadmin</groupId>
 	      <artifactId>asadmin-maven-plugin</artifactId>
-	      <version>0.9</version>
+	      <version>0.10</version>
 	    </plugin>
 	  </plugins>
 	</build>
@@ -93,7 +91,7 @@ Here is a pom example expressing the default configuration :
                 <plugin>
                     <groupId>org.codeartisans.asadmin</groupId>
                     <artifactId>asadmin-maven-plugin</artifactId>
-                    <version>0.9</version>
+                    <version>0.10</version>
                     <configuration>
                         <glassfishHome>/path/to/your/glassfish/installation/folder</glassfishHome>
                         <domain>domain1</domain>
@@ -112,6 +110,23 @@ Here is a pom example expressing the default configuration :
 
     </project>
 
+# ChangeLog
+
+**asadmin-0.10** - 2012-11-04
+
+Thanks to J.Francis and Charles Brown for their contribution to this release.
+
+- Added JSP precompile option to all deployment goals
+- Added asadmin:restart-domain goal
+- Added ability to deploy to remote instance/cluster
+- Added add-resources command and goal
+- Added start-cluster and stop-cluster commands and goals
+- Added --availabilityenabled param to the deploy command and goal
+- Added get-health command and goal
+- Added uptime command and goal
+- Better error handling
+
+**asadmin-0.9** - 2012-05-02
 
 ------------------
 

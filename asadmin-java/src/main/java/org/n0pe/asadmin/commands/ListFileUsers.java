@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2010, Christophe Souvignier. All Rights Reserved.
+ * Copyright (c) 2010, Christophe Souvignier.
+ * Copyright (c) 2010, Paul Merlin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +18,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 import org.n0pe.asadmin.AsAdminException;
 
 public class ListFileUsers
-        extends AbstractAsAdminCmd
+    extends AbstractAsAdminCmd
 {
 
     public static final String LIST_FILE_USER = "list-file-users";
@@ -42,23 +42,30 @@ public class ListFileUsers
     @Override
     public String[] getParameters()
     {
-        return new String[]{};
+        return new String[]
+            {
+            };
     }
 
     public List<String> getUsers()
-            throws AsAdminException
+        throws AsAdminException
     {
-        try {
+        try
+        {
             String strReader;
             List<String> asadminResultList = new ArrayList<String>();
             BufferedReader reader = new BufferedReader( getStandardOutput() );
-            while ( ( strReader = reader.readLine() ) != null ) {
-                if ( strReader.length() > 0 ) {
+            while( ( strReader = reader.readLine() ) != null )
+            {
+                if( strReader.length() > 0 )
+                {
                     asadminResultList.add( strReader );
                 }
             }
             return asadminResultList;
-        } catch ( IOException ex ) {
+        }
+        catch( IOException ex )
+        {
             throw new AsAdminException( ex.getCause().getMessage(), ex );
         }
     }

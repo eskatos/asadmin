@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ * Copyright (c) 2010, Paul Merlin.
+ * Copyright (c) 2010, Christophe Souvignier.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +17,7 @@ package org.n0pe.asadmin.commands;
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 
 public class UpdateFileUser
-        extends AbstractAsAdminCmd
+    extends AbstractAsAdminCmd
 {
 
     public static final String UPDATE_FILE_USER = "update-file-user";
@@ -51,7 +52,8 @@ public class UpdateFileUser
     @Override
     public String getActionCommand()
     {
-        if ( userName == null ) {
+        if( userName == null )
+        {
             throw new IllegalStateException();
         }
         return UPDATE_FILE_USER;
@@ -61,7 +63,10 @@ public class UpdateFileUser
     public String[] getParameters()
     {
         final String[] params;
-        params = new String[]{ USER_PASSWORD_FILE, passwordFile, userName };
+        params = new String[]
+        {
+            USER_PASSWORD_FILE, passwordFile, userName
+        };
         return params;
     }
 

@@ -17,17 +17,12 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 import org.n0pe.asadmin.Util;
 
-/**
- * @author Paul Merlin
- */
 public class CreateAuthRealm
-        extends AbstractAsAdminCmd
+    extends AbstractAsAdminCmd
 {
 
     private static final String CLASSNAME_OPT = "--classname";
@@ -53,7 +48,8 @@ public class CreateAuthRealm
 
     public CreateAuthRealm addProperty( String key, String value )
     {
-        if ( properties == null ) {
+        if( properties == null )
+        {
             properties = new HashMap();
         }
         properties.put( key, value );
@@ -72,24 +68,36 @@ public class CreateAuthRealm
 
     public String[] getParameters()
     {
-        if ( StringUtils.isEmpty( className ) ) {
+        if( StringUtils.isEmpty( className ) )
+        {
             throw new IllegalStateException();
         }
         final String[] params;
-        if ( properties != null && !properties.isEmpty() ) {
+        if( properties != null && !properties.isEmpty() )
+        {
             final StringWriter sw = new StringWriter();
             String key;
-            for ( final Iterator it = properties.keySet().iterator(); it.hasNext(); ) {
-                key = ( String ) it.next();
-                sw.append( key ).append( "=" ).append( Util.quoteCommandArgument( ( String ) properties.get( key ) ) );
-                if ( it.hasNext() ) {
+            for( final Iterator it = properties.keySet().iterator(); it.hasNext(); )
+            {
+                key = (String) it.next();
+                sw.append( key ).append( "=" ).append( Util.quoteCommandArgument( (String) properties.get( key ) ) );
+                if( it.hasNext() )
+                {
                     sw.append( ":" );
                 }
             }
-            params = new String[]{ CLASSNAME_OPT, className, PROPERTY_OPT, sw.toString(), realmName };
+            params = new String[]
+            {
+                CLASSNAME_OPT, className, PROPERTY_OPT, sw.toString(), realmName
+            };
 
-        } else {
-            params = new String[]{ CLASSNAME_OPT, className, realmName };
+        }
+        else
+        {
+            params = new String[]
+            {
+                CLASSNAME_OPT, className, realmName
+            };
         }
         return params;
     }

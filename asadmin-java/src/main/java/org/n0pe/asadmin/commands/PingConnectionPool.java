@@ -15,11 +15,8 @@ package org.n0pe.asadmin.commands;
 
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 
-/**
- * @author Paul Merlin
- */
 public class PingConnectionPool
-        extends AbstractAsAdminCmd
+    extends AbstractAsAdminCmd
 {
 
     public static final String PING = "ping-connection-pool";
@@ -41,7 +38,8 @@ public class PingConnectionPool
 
     public String getActionCommand()
     {
-        if ( poolName == null ) {
+        if( poolName == null )
+        {
             throw new IllegalStateException();
         }
         return PING;
@@ -49,10 +47,14 @@ public class PingConnectionPool
 
     public String[] getParameters()
     {
-        if ( poolName == null ) {
+        if( poolName == null )
+        {
             throw new IllegalStateException();
         }
-        return new String[]{ poolName };
+        return new String[]
+            {
+                poolName
+            };
     }
 
 }

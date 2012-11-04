@@ -14,14 +14,10 @@
 package org.n0pe.asadmin.commands;
 
 import org.apache.commons.lang.StringUtils;
-
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 
-/**
- * @author Paul Merlin
- */
 public class Get
-        extends AbstractAsAdminCmd
+    extends AbstractAsAdminCmd
 {
 
     private String property;
@@ -43,10 +39,14 @@ public class Get
 
     public String[] getParameters()
     {
-        if ( StringUtils.isEmpty( property ) ) {
+        if( StringUtils.isEmpty( property ) )
+        {
             throw new IllegalStateException();
         }
-        return new String[]{ property };
+        return new String[]
+            {
+                property
+            };
     }
 
 }

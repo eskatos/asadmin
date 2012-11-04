@@ -19,11 +19,8 @@ import java.util.Map;
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 import org.n0pe.asadmin.Util;
 
-/**
- * @author Christophe Souvignier
- */
 public class CreateJdbcConnectionPool
-        extends AbstractAsAdminCmd
+    extends AbstractAsAdminCmd
 {
 
     public static final String JDBC = "create-jdbc-connection-pool";
@@ -61,7 +58,8 @@ public class CreateJdbcConnectionPool
 
     public CreateJdbcConnectionPool addProperty( String key, String value )
     {
-        if ( properties == null ) {
+        if( properties == null )
+        {
             properties = new HashMap();
         }
         properties.put( key, value );
@@ -75,7 +73,8 @@ public class CreateJdbcConnectionPool
 
     public String getActionCommand()
     {
-        if ( poolName == null ) {
+        if( poolName == null )
+        {
             throw new IllegalStateException();
         }
         return JDBC;
@@ -83,24 +82,36 @@ public class CreateJdbcConnectionPool
 
     public String[] getParameters()
     {
-        if ( ( dataSource == null ) || ( restype == null ) ) {
+        if( ( dataSource == null ) || ( restype == null ) )
+        {
             throw new IllegalStateException();
         }
         final String[] params;
-        if ( properties != null && !properties.isEmpty() ) {
+        if( properties != null && !properties.isEmpty() )
+        {
             final StringBuffer sw = new StringBuffer();
             String key;
-            for ( final Iterator it = properties.keySet().iterator(); it.hasNext(); ) {
-                key = ( String ) it.next();
-                sw.append( key ).append( "=" ).append( Util.quoteCommandArgument( ( String ) properties.get( key ) ) );
-                if ( it.hasNext() ) {
+            for( final Iterator it = properties.keySet().iterator(); it.hasNext(); )
+            {
+                key = (String) it.next();
+                sw.append( key ).append( "=" ).append( Util.quoteCommandArgument( (String) properties.get( key ) ) );
+                if( it.hasNext() )
+                {
                     sw.append( ":" );
                 }
             }
-            params = new String[]{ DATA_SOURCE_OPT, dataSource, RESTYPE_OPT, restype, PROPERTY_OPT, sw.toString(), poolName };
+            params = new String[]
+            {
+                DATA_SOURCE_OPT, dataSource, RESTYPE_OPT, restype, PROPERTY_OPT, sw.toString(), poolName
+            };
 
-        } else {
-            params = new String[]{ DATA_SOURCE_OPT, dataSource, RESTYPE_OPT, restype, poolName };
+        }
+        else
+        {
+            params = new String[]
+            {
+                DATA_SOURCE_OPT, dataSource, RESTYPE_OPT, restype, poolName
+            };
         }
         return params;
     }

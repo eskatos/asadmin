@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ * Copyright (c) 2010, Paul Merlin.
+ * Copyright (c) 2010, Charles Brown.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +16,8 @@ package org.n0pe.asadmin.commands;
 
 import org.n0pe.asadmin.AbstractAsAdminCmd;
 
-/**
- * @author Paul Merlin
- */
 public class Domain
-        extends AbstractAsAdminCmd
+    extends AbstractAsAdminCmd
 {
 
     public static final String START = "start-domain";
@@ -62,30 +60,43 @@ public class Domain
 
     public boolean needCredentials()
     {
-        return (ACTION == RESTART_MODE);
+        return ( ACTION == RESTART_MODE );
     }
 
     public String getActionCommand()
     {
-        if (ACTION == START_MODE) {
+        if( ACTION == START_MODE )
+        {
             return START;
-        } else if (ACTION == STOP_MODE) {
+        }
+        else if( ACTION == STOP_MODE )
+        {
             return STOP;
-        } else if (ACTION == RESTART_MODE) {
+        }
+        else if( ACTION == RESTART_MODE )
+        {
             return RESTART;
-        } else {
+        }
+        else
+        {
             throw new IllegalStateException();
         }
     }
 
     public String[] getParameters()
     {
-        if ( ACTION == -1 ) {
+        if( ACTION == -1 )
+        {
             throw new IllegalStateException();
         }
-        return (ACTION == RESTART_MODE)
-                ? new String[]{}
-                : new String[]{ domain };
+        return ( ACTION == RESTART_MODE )
+               ? new String[]
+            {
+            }
+               : new String[]
+            {
+                domain
+            };
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, Paul Merlin. All Rights Reserved.
+ * Copyright (c) 2010, Paul Merlin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,9 @@ import org.n0pe.asadmin.commands.Get;
 /**
  * @goal get
  * @description AsAdmin set property
- * @author Paul Merlin
  */
 public class GetMojo
-        extends AbstractAsadminMojo
+    extends AbstractAsadminMojo
 {
 
     /**
@@ -36,7 +35,8 @@ public class GetMojo
     {
         getLog().info( "Getting property : " + properties );
         final AsAdminCmdList list = new AsAdminCmdList();
-        for ( int i = 0; i < properties.length; i++ ) {
+        for( int i = 0; i < properties.length; i++ )
+        {
             list.add( new Get( properties[i] ) );
         }
         return list;
