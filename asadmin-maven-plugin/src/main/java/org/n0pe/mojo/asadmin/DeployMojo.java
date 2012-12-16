@@ -47,6 +47,10 @@ public class DeployMojo
      * @parameter default-value="false"
      */
     private boolean precompilejsp;
+    /**
+     * @parameter default-value=""
+     */
+    private String  virtualservers;
 
     @Override
     protected AsAdminCmdList getAsCommandList()
@@ -62,7 +66,7 @@ public class DeployMojo
         {
             d.appName( appName );
         }
-        list.add( d.force( force ).upload( upload ).availability( availability ).precompilejsp( precompilejsp ).deploy() );
+        list.add( d.force( force ).virtualServers(virtualservers).upload( upload ).availability( availability ).precompilejsp( precompilejsp ).deploy() );
         setPatterns( d );
         return list;
     }

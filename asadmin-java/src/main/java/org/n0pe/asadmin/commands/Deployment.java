@@ -23,6 +23,7 @@ public class Deployment
 {
 
     public static final String DEPLOY = "deploy";
+    public static final String REDEPLOY = "redeploy";
     public static final String UNDEPLOY = "undeploy";
     public static final String FORCE_OPT = "--force";
     public static final String UPLOAD_OPT = "--upload";
@@ -31,14 +32,17 @@ public class Deployment
     public static final String TARGET_OPT = "--target";
     public static final String AVAILABILITY_OPT = "--availabilityenabled";
     public static final String PRECOMPILE_JSP_OPT = "--precompilejsp";
+    public static final String VIRTUAL_SERVERS_OPT = "--virtualservers";
     private static final int DEPLOY_MODE = 1;
     private static final int UNDEPLOY_MODE = 2;
+    private static final int REDEPLOY_MODE = 3;
     private int ACTION = -1;
     private String archive;
     private String component;
     private String contextRoot;
     private String appName;
     private String target;
+    private String virtualServers;
     private boolean force;
     private boolean upload;
     private Boolean precompilejsp = null;
@@ -54,6 +58,12 @@ public class Deployment
     {
         ACTION = UNDEPLOY_MODE;
         return this;
+    }
+    
+    public Deployment redeploy()
+    {
+    	ACTION = UNDEPLOY_MODE;
+    	return this;
     }
 
     public Deployment archive( String archive )
@@ -110,6 +120,12 @@ public class Deployment
         return this;
     }
 
+    public Deployment virtualServers( String virtualServers)
+    {
+    	this.virtualServers = virtualServers;
+    	return this;
+    }
+    
     public boolean needCredentials()
     {
         return true;
@@ -130,11 +146,11 @@ public class Deployment
             throw new IllegalStateException();
         }
     }
-
+    
     public String[] getParameters()
     {
         final List<String> parameters = new ArrayList<String>();
-        if( !StringUtils.isEmpty( target ) )
+        if( !StringUtils.isEmpty( target ) && ACTION != REDEPLOY_MODE)
         {
             parameters.add( TARGET_OPT );
             parameters.add( target );
@@ -163,11 +179,14 @@ public class Deployment
                 parameters.add( PRECOMPILE_JSP_OPT );
                 parameters.add( precompilejsp.toString() );
             }
-
             if( !StringUtils.isEmpty( contextRoot ) )
             {
                 parameters.add( CONTEXTROOT_OPT );
                 parameters.add( contextRoot );
+            }
+            if( !StringUtils.isEmpty(virtualServers)){
+            	parameters.add( VIRTUAL_SERVERS_OPT );
+            	parameters.add(virtualServers);
             }
             if( !StringUtils.isEmpty( appName ) )
             {
@@ -183,6 +202,37 @@ public class Deployment
                 throw new IllegalStateException( "Cannot undeploy without a component" );
             }
             parameters.add( component );
+        }
+        else if ( ACTION == REDEPLOY_MODE )
+        {
+        	if( StringUtils.isEmpty( appName ) )
+        	{
+                throw new IllegalStateException( "Cannot redeploy without sepcifying a name" );
+        	}
+        	parameters.add( NAME_OPT );
+        	parameters.add( appName );
+            if( upload )
+            {
+                parameters.add( UPLOAD_OPT );
+            }
+            if( precompilejsp != null )
+            {
+                parameters.add( PRECOMPILE_JSP_OPT );
+                parameters.add( precompilejsp.toString() );
+            }
+            if( !StringUtils.isEmpty( contextRoot ) )
+            {
+                parameters.add( CONTEXTROOT_OPT );
+                parameters.add( contextRoot );
+            }
+            if( !StringUtils.isEmpty(virtualServers)){
+            	parameters.add( VIRTUAL_SERVERS_OPT );
+            	parameters.add(virtualServers);
+            }
+            if( !StringUtils.isEmpty(archive) )
+            {
+            	parameters.add( archive );
+            }
         }
         else
         {

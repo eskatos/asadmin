@@ -39,13 +39,17 @@ public class RedeployMojo
      * @parameter
      */
     private Boolean precompilejsp = null;
+    /**
+     * @parameter
+     */
+    private String  virtualservers;
 
     @Override
     protected AsAdminCmdList getAsCommandList()
     {
         getLog().info( "Redeploying application archive: " + appArchive );
         final AsAdminCmdList list = new AsAdminCmdList();
-        final Deployment d = new Deployment().archive( appArchive ).target( target ).precompilejsp( precompilejsp );
+        final Deployment d = new Deployment().archive( appArchive ).precompilejsp( precompilejsp );
         if( "war".equalsIgnoreCase( mavenProject.getPackaging() ) && !StringUtils.isEmpty( contextRoot ) )
         {
             d.withContextRoot( contextRoot );
@@ -54,9 +58,8 @@ public class RedeployMojo
         {
             d.appName( appName );
         }
-        list.add( d.force( true ).availability( availabilityenabled ).precompilejsp( precompilejsp ).deploy() );
+        list.add( d.virtualServers(virtualservers).precompilejsp( precompilejsp ).redeploy() );
         setPatterns( d );
         return list;
     }
-
 }
