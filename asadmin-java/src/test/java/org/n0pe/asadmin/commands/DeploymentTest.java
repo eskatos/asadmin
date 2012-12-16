@@ -90,5 +90,38 @@ public class DeploymentTest
             assertEquals( goodParams[i], processParams[i] );
         }
     }
+    public void testRedeploy()
+            throws AsAdminException
+    {
+        final Deployment redeployCmd = new Deployment();
+        try {
+            redeployCmd.getParameters();
+            fail( "This test should have thrown an IllegalStateException" );
+        } catch ( IllegalStateException ex ) {
+        }
+        redeployCmd.archive( ARCHIVE_NAME ).appName( COMPONENT_NAME ).redeploy();
+        assertTrue( redeployCmd.needCredentials() );
+        assertEquals( Deployment.REDEPLOY, redeployCmd.getActionCommand() );
+        String[] goodParams = new String[]{ Deployment.NAME_OPT, COMPONENT_NAME, ARCHIVE_NAME };
+        assertEquals( goodParams.length, redeployCmd.getParameters().length );
+        for ( int i = 0; i < goodParams.length; i++ ) {
+            assertEquals( goodParams[i], redeployCmd.getParameters()[i] );
+        }
+        goodParams = new String[]{ AsAdmin.ASADMIN_COMMAND_NAME, 
+                                   AsAdmin.HOST_OPT, TestAsConfigProvider.HOST,
+                                   AsAdmin.PORT_OPT, TestAsConfigProvider.PORT,
+                                   AsAdmin.USER_OPT, TestAsConfigProvider.USER_NAME,
+                                   AsAdmin.PASSWORDFILE_OPT, TestAsConfigProvider.PASSWORD_FILE,
+                                   redeployCmd.getActionCommand(),
+                                   Deployment.NAME_OPT, COMPONENT_NAME,
+                                   ARCHIVE_NAME
+        };
+        final String[] processParams = AsAdmin.buildProcessParams( redeployCmd, TestAsConfigProvider.getInstance() );
+        assertEquals( goodParams.length, processParams.length );
+        for ( int i = 0; i < goodParams.length; i++ ) {
+            assertEquals( goodParams[i], processParams[i] );
+        }
+    }
+
 
 }
