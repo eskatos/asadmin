@@ -30,14 +30,6 @@ public class RedeployMojo
     /**
      * @parameter
      */
-    private String target;
-    /**
-     * @parameter
-     */
-    private Boolean availabilityenabled = null;
-    /**
-     * @parameter
-     */
     private Boolean precompilejsp = null;
     /**
      * @parameter

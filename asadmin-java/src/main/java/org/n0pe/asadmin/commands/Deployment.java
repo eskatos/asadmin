@@ -62,7 +62,7 @@ public class Deployment
     
     public Deployment redeploy()
     {
-    	ACTION = UNDEPLOY_MODE;
+    	ACTION = REDEPLOY_MODE;
     	return this;
     }
 
@@ -140,6 +140,10 @@ public class Deployment
         else if( ACTION == UNDEPLOY_MODE )
         {
             return UNDEPLOY;
+        }
+        else if( ACTION == REDEPLOY_MODE )
+        {
+        	return REDEPLOY;
         }
         else
         {

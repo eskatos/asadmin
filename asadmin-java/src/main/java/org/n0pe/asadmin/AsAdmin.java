@@ -189,6 +189,7 @@ public class AsAdmin
         pbParams.add( ASADMIN_COMMAND_NAME );
         if( !Deployment.UNDEPLOY.equals( cmd.getActionCommand() )
             && !Deployment.DEPLOY.equals( cmd.getActionCommand() )
+            && !Deployment.REDEPLOY.equals( cmd.getActionCommand() )
             && !"add-resources".equals( cmd.getActionCommand() ) )
         {
             pbParams.add( cmd.getActionCommand() );
@@ -225,6 +226,7 @@ public class AsAdmin
         }
         if( Deployment.UNDEPLOY.equals( cmd.getActionCommand() )
             || Deployment.DEPLOY.equals( cmd.getActionCommand() )
+            || Deployment.REDEPLOY.equals( cmd.getActionCommand() )
             || "add-resources".equals( cmd.getActionCommand() ) )
         {
             pbParams.add( cmd.getActionCommand() );
