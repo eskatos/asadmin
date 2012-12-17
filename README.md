@@ -18,7 +18,7 @@ The project is hosted in maven central, to use it add the following snippet to y
  	    <plugin>
 	      <groupId>org.codeartisans.asadmin</groupId>
 	      <artifactId>asadmin-maven-plugin</artifactId>
-	      <version>0.10</version>
+	      <version>0.11</version>
 	    </plugin>
 	  </plugins>
 	</build>
@@ -91,7 +91,7 @@ Here is a pom example expressing the default configuration :
                 <plugin>
                     <groupId>org.codeartisans.asadmin</groupId>
                     <artifactId>asadmin-maven-plugin</artifactId>
-                    <version>0.10</version>
+                    <version>0.11</version>
                     <configuration>
                         <glassfishHome>/path/to/your/glassfish/installation/folder</glassfishHome>
                         <domain>domain1</domain>
@@ -111,6 +111,12 @@ Here is a pom example expressing the default configuration :
     </project>
 
 # ChangeLog
+
+**asadmin-0.11** - 2012-12-17
+
+Thanks to Adi for his contribution to this release.
+
+- Added redeploy action and virtual servers support to the asadmin:deploy goal
 
 **asadmin-0.10** - 2012-11-04
 
