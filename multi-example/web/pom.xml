@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.codeartisans.asadmin</groupId>
         <artifactId>multi-example</artifactId>
-        <version>0.12-SNAPSHOT</version>
+        <version>0.12</version>
     </parent>
     
     <name>multi-example-web</name>
