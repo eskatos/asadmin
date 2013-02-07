@@ -85,6 +85,11 @@
             <email>adi3000@free.fr</email>
             <url>https://github.com/Adi3000</url>
         </contributor>
+        <contributor>
+            <name>Alexander Ovchinnikov</name>
+            <email>a.ovchinnikov@zmeke.com</email>
+            <url>https://github.com/earlredwolf</url>
+        </contributor>
     </contributors>
 
     <modules>
