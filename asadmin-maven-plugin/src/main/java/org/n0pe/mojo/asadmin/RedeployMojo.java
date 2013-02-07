@@ -36,6 +36,11 @@ public class RedeployMojo
      */
     private String  virtualservers;
 
+    /**
+     * @parameter default-value="false"
+     */
+    private boolean upload;
+
     @Override
     protected AsAdminCmdList getAsCommandList()
     {
@@ -50,7 +55,7 @@ public class RedeployMojo
         {
             d.appName( appName );
         }
-        list.add( d.virtualServers(virtualservers).archive( appArchive ).precompilejsp( precompilejsp ).redeploy() );
+        list.add( d.virtualServers(virtualservers).upload( upload ).archive( appArchive ).precompilejsp( precompilejsp ).redeploy() );
         setPatterns( d );
         return list;
     }
